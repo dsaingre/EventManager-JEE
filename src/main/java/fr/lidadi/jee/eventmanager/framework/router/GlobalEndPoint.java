@@ -7,6 +7,7 @@ import fr.lidadi.jee.eventmanager.framework.router.config.HttpConfig;
 import fr.lidadi.jee.eventmanager.framework.router.data.HttpMethod;
 import fr.lidadi.jee.eventmanager.framework.router.data.Route;
 
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +18,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.regex.Pattern;
 
 /**
@@ -24,7 +26,10 @@ import java.util.regex.Pattern;
  */
 public class GlobalEndPoint extends HttpServlet implements HttpErrorResponse {
 
-    private Map<Route, String> config;
+    @Inject
+    protected HttpControllerFactory httpControllerFactory;
+
+    protected Map<Route, String> config;
 
     public GlobalEndPoint() {
         Router router = new Router();
@@ -56,7 +61,8 @@ public class GlobalEndPoint extends HttpServlet implements HttpErrorResponse {
     }
 
 
-    private void processRequest(HttpMethod method, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void processRequest(HttpMethod method, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
 
         Pattern p = Pattern.compile("^/[A-Za-z0-9]*");
         String path = req.getRequestURI().replaceFirst(p.pattern(), "");
@@ -73,44 +79,26 @@ public class GlobalEndPoint extends HttpServlet implements HttpErrorResponse {
     }
 
     private void forwardToServlet(HttpMethod method, HttpServletRequest req, HttpServletResponse resp, String servlet) throws ServletException, IOException {
-        try {
-            Class<?> clazz = Class.forName(servlet);
-            List<Constructor<?>> constructors = Arrays.asList(clazz.getConstructors());
-            if (! constructors.isEmpty()){
-                Constructor<?> constructor = constructors.get(0);
-                HttpController controller = (HttpController) constructor.newInstance();
 
-                if (method == HttpMethod.GET) {
-                    controller.get(req, resp);
-                } else if (method == HttpMethod.POST) {
-                    controller.post(req, resp);
-                } else if (method == HttpMethod.PUT) {
-                    controller.put(req, resp);
-                } else if (method == HttpMethod.DELETE) {
-                    controller.delete(req, resp);
-                } else {
-                    System.out.println("Http method " + method + " is not wired");
-                    notFound(resp);
-                }
-            }else{
-                System.out.println("Unable to find constructor for class : " + servlet);
-                internalServerError(resp);
+        Optional<HttpController> httpController = httpControllerFactory.create(servlet);
+
+        if (httpController.isPresent()){
+            HttpController controller = httpController.get();
+            if (method == HttpMethod.GET) {
+                controller.get(req, resp);
+            } else if (method == HttpMethod.POST) {
+                controller.post(req, resp);
+            } else if (method == HttpMethod.PUT) {
+                controller.put(req, resp);
+            } else if (method == HttpMethod.DELETE) {
+                controller.delete(req, resp);
+            } else {
+                System.out.println("Http method " + method + " is not wired");
+                notFound(resp);
             }
-        } catch (ClassNotFoundException e) {
-            System.out.println("Unable to find class for name : " + servlet);
-            internalServerError(resp);
-        } catch (IllegalAccessException e) {
-            System.out.println("IllegalAccessException : " + e.getMessage());
-            e.printStackTrace();
-            internalServerError(resp);
-        } catch (InstantiationException e) {
-            System.out.println("InstantiationException : " + e.getMessage());
-            e.printStackTrace();
-            internalServerError(resp);
-        } catch (InvocationTargetException e) {
-            System.out.println("InvocationTargetException : " + e.getMessage());
-            e.printStackTrace();
-            internalServerError(resp);
+        }else{
+            System.out.println("Http controller is not found from name : " + servlet);
+            notFound(resp);
         }
     }
 }
