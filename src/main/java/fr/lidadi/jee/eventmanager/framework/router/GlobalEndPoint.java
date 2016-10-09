@@ -15,10 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.regex.Pattern;
 
 /**
@@ -30,6 +27,8 @@ public class GlobalEndPoint extends HttpServlet implements HttpErrorResponse {
     protected HttpControllerFactory httpControllerFactory = new HttpControllerFactory();
 
     protected Map<Route, String> config;
+
+    protected Map<String, HttpController> instanceMemoization = new HashMap<>();
 
     public GlobalEndPoint() {
         Router router = new Router();
@@ -78,9 +77,15 @@ public class GlobalEndPoint extends HttpServlet implements HttpErrorResponse {
 
     }
 
-    private void forwardToServlet(HttpMethod method, HttpServletRequest req, HttpServletResponse resp, String servlet) throws ServletException, IOException {
+    private void forwardToServlet(HttpMethod method, HttpServletRequest req, HttpServletResponse resp, String servletName) throws ServletException, IOException {
 
-        Optional<HttpController> httpController = httpControllerFactory.create(servlet);
+        Optional<HttpController> httpController = Optional.ofNullable(instanceMemoization.get(servletName));
+
+        if (! httpController.isPresent()){
+            httpController = httpControllerFactory.create(servletName);
+            System.out.println("Memoization of " + servletName);
+            instanceMemoization.put(servletName, httpController.get());
+        }
 
         if (httpController.isPresent()){
             HttpController controller = httpController.get();
@@ -97,7 +102,7 @@ public class GlobalEndPoint extends HttpServlet implements HttpErrorResponse {
                 notFound(resp);
             }
         }else{
-            System.out.println("Http controller is not found from name : " + servlet);
+            System.out.println("Http controller is not found from name : " + servletName);
             notFound(resp);
         }
     }

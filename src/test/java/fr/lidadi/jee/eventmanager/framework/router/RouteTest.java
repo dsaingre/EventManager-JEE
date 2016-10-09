@@ -91,4 +91,38 @@ public class RouteTest extends Mockito {
         verify(httpControllerFactory, times(1)).create(any(String.class));
         verify(httpController, atLeast(1)).get(any(HttpServletRequest.class), any(HttpServletResponse.class));
     }
+
+
+    @Test
+    public void memoizationTest() throws Exception {
+        // Route configuration
+        Map<Route, String> config = new HashMap<>();
+        String path = "/tests";
+        config.put(new Route(GET, path), "");
+        globalEndPoint.config = config;
+
+        // Mocks
+        HttpServletRequest req = mock(HttpServletRequest.class);
+        HttpServletResponse resp = mock(HttpServletResponse.class);
+        HttpControllerFactory httpControllerFactory = mock(HttpControllerFactory.class);
+        HttpController httpController = mock(HttpController.class);
+        PrintWriter printWriter = new PrintWriter(new StringWriter());
+
+        // Mocks method answers
+        when(req.getRequestURI()).thenReturn("/project" + path);
+        when(httpControllerFactory.create(any(String.class))).thenReturn(Optional.of(httpController));
+        when(resp.getWriter()).thenReturn(printWriter);
+
+        globalEndPoint.httpControllerFactory = httpControllerFactory;
+
+        // Test method
+        globalEndPoint.processRequest(GET, req, resp);
+        globalEndPoint.processRequest(GET, req, resp);
+        globalEndPoint.processRequest(GET, req, resp);
+        globalEndPoint.processRequest(GET, req, resp);
+        globalEndPoint.processRequest(GET, req, resp);
+
+        // Checks
+        verify(httpControllerFactory, times(1)).create(any(String.class));
+    }
 }

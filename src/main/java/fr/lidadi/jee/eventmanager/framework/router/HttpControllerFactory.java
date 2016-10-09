@@ -15,6 +15,7 @@ import java.util.Optional;
 public class HttpControllerFactory {
 
     public Optional<HttpController> create(String className){
+        System.out.println("Creating " + className + " instance");
         try {
             Class<?> clazz = Class.forName(className);
 
