@@ -26,8 +26,8 @@ import java.util.regex.Pattern;
  */
 public class GlobalEndPoint extends HttpServlet implements HttpErrorResponse {
 
-    @Inject
-    protected HttpControllerFactory httpControllerFactory;
+//    @Inject
+    protected HttpControllerFactory httpControllerFactory = new HttpControllerFactory();
 
     protected Map<Route, String> config;
 
