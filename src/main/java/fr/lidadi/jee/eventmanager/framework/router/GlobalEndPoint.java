@@ -3,20 +3,19 @@ package fr.lidadi.jee.eventmanager.framework.router;
 import fr.lidadi.jee.eventmanager.framework.HttpController;
 import fr.lidadi.jee.eventmanager.framework.HttpErrorResponse;
 import fr.lidadi.jee.eventmanager.conf.Router;
+import fr.lidadi.jee.eventmanager.framework.router.config.EmptyHttpConfig;
 import fr.lidadi.jee.eventmanager.framework.router.config.HttpConfig;
 import fr.lidadi.jee.eventmanager.framework.router.data.HttpMethod;
 import fr.lidadi.jee.eventmanager.framework.router.data.Route;
 
-import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 /**
  * Created by damien on 08/10/2016.
@@ -32,7 +31,7 @@ public class GlobalEndPoint extends HttpServlet implements HttpErrorResponse {
 
     public GlobalEndPoint() {
         Router router = new Router();
-        HttpConfig route = router.route(new HttpConfig());
+        HttpConfig route = router.route(new EmptyHttpConfig());
         System.out.println(route);
         config = route.getConfig();
     }
@@ -68,16 +67,52 @@ public class GlobalEndPoint extends HttpServlet implements HttpErrorResponse {
 
         Route route = new Route(method, path);
         String servlet = config.get(route);
-        System.out.println(route);
-        if(servlet != null){ // route found in config
-            forwardToServlet(method, req, resp, servlet);
-        } else { // 404
+
+        List<AbstractMap.SimpleEntry<Route, Map<String, Object>>> matches = matches(method, path, config);
+
+        if(matches.isEmpty()){
+            System.out.println("Not route found");
             notFound(resp);
+            return;
         }
+        if(matches.size() > 1){
+            System.out.println("Ambiguous route");
+            System.out.println(matches);
+            notFound(resp);
+            return;
+        }
+
+        AbstractMap.SimpleEntry<Route, Map<String, Object>> routeThatMatch = matches.get(0);
+
+//        routeThatMatch
+
+        Map<String, Object> params = extractParamFromUrl(route, path);
+        forwardToServlet(method, req, resp, servlet, params);
 
     }
 
-    private void forwardToServlet(HttpMethod method, HttpServletRequest req, HttpServletResponse resp, String servletName) throws ServletException, IOException {
+
+
+    public List<AbstractMap.SimpleEntry<Route, Map<String, Object>>> matches(HttpMethod method, String path, Map<Route, String> config){
+        return config.entrySet().stream()
+                .map(Map.Entry::getKey)
+                .map(route ->
+                        new AbstractMap.SimpleEntry<>(route,
+                                                      route.givenPathMatchesUrlPattern(path, method))
+                )
+                .filter(e -> e.getValue().isPresent())
+                .map(e -> new AbstractMap.SimpleEntry<>(e.getKey(), e.getValue().get()))
+                .collect(Collectors.toList());
+    }
+
+
+    private Map<String, Object> extractParamFromUrl(Route route, String path) {
+        System.out.println("route : " + route);
+        System.out.println("path : " + path);
+        return new HashMap<>();
+    }
+
+    private void forwardToServlet(HttpMethod method, HttpServletRequest req, HttpServletResponse resp, String servletName, Map<String, Object> params) throws ServletException, IOException {
 
         Optional<HttpController> httpController = Optional.ofNullable(instanceMemoization.get(servletName));
 

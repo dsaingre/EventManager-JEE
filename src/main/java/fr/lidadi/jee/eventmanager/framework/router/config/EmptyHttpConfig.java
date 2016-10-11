@@ -13,16 +13,11 @@ import static fr.lidadi.jee.eventmanager.framework.router.data.HttpMethod.*;
 /**
  * Created by damien on 08/10/2016.
  */
-public class HttpConfig extends EmptyHttpConfig {
+public class EmptyHttpConfig {
 
-    private final Route lastRoute;
+    protected Map<Route, String> config = new HashMap<>();
 
-    HttpConfig(Map<Route, String> config, Route key, String value) {
-        this.config = config;
-        this.lastRoute = key;
-        config.put(key, value);
-    }
-
+    public EmptyHttpConfig() {}
 
     public HttpConfigBindTo get(String url){
         return new HttpConfigBindTo(config, new Route(GET, url));
@@ -40,17 +35,4 @@ public class HttpConfig extends EmptyHttpConfig {
         return new HttpConfigBindTo(config, new Route(DELETE, url));
     }
 
-    public HttpConfig withUrlParam(String name, AllowedUrlType type){
-        lastRoute.setUrlParams(name, type);
-        return this;
-    }
-
-    public Map<Route, String> getConfig() {
-        return config;
-    }
-
-    @Override
-    public String toString() {
-        return "Routes : " + config;
-    }
 }

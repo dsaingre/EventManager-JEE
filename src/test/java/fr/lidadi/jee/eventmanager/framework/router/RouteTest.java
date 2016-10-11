@@ -1,7 +1,10 @@
 package fr.lidadi.jee.eventmanager.framework.router;
 
 import fr.lidadi.jee.eventmanager.framework.HttpController;
+import fr.lidadi.jee.eventmanager.framework.router.config.EmptyHttpConfig;
 import fr.lidadi.jee.eventmanager.framework.router.config.HttpConfig;
+import fr.lidadi.jee.eventmanager.framework.router.data.AllowedUrlType;
+import fr.lidadi.jee.eventmanager.framework.router.data.HttpMethod;
 import fr.lidadi.jee.eventmanager.framework.router.data.Route;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,7 +17,7 @@ import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
-import java.util.function.Function;
+import java.util.UUID;
 
 import static fr.lidadi.jee.eventmanager.framework.router.data.HttpMethod.*;
 import static org.junit.Assert.*;
@@ -50,7 +53,7 @@ public class RouteTest extends Mockito {
                             .post(url).to(FakeHttpController.class)
                             .put(url).to(FakeHttpController.class)
                             .delete(url).to(FakeHttpController.class)
-                ).route(new HttpConfig());
+                ).route(new EmptyHttpConfig());
 
 
         assertEquals(oracle, route.getConfig());
@@ -124,5 +127,94 @@ public class RouteTest extends Mockito {
 
         // Checks
         verify(httpControllerFactory, times(1)).create(any(String.class));
+    }
+
+
+
+
+
+    @Test
+    public void givenPathMatches_zeroParam() throws Exception {
+        Route route = new Route(HttpMethod.GET, "/tests");
+        Optional<Map<String, Object>> stringObjectMap = route.givenPathMatchesUrlPattern("/tests", HttpMethod.GET);
+
+        Map<String, Object> oracle = new HashMap<>();
+
+        System.out.println("stringObjectMap : " + stringObjectMap);
+        assertTrue(stringObjectMap.isPresent());
+        assertEquals(oracle, stringObjectMap.get());
+    }
+
+    @Test
+    public void givenPathMatches_oneCorrectParam1() throws Exception {
+        Route route = new Route(HttpMethod.GET, "/tests/{id}");
+        route.setUrlParams("id", AllowedUrlType.UUID);
+        Optional<Map<String, Object>> stringObjectMap = route.givenPathMatchesUrlPattern("/tests/598c6745-11d7-4c1a-a679-bd0b0c747a08", HttpMethod.GET);
+
+        Map<String, Object> oracle = new HashMap<>();
+        oracle.put("id", UUID.fromString("598c6745-11d7-4c1a-a679-bd0b0c747a08"));
+
+        System.out.println("stringObjectMap : " + stringObjectMap);
+        assertTrue(stringObjectMap.isPresent());
+        assertEquals(oracle, stringObjectMap.get());
+    }
+
+    @Test
+    public void givenPathMatches_oneCorrectParam2() throws Exception {
+        Route route = new Route(HttpMethod.GET, "/tests/{id}");
+        route.setUrlParams("id", AllowedUrlType.INT);
+        Optional<Map<String, Object>> stringObjectMap = route.givenPathMatchesUrlPattern("/tests/123456789", HttpMethod.GET);
+
+        Map<String, Object> oracle = new HashMap<>();
+        oracle.put("id", 123456789);
+
+        System.out.println("stringObjectMap : " + stringObjectMap);
+        assertTrue(stringObjectMap.isPresent());
+        assertEquals(oracle, stringObjectMap.get());
+    }
+
+    @Test
+    public void givenPathMatches_oneCorrectParam3() throws Exception {
+        Route route = new Route(HttpMethod.GET, "/hello/{name}");
+        route.setUrlParams("name", AllowedUrlType.STRING);
+        Optional<Map<String, Object>> stringObjectMap = route.givenPathMatchesUrlPattern("/hello/Damien", HttpMethod.GET);
+
+        Map<String, Object> oracle = new HashMap<>();
+        oracle.put("name", "Damien");
+
+        System.out.println("stringObjectMap : " + stringObjectMap);
+        assertTrue(stringObjectMap.isPresent());
+        assertEquals(oracle, stringObjectMap.get());
+    }
+
+    @Test
+    public void givenPathMatches_oneNotCorrectParam() throws Exception {
+        Route route = new Route(HttpMethod.GET, "/tests/{id}");
+        route.setUrlParams("id", AllowedUrlType.INT);
+        Optional<Map<String, Object>> stringObjectMap = route.givenPathMatchesUrlPattern("/tests/598c6745-11d7-4c1a-a679-bd0b0c747a08", HttpMethod.GET);
+
+        Map<String, Object> oracle = new HashMap<>();
+        oracle.put("id", UUID.fromString("598c6745-11d7-4c1a-a679-bd0b0c747a08"));
+
+        System.out.println("stringObjectMap : " + stringObjectMap);
+        assertFalse(stringObjectMap.isPresent());
+    }
+
+
+    @Test
+    public void givenPathMatches_twoCorrectParam() throws Exception {
+        Route route = new Route(HttpMethod.GET, "/tests/{testId}/users/{userId}");
+        route.setUrlParams("testId", AllowedUrlType.UUID);
+        route.setUrlParams("userId", AllowedUrlType.INT);
+
+        Optional<Map<String, Object>> stringObjectMap = route.givenPathMatchesUrlPattern("/tests/598c6745-11d7-4c1a-a679-bd0b0c747a08/users/123456789", HttpMethod.GET);
+
+        Map<String, Object> oracle = new HashMap<>();
+        oracle.put("testId", UUID.fromString("598c6745-11d7-4c1a-a679-bd0b0c747a08"));
+        oracle.put("userId", 123456789);
+
+        System.out.println("stringObjectMap : " + stringObjectMap);
+        assertTrue(stringObjectMap.isPresent());
+        assertEquals(oracle, stringObjectMap.get());
     }
 }
