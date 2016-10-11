@@ -1,6 +1,9 @@
 package fr.lidadi.jee.eventmanager.framework.router.data;
 
+import fr.lidadi.jee.eventmanager.framework.router.ConfigurationException;
+
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static fr.lidadi.jee.eventmanager.framework.router.data.AllowedUrlType.*;
 
@@ -16,10 +19,31 @@ public class Route {
     private Map<String, AllowedUrlType> params = new HashMap<>();
     private List<String> paramsNames = new LinkedList<>();
 
-    public Route(HttpMethod method, String path) {
+
+    private ClassPath classPath;
+
+    public Route(HttpMethod method, String path, String classPath) {
         this.method = method;
         this.path = path;
         paramsNames = pathAnalyser.analysePath(path);
+        try {
+            this.classPath = pathAnalyser.analyseClassPath(classPath);
+            this.params = this.classPath.getParams();
+            if (!checkParamLists(this.classPath, paramsNames)) {
+                System.out.println("Configuration error parameters are not coherent");
+            }
+        } catch (ConfigurationException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private boolean checkParamLists(ClassPath classPath, List<String> paramsNames) {
+        Set<String> classPathParams = classPath.getParams().keySet();
+        Set<String> pathParams = paramsNames.stream().filter(p -> p.startsWith("{")).collect(Collectors.toSet());
+        System.out.println("checkParamLists");
+        System.out.println("classPathParams : " + classPathParams);
+        System.out.println("pathParams : " + pathParams);
+        return classPathParams.equals(pathParams);
     }
 
 
@@ -35,19 +59,23 @@ public class Route {
         return path;
     }
 
-    public void setUrlParams(String name, AllowedUrlType type){
+    public void setUrlParams(String name, AllowedUrlType type) {
         params.put(name, type);
     }
 
 
-    public Optional<Map<String, Object>> givenPathMatchesUrlPattern(String path, HttpMethod method){
-        if(this.paramsNames.isEmpty()){ // no params
-            if(path.equals(this.path)){ // paths equals
+    public ClassPath getClassPath() {
+        return classPath;
+    }
+
+    public Optional<Map<String, Object>> givenPathMatchesUrlPattern(String path, HttpMethod method) {
+        if (this.paramsNames.isEmpty()) { // no params
+            if (path.equals(this.path)) { // paths equals
                 return Optional.of(new HashMap<>());
             }
             return Optional.empty();
         }
-        if(! method.equals(this.method)){
+        if (!method.equals(this.method)) {
             return Optional.empty();
         }
         return givenPathMatchesUrlPattern(path, paramsNames, new HashMap<>());
@@ -56,61 +84,60 @@ public class Route {
 
     /**
      * This method is able to :
-     *  - determine if a given path matches the url pattern
-     *  - get param values
+     * - determine if a given path matches the url pattern
+     * - get param values
+     * <p>
+     * This algorithm goes through the path and the params.
+     * For instance to parse the url `/users/598c6745-11d7-4c1a-a679-bd0b0c747a08/posts/123456789` :
+     * - givenPathMatchesUrlPattern("/users/598c6745-11d7-4c1a-a679-bd0b0c747a08/posts/123456789",
+     * List("/users/", "{userId}", "/posts/", "{postId}"),
+     * Map())
+     * <p>
+     * - givenPathMatchesUrlPattern("598c6745-11d7-4c1a-a679-bd0b0c747a08/posts/123456789",
+     * List("{userId}", "/posts/", "{postId}"),
+     * Map())
+     * <p>
+     * - givenPathMatchesUrlPattern("/posts/123456789",
+     * List("/posts/", "{postId}"),
+     * Map("userId" -> 598c6745-11d7-4c1a-a679-bd0b0c747a08))
+     * <p>
+     * - givenPathMatchesUrlPattern("123456789",
+     * List("{postId}"),
+     * Map("userId" -> 598c6745-11d7-4c1a-a679-bd0b0c747a08))
+     * <p>
+     * - givenPathMatchesUrlPattern("",
+     * List(),
+     * Map("userId" -> 598c6745-11d7-4c1a-a679-bd0b0c747a08,
+     * "postId" -> 123456789))
      *
-     *  This algorithm goes through the path and the params.
-     *  For instance to parse the url `/users/598c6745-11d7-4c1a-a679-bd0b0c747a08/posts/123456789` :
-     *      - givenPathMatchesUrlPattern("/users/598c6745-11d7-4c1a-a679-bd0b0c747a08/posts/123456789",
-     *                                   List("/users/", "{userId}", "/posts/", "{postId}"),
-     *                                   Map())
-     *
-     *      - givenPathMatchesUrlPattern("598c6745-11d7-4c1a-a679-bd0b0c747a08/posts/123456789",
-     *                                   List("{userId}", "/posts/", "{postId}"),
-     *                                   Map())
-     *
-     *      - givenPathMatchesUrlPattern("/posts/123456789",
-     *                                   List("/posts/", "{postId}"),
-     *                                   Map("userId" -> 598c6745-11d7-4c1a-a679-bd0b0c747a08))
-     *
-     *      - givenPathMatchesUrlPattern("123456789",
-     *                                   List("{postId}"),
-     *                                   Map("userId" -> 598c6745-11d7-4c1a-a679-bd0b0c747a08))
-     *
-     *      - givenPathMatchesUrlPattern("",
-     *                                   List(),
-     *                                   Map("userId" -> 598c6745-11d7-4c1a-a679-bd0b0c747a08,
-     *                                       "postId" -> 123456789))
-     *
-     * @param path to path to test (e.g. `/users/598c6745-11d7-4c1a-a679-bd0b0c747a08/posts/123456789`)
-     * @param params is the url pattern (e.g. List("/users/", "{userId}", "/posts/", "{postId}"))
+     * @param path         to path to test (e.g. `/users/598c6745-11d7-4c1a-a679-bd0b0c747a08/posts/123456789`)
+     * @param params       is the url pattern (e.g. List("/users/", "{userId}", "/posts/", "{postId}"))
      * @param parsedParams is the object to be returned
-     * @return
-     *  - Optional.empty : if the given path does not matches with the url pattern.
-     *  - Otherwise      : returns a map that links parameter name and their values
-     *              e.g. Map("userId" -> 598c6745-11d7-4c1a-a679-bd0b0c747a08, "postId" -> 123456789)
+     * @return - Optional.empty : if the given path does not matches with the url pattern.
+     * - Otherwise      : returns a map that links parameter name and their values
+     * e.g. Map("userId" -> 598c6745-11d7-4c1a-a679-bd0b0c747a08, "postId" -> 123456789)
      */
-    private Optional<Map<String, Object>> givenPathMatchesUrlPattern(String path, List<String> params, Map<String, Object> parsedParams){
-        if(arePathAndParamsSizeCoherent(path, params)){
+    private Optional<Map<String, Object>> givenPathMatchesUrlPattern(String path, List<String> params, Map<String, Object> parsedParams) {
+        if (arePathAndParamsSizeCoherent(path, params)) {
             return Optional.empty();
         }
-        if(params.isEmpty()){
+        if (params.isEmpty()) {
             return Optional.of(parsedParams);
         }
 
         String headPartOfUrl = params.get(0);
 
         List<String> tailPartOfUrl = new LinkedList<>();
-        if(params.size() > 1){
+        if (params.size() > 1) {
             tailPartOfUrl = params.subList(1, params.size());
         }
 
-        if(isParam(headPartOfUrl)){
+        if (isParam(headPartOfUrl)) {
             return parseParam(path, parsedParams, headPartOfUrl, tailPartOfUrl);
         }
         int indexOfEndOfString = headPartOfUrl.length();
 
-        if(indexOfEndOfString > path.length()){
+        if (indexOfEndOfString > path.length()) {
             return Optional.empty();
         }
         String nextPartsToParse = path.substring(indexOfEndOfString);
@@ -119,13 +146,13 @@ public class Route {
     }
 
     private boolean arePathAndParamsSizeCoherent(String path, List<String> params) {
-        return (params.isEmpty() && ! path.isEmpty()) || (!params.isEmpty() && path.isEmpty());
+        return (params.isEmpty() && !path.isEmpty()) || (!params.isEmpty() && path.isEmpty());
     }
 
     private Optional<Map<String, Object>> parseParam(String path, Map<String, Object> parsedParams, String headPartOfUrl, List<String> tailPartOfUrl) {
 
         int indexOfEndOfString = path.indexOf('/');
-        if(indexOfEndOfString == -1){ // end of uri
+        if (indexOfEndOfString == -1) { // end of uri
             indexOfEndOfString = path.length();
         }
 
@@ -136,21 +163,21 @@ public class Route {
         AllowedUrlType allowedUrlType = this.params.get(paramName);
 
 
-        if(allowedUrlType.equals(INT)){
-            try{
+        if (allowedUrlType.equals(INT)) {
+            try {
                 int i = Integer.parseInt(uriPartToParse);
                 parsedParams.put(paramName, i);
                 return givenPathMatchesUrlPattern(afterUriPartToParse, tailPartOfUrl, parsedParams);
-            }catch (NumberFormatException e){
+            } catch (NumberFormatException e) {
                 return Optional.empty();
             }
         }
-        if (allowedUrlType.equals(UUID)){
-            try{
+        if (allowedUrlType.equals(UUID)) {
+            try {
                 UUID i = java.util.UUID.fromString(uriPartToParse);
                 parsedParams.put(paramName, i);
                 return givenPathMatchesUrlPattern(afterUriPartToParse, tailPartOfUrl, parsedParams);
-            }catch (IllegalArgumentException e){
+            } catch (IllegalArgumentException e) {
                 return Optional.empty();
             }
 
@@ -162,6 +189,7 @@ public class Route {
     private boolean isParam(String firstPartOfUrl) {
         return firstPartOfUrl.startsWith("{");
     }
+
 
     @Override
     public boolean equals(Object o) {
