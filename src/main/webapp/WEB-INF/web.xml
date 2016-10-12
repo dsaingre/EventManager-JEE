@@ -21,9 +21,15 @@
         <description>Servlet that welcomes all http trafic</description>
         <servlet-class>fr.lidadi.jee.eventmanager.framework.router.GlobalEndPoint</servlet-class>
     </servlet>
+    
     <servlet-mapping>
         <servlet-name>GlobalEndPoint</servlet-name>
         <url-pattern>/</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>/assets/*</url-pattern>
     </servlet-mapping>
 
 </web-app>
