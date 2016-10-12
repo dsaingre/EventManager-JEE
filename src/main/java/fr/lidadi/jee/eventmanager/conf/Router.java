@@ -11,6 +11,8 @@ public class Router implements HttpRouter {
     @Override
     public Config.HttpConfig route(Config.EmptyHttpConfig config) {
         return config
+                .get("/")
+                    .to("fr.lidadi.jee.eventmanager.EventServlet.welcome()")
                 .get("/events")
                     .to("fr.lidadi.jee.eventmanager.EventServlet.fetchAll()")
                 .get("/events/{id}")
