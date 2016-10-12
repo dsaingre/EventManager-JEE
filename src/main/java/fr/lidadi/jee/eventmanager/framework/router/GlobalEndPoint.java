@@ -1,13 +1,11 @@
 package fr.lidadi.jee.eventmanager.framework.router;
 
-import fr.lidadi.jee.eventmanager.framework.HttpController;
-import fr.lidadi.jee.eventmanager.framework.HttpErrorResponse;
 import fr.lidadi.jee.eventmanager.conf.Router;
-import fr.lidadi.jee.eventmanager.framework.router.config.EmptyHttpConfig;
-import fr.lidadi.jee.eventmanager.framework.router.config.HttpConfig;
-import fr.lidadi.jee.eventmanager.framework.router.data.ClassPath;
-import fr.lidadi.jee.eventmanager.framework.router.data.HttpMethod;
-import fr.lidadi.jee.eventmanager.framework.router.data.Route;
+import fr.lidadi.jee.eventmanager.framework.HttpErrorResponse;
+import fr.lidadi.jee.eventmanager.framework.router.config.ClassPath;
+import fr.lidadi.jee.eventmanager.framework.router.config.Config;
+import fr.lidadi.jee.eventmanager.framework.router.config.HttpMethod;
+import fr.lidadi.jee.eventmanager.framework.router.config.Route;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -26,16 +24,13 @@ import java.util.stream.Collectors;
  */
 public class GlobalEndPoint extends HttpServlet implements HttpErrorResponse {
 
-//    @Inject
-    protected HttpControllerFactory httpControllerFactory = new HttpControllerFactory();
-
     protected List<Route> config;
 
-    protected Map<String, HttpController> instanceMemoization = new HashMap<>();
+    protected Map<String, Object> instanceMemoization = new HashMap<>();
 
     public GlobalEndPoint() {
         Router router = new Router();
-        HttpConfig route = router.route(new EmptyHttpConfig());
+        Config.HttpConfig route = router.route(new Config.EmptyHttpConfig());
         System.out.println(route);
         config = route.getConfig();
     }
@@ -69,9 +64,6 @@ public class GlobalEndPoint extends HttpServlet implements HttpErrorResponse {
         Pattern p = Pattern.compile("^/[A-Za-z0-9]*");
         String path = req.getRequestURI().replaceFirst(p.pattern(), "");
 
-//        Route route = new Route(method, path);
-//        String servlet = config.get(route);
-
         List<AbstractMap.SimpleEntry<Route, Map<String, Object>>> matches = matches(method, path, config);
 
         if(matches.isEmpty()){
@@ -80,7 +72,7 @@ public class GlobalEndPoint extends HttpServlet implements HttpErrorResponse {
             return;
         }
         if(matches.size() > 1){
-            System.out.println("Ambiguous route");
+            System.out.println("Ambiguous route, more than 2 routes matches");
             System.out.println(matches);
             notFound(resp);
             return;
@@ -92,13 +84,13 @@ public class GlobalEndPoint extends HttpServlet implements HttpErrorResponse {
 
         Map<String, Object> params = routeThatMatch.getValue();
 
-        forwardToServlet(method, req, resp, classPath, params);
+        forwardToServlet(req, resp, classPath, params);
 
     }
 
 
 
-    public List<AbstractMap.SimpleEntry<Route, Map<String, Object>>> matches(HttpMethod method, String path, List<Route> config){
+    private List<AbstractMap.SimpleEntry<Route, Map<String, Object>>> matches(HttpMethod method, String path, List<Route> config){
         return config.stream()
                 .map(route ->
                         new AbstractMap.SimpleEntry<>(route,
@@ -110,7 +102,7 @@ public class GlobalEndPoint extends HttpServlet implements HttpErrorResponse {
     }
 
 
-    private void forwardToServlet(HttpMethod method, HttpServletRequest req, HttpServletResponse resp, ClassPath classPath, Map<String, Object> params) throws ServletException, IOException {
+    private void forwardToServlet(HttpServletRequest req, HttpServletResponse resp, ClassPath classPath, Map<String, Object> params) throws ServletException, IOException {
 
         String className = classPath.getClassName();
         String methodName = classPath.getMethodName();
@@ -124,8 +116,19 @@ public class GlobalEndPoint extends HttpServlet implements HttpErrorResponse {
                 internalServerError(resp);
                 return;
             }
+
             Constructor<?> constructor = constructors.get(0);
-            Object instance = constructor.newInstance();
+
+            Optional<Object> instanceOpt = Optional.ofNullable(instanceMemoization.get(className));
+
+            if (! instanceOpt.isPresent()){
+                instanceOpt = Optional.of(constructor.newInstance());
+                System.out.println("Memoization of " + className);
+                instanceMemoization.put(className, instanceOpt.get());
+            }
+
+            Object instance = instanceOpt.get();
+
 
             List<Class<?>> classList = new LinkedList<>();
             classList.add(HttpServletRequest.class);
@@ -154,15 +157,6 @@ public class GlobalEndPoint extends HttpServlet implements HttpErrorResponse {
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException | ClassNotFoundException | InstantiationException e) {
             e.printStackTrace();
         }
-
-
-//        Optional<HttpController> httpController = Optional.ofNullable(instanceMemoization.get(classPath.getClassName()));
-//
-//        if (! httpController.isPresent()){
-//            httpController = httpControllerFactory.create(servletName);
-//            System.out.println("Memoization of " + servletName);
-//            instanceMemoization.put(servletName, httpController.get());
-//        }
 
         notFound(resp);
     }

@@ -1,4 +1,4 @@
-package fr.lidadi.jee.eventmanager.framework.router.data;
+package fr.lidadi.jee.eventmanager.framework.router.config;
 
 import org.junit.Before;
 import org.junit.Test;

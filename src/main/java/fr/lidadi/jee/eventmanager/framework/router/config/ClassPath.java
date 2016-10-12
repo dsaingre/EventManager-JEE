@@ -1,4 +1,4 @@
-package fr.lidadi.jee.eventmanager.framework.router.data;
+package fr.lidadi.jee.eventmanager.framework.router.config;
 
 import java.util.Map;
 
