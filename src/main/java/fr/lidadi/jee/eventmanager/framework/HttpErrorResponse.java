@@ -1,6 +1,10 @@
 package fr.lidadi.jee.eventmanager.framework;
 
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
@@ -19,4 +23,16 @@ public interface HttpErrorResponse {
         resp.getWriter().println("Internal server error");
     }
 
+
+    default void ok(HttpServletResponse resp, String message) throws IOException {
+        resp.getWriter().println(message);
+    }
+
+    default void okJsp(HttpServlet servlet, HttpServletRequest req, HttpServletResponse resp, String servletPath) throws IOException, ServletException {
+        ServletContext servletContext = servlet.getServletContext();
+
+        RequestDispatcher namedDispatcher = servletContext.getRequestDispatcher("/jsp" + servletPath);
+
+        namedDispatcher.forward(req, resp);
+    }
 }

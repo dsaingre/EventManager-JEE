@@ -131,10 +131,12 @@ public class GlobalEndPoint extends HttpServlet implements HttpErrorResponse {
 
 
             List<Class<?>> classList = new LinkedList<>();
+            classList.add(HttpServlet.class);
             classList.add(HttpServletRequest.class);
             classList.add(HttpServletResponse.class);
 
             List<Object> argList = new LinkedList<>();
+            argList.add(this);
             argList.add(req);
             argList.add(resp);
 
