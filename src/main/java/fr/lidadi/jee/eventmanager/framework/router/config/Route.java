@@ -1,11 +1,11 @@
-package fr.lidadi.jee.eventmanager.framework.router.data;
+package fr.lidadi.jee.eventmanager.framework.router.config;
 
 import fr.lidadi.jee.eventmanager.framework.router.ConfigurationException;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static fr.lidadi.jee.eventmanager.framework.router.data.AllowedUrlType.*;
+import static fr.lidadi.jee.eventmanager.framework.router.config.AllowedUrlType.*;
 
 /**
  * Created by damien on 08/10/2016.
@@ -39,10 +39,11 @@ public class Route {
 
     private boolean checkParamLists(ClassPath classPath, List<String> paramsNames) {
         Set<String> classPathParams = classPath.getParams().keySet();
-        Set<String> pathParams = paramsNames.stream().filter(p -> p.startsWith("{")).collect(Collectors.toSet());
-        System.out.println("checkParamLists");
-        System.out.println("classPathParams : " + classPathParams);
-        System.out.println("pathParams : " + pathParams);
+        Set<String> pathParams =
+                paramsNames.stream()
+                    .filter(p -> p.startsWith("{"))
+                    .map(e -> e.substring(1, e.length() - 1))
+                    .collect(Collectors.toSet());
         return classPathParams.equals(pathParams);
     }
 
