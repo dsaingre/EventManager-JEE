@@ -60,9 +60,9 @@ public class GlobalEndPoint extends HttpServlet implements HttpErrorResponse {
 
     protected void processRequest(HttpMethod method, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-
-        Pattern p = Pattern.compile("^/[A-Za-z0-9]*");
-        String path = req.getRequestURI().replaceFirst(p.pattern(), "");
+        // Remove project name
+        String contextPath = req.getContextPath();
+        String path = req.getRequestURI().substring(contextPath.length());
 
         List<AbstractMap.SimpleEntry<Route, Map<String, Object>>> matches = matches(method, path, config);
 
