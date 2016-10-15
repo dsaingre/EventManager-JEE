@@ -1,0 +1,16 @@
+{
+  "build": {
+    "type": "maven",
+    "goal": "package"
+  },
+  "deploy": {
+    "container": "TOMCAT7",
+    "war": [
+      {
+        "file": "target/eventmanager-1.0-SNAPSHOT.war",
+        "context": "/",
+        "checkMe": "/"
+      }
+    ]
+  }
+}
