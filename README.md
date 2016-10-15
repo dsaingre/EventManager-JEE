@@ -1,4 +1,4 @@
-# EventManager-JEE
+# EventManager-JEE [![Build Status](https://travis-ci.com/Prygan/EventManager-JEE.svg?token=cocJpTsskx3dZagw8Jqi&branch=dev)](https://travis-ci.com/Prygan/EventManager-JEE)
 A webapp to manage public events
 
 
