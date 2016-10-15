@@ -8,13 +8,12 @@
       <!-- icons -->
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
       <!-- Compiled and minified Materialize JavaScript -->
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>Dino Planner - Login</title>
 </head>
 <body>
 	<nav>
-      <div class="nav-wrapper purple lighten-2">
+      <div class="nav-wrapper purple lighten-2" style="padding-left: 20px">
         <a href="#" class="brand-logo">Dino Planner</a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
           <li><a href="#">Identification</a></li>
@@ -23,43 +22,48 @@
     </nav>
 
     <div class="container">
-     <form class="col s12">
-       <div class="row">
-         <h1 class="center-align">
-           Identification
-         </h1>
-       </div>
-       <div class="row">
-         <div class="input-field col s12">
-           <i class="material-icons prefix">perm_identity</i>
-           <input id="email" type="email" class="validate">
-           <label for="email" data-error="Veuillez entrer une adresse mail valide">Email</label>
-         </div>
-       </div>
-       <div class="row">
-         <div class="input-field col s12">
-           <i class="material-icons prefix">vpn_key</i>
-           <input id="password" type="password">
-           <label for="password">Mot de passe</label>
-         </div>
-       </div>
-       <div class="row">
-         <button class="btn waves-effect waves-light right" type="submit" name="action">Se connecter
-           <i class="material-icons right">send</i>
-         </button>
-       </div>
-       <div class="row">
-        <div class="col s4">
-          <p class="center-align">Pas encore inscrit ?</p>
+        <div class="row">
+            <form class="col s6 push-s3">
+                <div class="row">
+                    <h3 class="center-align">
+                        Identification
+                    </h3>
+                    <h6 class="center-align">
+                        Veuillez entrer votre email et votre mot de passe pour vous connecter.
+                    </h6>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">perm_identity</i>
+                        <input id="email" type="email" class="validate">
+                        <label for="email" data-error="Veuillez entrer une adresse mail valide">Email (exemple : john.doe@exemple.com)</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">vpn_key</i>
+                        <input id="password" type="password">
+                        <label for="password">Mot de passe</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="center">
+                        <button class="btn waves-effect waves-light disabled" type="submit" name="action" id="connect">Se connecter
+                            <i class="material-icons right">send</i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="center">
+                    <a href="">Pas encore inscrit(e) ?</a> |
+                    <a href="">Besoin d'aide ?</a>
+                </div>
+            </form>
         </div>
-        <div class="col s4">
-          <p class="center-align">Mot de passe oublié ?</p>
-        </div>
-        <div class="col s4">
-          <p class="center-align">Besoin d'aide ?</p>
-        </div>
-       </div>
-     </form>
     </div>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+    <script type="text/javascript" src="assets/js/login.js"></script>
 </body>
 </html>
