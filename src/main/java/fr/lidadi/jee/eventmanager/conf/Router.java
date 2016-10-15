@@ -1,7 +1,7 @@
 package fr.lidadi.jee.eventmanager.conf;
 
-import fr.lidadi.jee.eventmanager.framework.router.config.Config;
 import fr.lidadi.jee.eventmanager.framework.router.HttpRouter;
+import fr.lidadi.jee.eventmanager.framework.router.config.Config;
 
 /**
  * Created by damien on 05/10/2016.
@@ -13,6 +13,8 @@ public class Router implements HttpRouter {
         return config
                 .get("/")
                     .to("fr.lidadi.jee.eventmanager.EventServlet.welcome()")
+                 .get("/login")
+                 	.to("fr.lidadi.jee.eventmanager.EventServlet.login()")
                 .get("/events")
                     .to("fr.lidadi.jee.eventmanager.EventServlet.fetchAll()")
                 .get("/events/{id}")
