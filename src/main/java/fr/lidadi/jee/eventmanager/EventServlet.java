@@ -31,4 +31,12 @@ public class EventServlet implements HttpErrorResponse {
     public void login(HttpServlet servlet, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     	okJsp(servlet, req, resp, "/login.jsp");
     }
+
+    public void signup(HttpServlet servlet, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    	okJsp(servlet, req, resp, "/signup.jsp");
+    }
+
+    public void help(HttpServlet servlet, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    	okJsp(servlet, req, resp, "/help.jsp");
+    }
 }

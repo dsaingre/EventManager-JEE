@@ -9,9 +9,9 @@
       <!-- icons -->
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
       <link href="assets/css/global.css" rel="stylesheet">
-      <!-- Compiled and minified Materialize JavaScript -->
+    <!-- Compiled and minified Materialize JavaScript -->
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>Dino Planner - Login</title>
+	<title>Dino Planner - Aide</title>
 </head>
 <body>
 	<nav>
@@ -25,15 +25,19 @@
     </nav>
 
     <div class="container">
+        <div class="hspace-30"></div>
         <div class="row">
-            <form class="col s6 push-s3">
+            <c:a href="/login">← Retour a la page d'identification</c:a>
+        </div>
+        <div class="row">
+            <h3 class="center-align">
+                Besoin d'aide pour vous connecter ?
+            </h3>
+        </div>
+        <div class="row">
+            <form class="col s6">
                 <div class="row">
-                    <h3 class="center-align">
-                        Identification
-                    </h3>
-                    <h6 class="center-align">
-                        Veuillez entrer votre email et votre mot de passe pour vous connecter.
-                    </h6>
+                    <p>Vous pouvez renseigner votre adresse email dans le champ ci-dessous. Nous envoyerons alors un nouveau mot de passe pour que vous puissez de nouveau vous connecter.</p>
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
@@ -43,31 +47,24 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="input-field col s12">
-                        <i class="material-icons prefix">vpn_key</i>
-                        <input id="password" type="password">
-                        <label for="password">Mot de passe</label>
-                    </div>
-                </div>
-                <div class="row">
                     <div class="center">
-                        <button class="btn waves-effect waves-light disabled" type="submit" name="action" id="connect">Se connecter
+                        <button class="btn waves-effect waves-light disabled" type="submit" name="action" id="connect">Me renvoyer un mot de passe
                             <i class="material-icons right">send</i>
                         </button>
                     </div>
                 </div>
-
-                <div class="center">
-                    <c:a href="/signup">Pas encore inscrit(e) ?</c:a> |
-
-                    <c:a href="/help">Besoin d'aide ?</c:a>
-                </div>
             </form>
+            <div class="col s6">
+                <div class="hspace-50"></div>
+                <div class="hspace-50"></div>
+                <div class="hspace-50"></div>
+                <h5 class="center">Vous pouvez aussi nous contacter à l'adresse mail : <a href="mailto:fake@eventmanager.fr">fake@eventmanager.fr</a></h5>
+            </div>
         </div>
     </div>
 
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
-    <script type="text/javascript" src="assets/js/login.js"></script>
+    <script type="text/javascript" src="assets/js/help.js"></script>
 </body>
 </html>

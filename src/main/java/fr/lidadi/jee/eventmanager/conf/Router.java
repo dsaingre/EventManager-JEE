@@ -13,8 +13,12 @@ public class Router implements HttpRouter {
         return config
                 .get("/")
                     .to("fr.lidadi.jee.eventmanager.EventServlet.welcome()")
-                 .get("/login")
+                .get("/login")
                  	.to("fr.lidadi.jee.eventmanager.EventServlet.login()")
+                .get("/signup")
+                 	.to("fr.lidadi.jee.eventmanager.EventServlet.signup()")
+                .get("/help")
+                 	.to("fr.lidadi.jee.eventmanager.EventServlet.help()")
                 .get("/events")
                     .to("fr.lidadi.jee.eventmanager.EventServlet.fetchAll()")
                 .get("/events/{id}")
