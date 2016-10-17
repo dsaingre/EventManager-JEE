@@ -64,8 +64,8 @@
     <%@ include file="footer.jsp" %>
 
 
-    <script type="text/javascript" src="<app:uri src="/assets/js/jquery-2.1.1.min.js"/>"></script>
-    <script type="text/javascript" src="<app:uri src="/assets/js/materialize.min.js"/>"></script>
+    <script type="text/javascript" src="<app:uri src="/assets/js/lib/jquery-2.1.1.min.js"/>"></script>
+    <script type="text/javascript" src="<app:uri src="/assets/js/lib/materialize.min.js"/>"></script>
     <script type="text/javascript" src="<app:uri src="/assets/js/help.js"/>"></script>
 </body>
 </html>

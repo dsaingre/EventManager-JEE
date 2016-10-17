@@ -1,19 +1,13 @@
 <taglib>
     <tlib-version>1.0</tlib-version>
     <jsp-version>2.0</jsp-version>
-    <short-name>a</short-name>
+    <short-name>app</short-name>
     <tag>
-        <name>a</name>
-        <tag-class>fr.lidadi.jee.eventmanager.jsptags.A</tag-class>
-        <body-content>scriptless</body-content>
+        <name>uri</name>
+        <tag-class>fr.lidadi.jee.eventmanager.jsptags.Uri</tag-class>
+        <body-content>empty</body-content>
         <attribute>
-            <name>href</name>
-        </attribute>
-        <attribute>
-            <name>clas</name>
-        </attribute>
-        <attribute>
-            <name>id</name>
+            <name>src</name>
         </attribute>
     </tag>
 </taglib>
