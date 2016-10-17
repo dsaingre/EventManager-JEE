@@ -16,7 +16,7 @@
 <body>
 	<nav>
       <div class="nav-wrapper purple lighten-2" style="padding-left: 20px">
-        <a href="" class="brand-logo">Dino Planner</a>
+        <c:a href="/" clas="brand-logo">Dino Planner</c:a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
             <li class="active"><c:a href="/login">S'identifier</c:a></li>
             <li><c:a href="/signup">Créer un compte</c:a></li>

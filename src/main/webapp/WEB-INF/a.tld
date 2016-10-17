@@ -9,5 +9,8 @@
         <attribute>
             <name>href</name>
         </attribute>
+        <attribute>
+            <name>clas</name>
+        </attribute>
     </tag>
 </taglib>

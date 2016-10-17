@@ -16,6 +16,7 @@ import java.io.StringWriter;
 public class A extends SimpleTagSupport {
 
     private String href;
+    private String clas;
 
     private StringWriter sw = new StringWriter();
 
@@ -25,11 +26,16 @@ public class A extends SimpleTagSupport {
         String contextPath = pageContext.getServletContext().getContextPath();
         JspWriter out = getJspContext().getOut();
         href = href == null ? "" : href;
+        clas = clas == null ? "" : clas;
         getJspBody().invoke(sw);
-        out.println("<a href=\"" + contextPath + href + "\">" + sw + "</a>");
+        out.println("<a href=\"" + contextPath + href + "\" class=\"" + clas + "\">" + sw + "</a>");
     }
 
     public void setHref(String href) {
         this.href = href;
+    }
+
+    public void setClas(String clas) {
+        this.clas = clas;
     }
 }
