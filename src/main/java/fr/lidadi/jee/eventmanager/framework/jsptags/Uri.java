@@ -1,4 +1,4 @@
-package fr.lidadi.jee.eventmanager.jsptags;
+package fr.lidadi.jee.eventmanager.framework.jsptags;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;

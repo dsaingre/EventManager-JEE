@@ -4,7 +4,7 @@
     <short-name>app</short-name>
     <tag>
         <name>uri</name>
-        <tag-class>fr.lidadi.jee.eventmanager.jsptags.Uri</tag-class>
+        <tag-class>fr.lidadi.jee.eventmanager.framework.jsptags.Uri</tag-class>
         <body-content>empty</body-content>
         <attribute>
             <name>src</name>
