@@ -36,7 +36,8 @@ passwordField.addEventListener("keyup", function(e){
 
 
 helpLink.addEventListener("click", function (e) {
-    helpLink.setAttribute("href", baseHelpLink + "/" + email);
+    email = emailField.value;
+    helpLink.setAttribute("href", baseHelpLink + "?email=" + email);
 });
 
 

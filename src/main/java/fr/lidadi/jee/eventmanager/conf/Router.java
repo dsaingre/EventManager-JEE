@@ -15,8 +15,8 @@ public class Router implements HttpRouter {
                     .to("fr.lidadi.jee.eventmanager.app.person.Persons.login()")
                 .get("/signup")
                     .to("fr.lidadi.jee.eventmanager.app.person.Persons.signup()")
-                .get("/help/{email}")
-                    .to("fr.lidadi.jee.eventmanager.app.person.Persons.help(STRING email)")
+                .get("/help")
+                    .to("fr.lidadi.jee.eventmanager.app.person.Persons.help()")
 
                 .get("/")
                     .to("fr.lidadi.jee.eventmanager.app.event.Events.welcome()")

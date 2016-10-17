@@ -37,7 +37,7 @@
                     <div class="row">
                         <div class="input-field col s12">
                             <i class="material-icons prefix">perm_identity</i>
-                            <input id="email" type="email" class="validate">
+                            <input id="email" type="email" class="validate" value="${email}">
                             <label for="email" data-error="Veuillez entrer une adresse mail valide">Email (exemple : john.doe@exemple.com)</label>
                         </div>
                     </div>
