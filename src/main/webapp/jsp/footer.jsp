@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="/WEB-INF/a.tld"%>
 
-
+<div class="hspace-50"></div>
 <footer class="page-footer">
     <div class="container">
         <div class="row">
