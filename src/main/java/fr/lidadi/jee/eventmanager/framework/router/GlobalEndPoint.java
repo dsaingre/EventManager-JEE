@@ -64,6 +64,8 @@ public class GlobalEndPoint extends HttpServlet implements HttpErrorResponse {
         String contextPath = req.getContextPath();
         String path = req.getRequestURI().substring(contextPath.length());
 
+        System.out.println("matches(" + method + " " + path + ") ?");
+
         List<AbstractMap.SimpleEntry<Route, Map<String, Object>>> matches = matches(method, path, config);
 
         if(matches.isEmpty()){
@@ -90,7 +92,7 @@ public class GlobalEndPoint extends HttpServlet implements HttpErrorResponse {
 
 
 
-    private List<AbstractMap.SimpleEntry<Route, Map<String, Object>>> matches(HttpMethod method, String path, List<Route> config){
+    protected List<AbstractMap.SimpleEntry<Route, Map<String, Object>>> matches(HttpMethod method, String path, List<Route> config){
         return config.stream()
                 .map(route ->
                         new AbstractMap.SimpleEntry<>(route,
