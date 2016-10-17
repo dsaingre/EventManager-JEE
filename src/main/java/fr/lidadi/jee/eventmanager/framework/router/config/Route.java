@@ -145,6 +145,9 @@ public class Route {
             return Optional.empty();
         }
         String nextPartsToParse = path.substring(indexOfEndOfString);
+        if (! path.substring(0, indexOfEndOfString).endsWith("/") && ! nextPartsToParse.isEmpty()){
+            return Optional.empty();
+        }
         return givenPathMatchesUrlPattern(nextPartsToParse, tailPartOfUrl, parsedParams);
 
     }

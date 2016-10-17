@@ -60,12 +60,26 @@ public class RouteTest extends Mockito {
 
 
     @Test
-    public void givenPathMatchesConfig() throws Exception {
+    public void givenPathMatchesConfig1() throws Exception {
         GlobalEndPoint globalEndPoint = new GlobalEndPoint();
 
         List<Route> config = new LinkedList<>();
-        config.add(new Route(GET, "/events", "fr.lidadi.jee.eventmanager.EventServlet.fetchAll()"));
-        config.add(new Route(GET, "/signup", "fr.lidadi.jee.eventmanager.EventServlet.signup()"));
+        config.add(new Route(GET, "/events", "fr.lidadi.jee.eventmanager.Events.fetchAll()"));
+        config.add(new Route(GET, "/signup", "fr.lidadi.jee.eventmanager.Events.signup()"));
+
+        List<AbstractMap.SimpleEntry<Route, Map<String, Object>>> matches = globalEndPoint.matches(GET, "/signup", config);
+
+        System.out.println("matches : " + matches);
+        assertTrue(matches.size() == 1);
+    }
+
+    @Test
+    public void givenPathMatchesConfig2() throws Exception {
+        GlobalEndPoint globalEndPoint = new GlobalEndPoint();
+
+        List<Route> config = new LinkedList<>();
+        config.add(new Route(GET, "/help/{email}", "fr.lidadi.jee.eventmanager.app.person.Persons.help(STRING email)"));
+        config.add(new Route(GET, "/signup", "fr.lidadi.jee.eventmanager.app.person.Persons.signup()"));
 
         List<AbstractMap.SimpleEntry<Route, Map<String, Object>>> matches = globalEndPoint.matches(GET, "/signup", config);
 
