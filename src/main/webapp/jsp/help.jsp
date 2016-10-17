@@ -37,7 +37,7 @@
         <div class="row">
             <form class="col s6">
                 <div class="row">
-                    <p>Vous pouvez renseigner votre adresse email dans le champ ci-dessous. Nous envoyerons alors un nouveau mot de passe pour que vous puissez de nouveau vous connecter.</p>
+                    <p>Vous pouvez renseigner votre adresse email dans le champ ci-dessous. Nous enverrons alors un nouveau mot de passe pour que vous puisiez de nouveau vous connecter.</p>
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
