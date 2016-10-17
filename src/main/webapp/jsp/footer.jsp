@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="/WEB-INF/a.tld"%>
+<%@ taglib prefix="app" uri="/WEB-INF/app.tld"%>
 
 <div class="hspace-50"></div>
+
 <footer class="page-footer">
     <div class="container">
         <div class="row">
@@ -12,8 +13,8 @@
             <div class="col l4 offset-l2 s12">
                 <h5 class="white-text">Liens</h5>
                 <ul>
-                    <li><c:a clas="grey-text text-lighten-3" href="/login">S'identifier</c:a></li>
-                    <li><c:a clas="grey-text text-lighten-3" href="/signup">Créer un compte</c:a></li>
+                    <li><a class="grey-text text-lighten-3" href="<app:uri src="/login"/>">S'identifier</a></li>
+                    <li><a class="grey-text text-lighten-3" href="<app:uri src="/signup"/>">Créer un compte</a></li>
                     <%--<li><a class="grey-text text-lighten-3" href="#!">Link 3</a></li>--%>
                     <%--<li><a class="grey-text text-lighten-3" href="#!">Link 4</a></li>--%>
                 </ul>

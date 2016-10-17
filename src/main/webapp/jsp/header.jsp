@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="/WEB-INF/a.tld"%>
+<%@ taglib prefix="app" uri="/WEB-INF/app.tld"%>
 
 <nav>
 
     <div class="nav-wrapper purple lighten-2" style="padding-left: 20px">
-        <c:a href="/" clas="brand-logo">Dino Planner</c:a>
+        <a href="<app:uri src="/"/>" class="brand-logo">Dino Planner</a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <li class="${isLoginPage}"><c:a href="/login">S'identifier</c:a></li>
-            <li class="${isSignupPage}"><c:a href="/signup">Créer un compte</c:a></li>
+            <li class="${isLoginPage}"><a href="<app:uri src="/login"/>">S'identifier</a></li>
+            <li class="${isSignupPage}"><a href="<app:uri src="/signup"/>">Créer un compte</a></li>
         </ul>
     </div>
 </nav>

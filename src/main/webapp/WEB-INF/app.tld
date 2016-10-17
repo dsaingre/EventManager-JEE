@@ -12,5 +12,8 @@
         <attribute>
             <name>clas</name>
         </attribute>
+        <attribute>
+            <name>id</name>
+        </attribute>
     </tag>
 </taglib>

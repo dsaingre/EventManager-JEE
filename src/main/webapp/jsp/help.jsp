@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="/WEB-INF/a.tld"%>
+<%@ taglib prefix="app" uri="/WEB-INF/app.tld"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,7 +8,7 @@
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
       <!-- icons -->
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-      <link href="assets/css/global.css" rel="stylesheet">
+      <link href="<app:uri src="/assets/css/global.css"/>" rel="stylesheet">
     <!-- Compiled and minified Materialize JavaScript -->
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>Dino Planner - Aide</title>
@@ -22,7 +22,7 @@
         <div class="container">
             <div class="hspace-30"></div>
             <div class="row">
-                <c:a href="/login">← Retour a la page d'identification</c:a>
+                <a href="<app:uri src="/login"/>">← Retour a la page d'identification</a>
             </div>
             <div class="row">
                 <h3 class="center-align">
@@ -63,8 +63,9 @@
 
     <%@ include file="footer.jsp" %>
 
-    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
-    <script type="text/javascript" src="assets/js/help.js"></script>
+
+    <script type="text/javascript" src="<app:uri src="/assets/js/jquery-2.1.1.min.js"/>"></script>
+    <script type="text/javascript" src="<app:uri src="/assets/js/materialize.min.js"/>"></script>
+    <script type="text/javascript" src="<app:uri src="/assets/js/help.js"/>"></script>
 </body>
 </html>

@@ -1,6 +1,4 @@
 
-
-
 function addClass(element, clazz){
     element.className += " " + clazz;
 }
@@ -12,11 +10,14 @@ function removeClass(element, clazz){
 
 
 var emailField = document.getElementById("email");
+var helpLink =  document.getElementById("helplink");
 var passwordField = document.getElementById("password");
 var connectButton = document.getElementById("connect");
 
 var email = "";
 var password = "";
+var baseHelpLink = helpLink.getAttribute("href");
+
 
 emailFieldCallback();
 passwordFieldCallback();
@@ -31,6 +32,11 @@ emailField.addEventListener("keyup", function(e){
 });
 passwordField.addEventListener("keyup", function(e){
     passwordFieldCallback();
+});
+
+
+helpLink.addEventListener("click", function (e) {
+    helpLink.setAttribute("href", baseHelpLink + "/" + email);
 });
 
 
@@ -52,3 +58,4 @@ function activeOrDesactiveLoginButton(){
         addClass(connectButton, "disabled")
     }
 }
+

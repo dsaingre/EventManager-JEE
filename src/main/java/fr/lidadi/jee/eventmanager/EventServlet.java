@@ -38,7 +38,8 @@ public class EventServlet implements HttpErrorResponse {
         okJsp(servlet, req, resp, "/signup.jsp");
     }
 
-    public void help(HttpServlet servlet, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void help(HttpServlet servlet, HttpServletRequest req, HttpServletResponse resp, String email) throws ServletException, IOException {
+        System.out.println("email " + email);
         req.setAttribute("isLoginPage", "active");
         okJsp(servlet, req, resp, "/help.jsp");
     }
