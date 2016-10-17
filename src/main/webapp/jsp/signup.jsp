@@ -14,20 +14,20 @@
 	<title>Dino Planner - Login</title>
 </head>
 <body>
-	<nav>
-      <div class="nav-wrapper purple lighten-2" style="padding-left: 20px">
-        <c:a href="/" clas="brand-logo">Dino Planner</c:a>
-        <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <li><c:a href="/login">S'identifier</c:a></li>
-            <li class="active"><c:a href="/signup">Créer un compte</c:a></li>
-        </ul>
-      </div>
-    </nav>
 
-    <div class="container">
-        <div class="row">
+    <%@ include file="header.jsp" %>
+
+    <main>
+
+        <div class="container">
+            <div class="row">
+            </div>
         </div>
-    </div>
+    </main>
+
+
+    <%@ include file="footer.jsp" %>
+
 
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
