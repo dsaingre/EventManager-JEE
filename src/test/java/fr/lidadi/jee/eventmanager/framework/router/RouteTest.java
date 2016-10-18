@@ -61,6 +61,34 @@ public class RouteTest extends Mockito {
 
     @Test
     public void givenPathMatches_zeroParam() throws Exception {
+        GlobalEndPoint globalEndPoint = new GlobalEndPoint();
+
+        List<Route> config = new LinkedList<>();
+        config.add(new Route(GET, "/events", "fr.lidadi.jee.eventmanager.Events.fetchAll()"));
+        config.add(new Route(GET, "/signup", "fr.lidadi.jee.eventmanager.Events.signup()"));
+
+        List<AbstractMap.SimpleEntry<Route, Map<String, Object>>> matches = globalEndPoint.matches(GET, "/signup", config);
+
+        System.out.println("matches : " + matches);
+        assertTrue(matches.size() == 1);
+    }
+
+    @Test
+    public void givenPathMatchesConfig2() throws Exception {
+        GlobalEndPoint globalEndPoint = new GlobalEndPoint();
+
+        List<Route> config = new LinkedList<>();
+        config.add(new Route(GET, "/help/{email}", "fr.lidadi.jee.eventmanager.app.person.Persons.help(STRING email)"));
+        config.add(new Route(GET, "/signup", "fr.lidadi.jee.eventmanager.app.person.Persons.signup()"));
+
+        List<AbstractMap.SimpleEntry<Route, Map<String, Object>>> matches = globalEndPoint.matches(GET, "/signup", config);
+
+        System.out.println("matches : " + matches);
+        assertTrue(matches.size() == 1);
+    }
+
+    @Test
+    public void givenPathMatches_zeroParam1() throws Exception {
         Route route = new Route(HttpMethod.GET, "/tests", "com.ladadi.Test.findAll()");
         Optional<Map<String, Object>> stringObjectMap = route.givenPathMatchesUrlPattern("/tests", HttpMethod.GET);
 
@@ -69,6 +97,15 @@ public class RouteTest extends Mockito {
         System.out.println("stringObjectMap : " + stringObjectMap);
         assertTrue(stringObjectMap.isPresent());
         assertEquals(oracle, stringObjectMap.get());
+    }
+
+    @Test
+    public void givenPathMatches_zeroParam2() throws Exception {
+        Route route = new Route(HttpMethod.GET, "/tests", "com.ladadi.Test.findAll()");
+        Optional<Map<String, Object>> stringObjectMap = route.givenPathMatchesUrlPattern("/signup", HttpMethod.GET);
+
+        System.out.println("stringObjectMap : " + stringObjectMap);
+        assertFalse(stringObjectMap.isPresent());
     }
 
     @Test

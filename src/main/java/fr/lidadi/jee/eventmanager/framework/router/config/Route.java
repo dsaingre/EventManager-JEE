@@ -39,12 +39,15 @@ public class Route {
 
     private boolean checkParamLists(ClassPath classPath, List<String> paramsNames) {
         Set<String> classPathParams = classPath.getParams().keySet();
-        Set<String> pathParams =
-                paramsNames.stream()
-                    .filter(p -> p.startsWith("{"))
-                    .map(e -> e.substring(1, e.length() - 1))
-                    .collect(Collectors.toSet());
+        Set<String> pathParams = getParamsOfUrl(paramsNames);
         return classPathParams.equals(pathParams);
+    }
+
+    private Set<String> getParamsOfUrl(List<String> paramsNames) {
+        return paramsNames.stream()
+            .filter(p -> p.startsWith("{"))
+            .map(e -> e.substring(1, e.length() - 1))
+            .collect(Collectors.toSet());
     }
 
 
@@ -70,7 +73,7 @@ public class Route {
     }
 
     public Optional<Map<String, Object>> givenPathMatchesUrlPattern(String path, HttpMethod method) {
-        if (this.paramsNames.isEmpty()) { // no params
+        if (this.getParamsOfUrl(paramsNames).isEmpty()) { // no params
             if (path.equals(this.path)) { // paths equals
                 return Optional.of(new HashMap<>());
             }
@@ -142,6 +145,9 @@ public class Route {
             return Optional.empty();
         }
         String nextPartsToParse = path.substring(indexOfEndOfString);
+        if (! path.substring(0, indexOfEndOfString).endsWith("/") && ! nextPartsToParse.isEmpty()){
+            return Optional.empty();
+        }
         return givenPathMatchesUrlPattern(nextPartsToParse, tailPartOfUrl, parsedParams);
 
     }
@@ -216,6 +222,7 @@ public class Route {
         return "Route{" +
                 "method=" + method +
                 ", path='" + path + '\'' +
+                ", classPath=" + classPath +
                 '}';
     }
 }

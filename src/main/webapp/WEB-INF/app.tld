@@ -1,0 +1,13 @@
+<taglib>
+    <tlib-version>1.0</tlib-version>
+    <jsp-version>2.0</jsp-version>
+    <short-name>app</short-name>
+    <tag>
+        <name>uri</name>
+        <tag-class>fr.lidadi.jee.eventmanager.framework.jsptags.Uri</tag-class>
+        <body-content>empty</body-content>
+        <attribute>
+            <name>src</name>
+        </attribute>
+    </tag>
+</taglib>

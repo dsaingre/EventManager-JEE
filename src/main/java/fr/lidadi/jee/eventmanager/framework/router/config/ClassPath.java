@@ -50,4 +50,9 @@ public class ClassPath {
         result = 31 * result + (getParams() != null ? getParams().hashCode() : 0);
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "ClassPath(" + className + "." + methodName + "(" + params + "))";
+    }
 }
