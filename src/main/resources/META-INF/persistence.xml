@@ -18,24 +18,35 @@
 <!--  
  For a MAVEN project put this file in "src/main/resources/META-INF"
  -->
+
+
  
-	<persistence-unit name="td" transaction-type="RESOURCE_LOCAL">
+	<persistence-unit name="eventmanager" transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+
 		<properties>
-		
-			<!-- JDBC configuration -->
-			<property name="javax.persistence.jdbc.driver"   value="org.apache.derby.jdbc.ClientDriver"/>
-			<property name="javax.persistence.jdbc.url"      value="jdbc:derby://localhost:1527/bookstore"/>
-			<property name="javax.persistence.jdbc.user"     value="root"/>
-			<property name="javax.persistence.jdbc.password" value="admin"/>
-			
-			<!-- Hibernate database dialect -->			
-			<property name="hibernate.dialect"                  value="org.hibernate.dialect.DerbyDialect"/>
-			
-			<!-- Hibernate configuration -->
-			<property name="hibernate.hbm2ddl.auto"       value="none"/>
-			<property name="hibernate.show_sql"           value="true"/>
+			<property name="connection.driver_class" value="org.h2.Driver"/>
+			<property name="hibernate.connection.url" value="jdbc:h2:./db/repository"/>
+			<property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
+			<property name="hibernate.hbm2ddl.auto" value="create-drop"/>
+			<property name="hibernate.show_sql" value="true" />
 		</properties>
+
+		<!--<properties>-->
+		<!---->
+			<!--&lt;!&ndash; JDBC configuration &ndash;&gt;-->
+			<!--<property name="javax.persistence.jdbc.driver"   value="org.apache.derby.jdbc.ClientDriver"/>-->
+			<!--<property name="javax.persistence.jdbc.url"      value="jdbc:derby://localhost:1527/td"/>-->
+			<!--<property name="javax.persistence.jdbc.user"     value="root"/>-->
+			<!--<property name="javax.persistence.jdbc.password" value="admin"/>-->
+			<!---->
+			<!--&lt;!&ndash; Hibernate database dialect &ndash;&gt;			-->
+			<!--<property name="hibernate.dialect"                  value="org.hibernate.dialect.DerbyDialect"/>-->
+			<!---->
+			<!--&lt;!&ndash; Hibernate configuration &ndash;&gt;-->
+			<!--<property name="hibernate.hbm2ddl.auto"       value="none"/>-->
+			<!--<property name="hibernate.show_sql"           value="true"/>-->
+		<!--</properties>-->
 	</persistence-unit>
     
 </persistence>

@@ -6,6 +6,8 @@
 
 package fr.lidadi.jee.eventmanager.dao.jpa;
 
+import fr.lidadi.jee.eventmanager.dao.Entity;
+
 import java.io.Serializable;
 
 //import javax.validation.constraints.* ;
@@ -13,6 +15,7 @@ import java.io.Serializable;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import javax.persistence.*;
 
@@ -23,13 +26,14 @@ import javax.persistence.*;
  *
  */
 
-@Entity
+@javax.persistence.Entity
 @Table(name="EVENT", schema="EVENTMANAGER" )
 // Define named queries here
 @NamedQueries ( {
-  @NamedQuery ( name="EventEntity.countAll", query="SELECT COUNT(x) FROM EventEntity x" )
+  @NamedQuery ( name="EventEntity.countAll", query="SELECT COUNT(x) FROM EventEntity x" ),
+  @NamedQuery ( name="EventEntity.findAll", query="SELECT EE FROM EventEntity AS EE" )
 } )
-public class EventEntity implements Serializable {
+public class EventEntity implements Serializable, Entity {
 
     private static final long serialVersionUID = 1L;
 
@@ -39,7 +43,7 @@ public class EventEntity implements Serializable {
     @Id
     @Lob
     @Column(name="ID", nullable=false)
-    private byte[]     id           ;
+    private UUID id           ;
 
 
     //----------------------------------------------------------------------
@@ -110,10 +114,10 @@ public class EventEntity implements Serializable {
     // GETTER & SETTER FOR THE KEY FIELD
     //----------------------------------------------------------------------
     public void setId( byte[] id ) {
-        this.id = id ;
+        this.id = UUID.fromString(id.toString()) ;
     }
     public byte[] getId() {
-        return this.id;
+        return this.id.toString().getBytes();
     }
 
     //----------------------------------------------------------------------
@@ -207,6 +211,13 @@ public class EventEntity implements Serializable {
         return this.listOfPersonn;
     }
 
+    //----------------------------------------------------------------------
+    // Get primary key
+    //----------------------------------------------------------------------
+    @Override
+    public Object getPrimaryKey() {
+        return getId();
+    }
 
     //----------------------------------------------------------------------
     // toString METHOD

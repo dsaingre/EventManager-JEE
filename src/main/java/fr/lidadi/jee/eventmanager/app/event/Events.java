@@ -2,6 +2,7 @@ package fr.lidadi.jee.eventmanager.app.event;
 
 import java.io.IOException;
 import java.util.UUID;
+import fr.lidadi.jee.eventmanager.dao.EventDao;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -20,6 +21,11 @@ public class Events implements HttpErrorResponse {
     }
 
     public void welcome(HttpServlet servlet, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        EventDao eventDao = new EventDao();
+
+        System.out.println(eventDao.getAll());
+
         okJsp(servlet, req, resp, "/welcome.jsp");
     }
 

@@ -7,6 +7,8 @@
 
 package fr.lidadi.jee.eventmanager.dao.jpa;
 
+import fr.lidadi.jee.eventmanager.dao.Entity;
+
 import java.io.Serializable;
 
 //import javax.validation.constraints.* ;
@@ -22,13 +24,13 @@ import javax.persistence.*;
  *
  */
 
-@Entity
+@javax.persistence.Entity
 @Table(name="EVENT_PERSONN_OWNER", schema="EVENTMANAGER" )
 // Define named queries here
 @NamedQueries ( {
   @NamedQuery ( name="EventPersonnOwnerEntity.countAll", query="SELECT COUNT(x) FROM EventPersonnOwnerEntity x" )
 } )
-public class EventPersonnOwnerEntity implements Serializable {
+public class EventPersonnOwnerEntity implements Serializable, Entity {
 
     private static final long serialVersionUID = 1L;
 
@@ -80,6 +82,11 @@ public class EventPersonnOwnerEntity implements Serializable {
     //----------------------------------------------------------------------
     // GETTERS & SETTERS FOR LINKS
     //----------------------------------------------------------------------
+
+    @Override
+    public Object getPrimaryKey(){
+        return this.compositePrimaryKey;
+    }
 
     //----------------------------------------------------------------------
     // toString METHOD
