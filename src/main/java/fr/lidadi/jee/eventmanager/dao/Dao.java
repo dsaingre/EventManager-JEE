@@ -1,6 +1,5 @@
 package fr.lidadi.jee.eventmanager.dao;
 
-import fr.lidadi.jee.eventmanager.framework.utils.GenericHelper;
 
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
@@ -13,14 +12,11 @@ import java.util.Optional;
 /**
  * Created by damien on 12/10/2016.
  */
-public abstract class Dao<T extends Entity> {
+public abstract class Dao<T extends Entity, PK> {
 
     private EntityManagerFactory emf = Persistence.createEntityManagerFactory("eventmanager");
 
     protected EntityManager em = emf.createEntityManager();
-
-
-    private GenericHelper genericHelper = new GenericHelper();
 
     private Class<T> getGenericName()
     {
@@ -36,7 +32,7 @@ public abstract class Dao<T extends Entity> {
     }
 
 
-    public Optional<T> get(String code){
+    public Optional<T> get(PK code){
         return Optional.ofNullable(em.find(tClass, code));
     }
 
@@ -72,8 +68,8 @@ public abstract class Dao<T extends Entity> {
         return Optional.of(eventEntityFound);
     }
 
-    public Optional<T> delete(T eventEntity){
-        T eventFound = em.find(tClass, eventEntity.getPrimaryKey());
+    public Optional<T> delete(PK pk){
+        T eventFound = em.find(tClass, pk);
 
         if(eventFound == null){
             return Optional.empty();
@@ -81,7 +77,7 @@ public abstract class Dao<T extends Entity> {
 
         em.getTransaction().begin();
 
-        em.remove(eventEntity);
+        em.remove(eventFound);
 
         em.getTransaction().commit();
 

@@ -10,7 +10,7 @@ import java.util.UUID;
 /**
  * Created by damien on 18/10/2016.
  */
-public class EventDao extends Dao<EventEntity> {
+public class EventDao extends Dao<EventEntity, UUID> {
 
 
 
