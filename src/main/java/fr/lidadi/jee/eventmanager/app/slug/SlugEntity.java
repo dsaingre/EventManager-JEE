@@ -5,12 +5,12 @@
 // This Bean has a composite Primary Key
 
 
-package fr.lidadi.jee.eventmanager.dao.jpa;
+package fr.lidadi.jee.eventmanager.app.slug;
 
+import fr.lidadi.jee.eventmanager.app.event.EventEntity;
 import fr.lidadi.jee.eventmanager.dao.Entity;
 
 import java.io.Serializable;
-import java.util.Arrays;
 import java.util.UUID;
 
 //import javax.validation.constraints.* ;

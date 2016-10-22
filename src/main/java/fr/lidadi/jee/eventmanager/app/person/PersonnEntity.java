@@ -4,12 +4,12 @@
  */
 // This Bean has a basic Primary Key (not composite)
 
-package fr.lidadi.jee.eventmanager.dao.jpa;
+package fr.lidadi.jee.eventmanager.app.person;
 
+import fr.lidadi.jee.eventmanager.app.event.EventEntity;
 import fr.lidadi.jee.eventmanager.dao.Entity;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 //import javax.validation.constraints.* ;
 //import org.hibernate.validator.constraints.* ;

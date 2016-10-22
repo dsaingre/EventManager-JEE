@@ -1,7 +1,6 @@
 package fr.lidadi.jee.eventmanager.app.event;
 
-import fr.lidadi.jee.eventmanager.dao.jpa.EventEntity;
-import fr.lidadi.jee.eventmanager.dao.jpa.PersonnEntity;
+import fr.lidadi.jee.eventmanager.app.person.PersonnEntity;
 
 import java.util.*;
 

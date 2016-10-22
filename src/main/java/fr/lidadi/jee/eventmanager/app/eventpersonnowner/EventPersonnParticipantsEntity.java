@@ -5,7 +5,7 @@
 // This Bean has a composite Primary Key
 
 
-package fr.lidadi.jee.eventmanager.dao.jpa;
+package fr.lidadi.jee.eventmanager.app.eventpersonnowner;
 
 import fr.lidadi.jee.eventmanager.dao.*;
 

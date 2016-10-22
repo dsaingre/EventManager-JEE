@@ -25,10 +25,10 @@
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 
 
-		<class>fr.lidadi.jee.eventmanager.dao.jpa.EventEntity</class>
-		<class>fr.lidadi.jee.eventmanager.dao.jpa.PersonnEntity</class>
-		<class>fr.lidadi.jee.eventmanager.dao.jpa.SlugEntity</class>
-		<class>fr.lidadi.jee.eventmanager.dao.jpa.ParticipantEntity</class>
+		<class>fr.lidadi.jee.eventmanager.app.event.EventEntity</class>
+		<class>fr.lidadi.jee.eventmanager.app.person.PersonnEntity</class>
+		<class>fr.lidadi.jee.eventmanager.app.slug.SlugEntity</class>
+		<class>fr.lidadi.jee.eventmanager.app.participant.ParticipantEntity</class>
 
 
 		<properties>
