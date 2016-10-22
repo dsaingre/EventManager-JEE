@@ -107,6 +107,21 @@ public class EventEntity implements Entity {
 		super();
     }
 
+    public EventEntity(UUID id, String name, Date startDate, Date endDate, Date publishingDate, String location, Date updated, Date created, List<PersonnEntity> listOfPersonn2, List<SlugEntity> listOfSlug, List<ParticipantEntity> listOfParticipant, List<PersonnEntity> listOfPersonn) {
+        this.id = id;
+        this.name = name;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.publishingDate = publishingDate;
+        this.location = location;
+        this.updated = updated;
+        this.created = created;
+        this.listOfPersonn2 = listOfPersonn2;
+        this.listOfSlug = listOfSlug;
+        this.listOfParticipant = listOfParticipant;
+        this.listOfPersonn = listOfPersonn;
+    }
+
     //----------------------------------------------------------------------
     // GETTER & SETTER FOR THE KEY FIELD
     //----------------------------------------------------------------------

@@ -73,13 +73,13 @@ public class Route {
     }
 
     public Optional<Map<String, Object>> givenPathMatchesUrlPattern(String path, HttpMethod method) {
+        if (!method.equals(this.method)) {
+            return Optional.empty();
+        }
         if (this.getParamsOfUrl(paramsNames).isEmpty()) { // no params
             if (path.equals(this.path)) { // paths equals
                 return Optional.of(new HashMap<>());
             }
-            return Optional.empty();
-        }
-        if (!method.equals(this.method)) {
             return Optional.empty();
         }
         return givenPathMatchesUrlPattern(path, paramsNames, new HashMap<>());
