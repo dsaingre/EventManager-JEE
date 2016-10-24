@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <%@ taglib prefix="app" uri="/WEB-INF/app.tld"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,24 +15,22 @@
     <title>Dino Planner - Login</title>
 </head>
 <body>
-    <%@ include file="header.jsp" %>
+<%@ include file="/jsp/header.jsp" %>
 
 
-    <main>
+<main>
 
-        <div class="container">
-            <h3 class="center-align">
-                Bienvenue
-            </h3>
+    <div class="container">
+        <h3>Impossible de trouver l'évènement.</h3>
+        <p>Nous vous prions de nous excuser pour la gène occasionnée.</p>
+        <a href="<app:uri src="/events"/>">← Retour à la page des évènements</a>
+    </div>
 
-            <a href="<app:uri src="/events"/>">Acceder aux events</a>
-        </div>
+</main>
 
-    </main>
+<%@ include file="/jsp/footer.jsp" %>
 
-    <%@ include file="footer.jsp" %>
-
-    <script type="text/javascript" src="<app:uri src="/assets/js/lib/jquery-2.1.1.min.js"/>"></script>
-    <script type="text/javascript" src="<app:uri src="/assets/js/lib/materialize.min.js"/>"></script>
+<script type="text/javascript" src="<app:uri src="/assets/js/lib/jquery-2.1.1.min.js"/>"></script>
+<script type="text/javascript" src="<app:uri src="/assets/js/lib/materialize.min.js"/>"></script>
 </body>
 </html>

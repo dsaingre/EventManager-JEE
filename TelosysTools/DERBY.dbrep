@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Telosys Database Repository --><root>
+<tableList databaseId="0" databaseName="DERBY" databaseProductName="Apache Derby" generation="2016-10-17 16:36:49">
+<table catalog="" databaseType="TABLE" javaBean="Event" name="EVENT" schema="EVENTMANAGER">
+<column dbComment="" dbDefaultValue="" dbName="ID" dbNotNull="true" dbPosition="1" dbPrimaryKey="true" dbSize="16" dbTypeName="CHAR () FOR BIT DATA" inputType="" javaName="id" javaType="byte[]" jdbcTypeCode="-2" label="Id" notNull="true" selected="true"/>
+<column dbComment="" dbDefaultValue="" dbName="NAME" dbNotNull="true" dbPosition="2" dbSize="255" dbTypeName="VARCHAR" inputType="text" javaName="name" javaType="java.lang.String" jdbcTypeCode="12" label="Name" maxLength="255" notEmpty="true" notNull="true" selected="true"/>
+<column dateType="DT" dbComment="" dbDefaultValue="" dbName="START_DATE" dbNotNull="false" dbPosition="3" dbSize="29" dbTypeName="TIMESTAMP" inputType="" javaName="startDate" javaType="java.util.Date" jdbcTypeCode="93" label="Start date" notNull="false" selected="true"/>
+<column dateType="DT" dbComment="" dbDefaultValue="" dbName="END_DATE" dbNotNull="false" dbPosition="4" dbSize="29" dbTypeName="TIMESTAMP" inputType="" javaName="endDate" javaType="java.util.Date" jdbcTypeCode="93" label="End date" notNull="false" selected="true"/>
+<column dateType="D" dbComment="" dbDefaultValue="" dbName="PUBLISHING_DATE" dbNotNull="false" dbPosition="5" dbSize="10" dbTypeName="DATE" inputType="date" javaName="publishingDate" javaType="java.util.Date" jdbcTypeCode="91" label="Publishing date" notNull="false" selected="true"/>
+<column dbComment="" dbDefaultValue="" dbName="LOCATION" dbNotNull="false" dbPosition="6" dbSize="255" dbTypeName="VARCHAR" inputType="text" javaName="location" javaType="java.lang.String" jdbcTypeCode="12" label="Location" maxLength="255" notNull="false" selected="true"/>
+<column dateType="D" dbComment="" dbDefaultValue="" dbName="UPDATED" dbNotNull="true" dbPosition="7" dbSize="10" dbTypeName="DATE" inputType="date" javaName="updated" javaType="java.util.Date" jdbcTypeCode="91" label="Updated" notNull="true" selected="true"/>
+<column dateType="D" dbComment="" dbDefaultValue="" dbName="CREATED" dbNotNull="true" dbPosition="8" dbSize="10" dbTypeName="DATE" inputType="date" javaName="created" javaType="java.util.Date" jdbcTypeCode="91" label="Created" notNull="true" selected="true"/>
+<link cardinality="ManyToMany" cascade="" fetch="DEFAULT" foreignKeyName="" id="LINK_JT_EVENTMANAGER.EVENT_PERSONN_PARTICIPANTS_O" inverseSideOf="" javaName="listOfPersonn2" javaType="java.util.List" joinTableName="EVENT_PERSONN_PARTICIPANTS" mappedBy="" optional="UNDEFINED" owningSide="true" sourceTableName="EVENT" targetEntity="Personn" targetTableName="PERSONN" used="true">
+<joinTable name="EVENT_PERSONN_PARTICIPANTS">
+<joinColumns>
+<joinColumn insertable="false" name="EVENT_ID" nullable="true" referencedColumnName="ID" unique="false" updatable="false"/>
+</joinColumns>
+<inverseJoinColumns>
+<joinColumn insertable="false" name="PERSONN_ID" nullable="true" referencedColumnName="ID" unique="false" updatable="false"/>
+</inverseJoinColumns>
+</joinTable>
+</link>
+<link cardinality="OneToMany" cascade="" fetch="DEFAULT" foreignKeyName="SLUG_EVENT_FK" id="LINK_FK_SLUG_EVENT_FK_I" inverseSideOf="LINK_FK_SLUG_EVENT_FK_O" javaName="listOfSlug" javaType="java.util.List" joinTableName="" mappedBy="event" optional="UNDEFINED" owningSide="false" sourceTableName="EVENT" targetEntity="Slug" targetTableName="SLUG" used="true"/>
+<link cardinality="OneToMany" cascade="" fetch="DEFAULT" foreignKeyName="PARTICIPANT_EVENT_FK" id="LINK_FK_PARTICIPANT_EVENT_FK_I" inverseSideOf="LINK_FK_PARTICIPANT_EVENT_FK_O" javaName="listOfParticipant" javaType="java.util.List" joinTableName="" mappedBy="event" optional="UNDEFINED" owningSide="false" sourceTableName="EVENT" targetEntity="Participant" targetTableName="PARTICIPANT" used="true"/>
+<link cardinality="ManyToMany" cascade="" fetch="DEFAULT" foreignKeyName="" id="LINK_JT_EVENTMANAGER.EVENT_PERSONN_OWNER_O" inverseSideOf="" javaName="listOfPersonn" javaType="java.util.List" joinTableName="EVENT_PERSONN_OWNER" mappedBy="" optional="UNDEFINED" owningSide="true" sourceTableName="EVENT" targetEntity="Personn" targetTableName="PERSONN" used="true">
+<joinTable name="EVENT_PERSONN_OWNER">
+<joinColumns>
+<joinColumn insertable="false" name="EVENT_ID" nullable="true" referencedColumnName="ID" unique="false" updatable="false"/>
+</joinColumns>
+<inverseJoinColumns>
+<joinColumn insertable="false" name="PERSONN_ID" nullable="true" referencedColumnName="ID" unique="false" updatable="false"/>
+</inverseJoinColumns>
+</joinTable>
+</link>
+</table>
+<table catalog="" databaseType="TABLE" javaBean="EventPersonnOwner" name="EVENT_PERSONN_OWNER" schema="EVENTMANAGER">
+<column dbComment="" dbDefaultValue="" dbForeignKey="true" dbName="EVENT_ID" dbNotNull="true" dbPosition="1" dbPrimaryKey="true" dbSize="16" dbTypeName="CHAR () FOR BIT DATA" inputType="" javaName="eventId" javaType="byte[]" jdbcTypeCode="-2" label="Event id" notNull="true" selected="true"/>
+<column dbComment="" dbDefaultValue="" dbForeignKey="true" dbName="PERSONN_ID" dbNotNull="true" dbPosition="2" dbPrimaryKey="true" dbSize="16" dbTypeName="CHAR () FOR BIT DATA" inputType="" javaName="personnId" javaType="byte[]" jdbcTypeCode="-2" label="Personn id" notNull="true" selected="true"/>
+<fk name="EVENT_PERSONN_OWNER_EVENT_FK">
+<fkcol colname="EVENT_ID" colref="ID" deferrable="7" deleterule="3" sequence="1" tablename="EVENT_PERSONN_OWNER" tableref="EVENT" updaterule="3"/>
+</fk>
+<fk name="EVENT_PERSONN_OWNER_PERSONN_FK">
+<fkcol colname="PERSONN_ID" colref="ID" deferrable="7" deleterule="3" sequence="1" tablename="EVENT_PERSONN_OWNER" tableref="PERSONN" updaterule="3"/>
+</fk>
+</table>
+<table catalog="" databaseType="TABLE" javaBean="EventPersonnParticipants" name="EVENT_PERSONN_PARTICIPANTS" schema="EVENTMANAGER">
+<column dbComment="" dbDefaultValue="" dbForeignKey="true" dbName="EVENT_ID" dbNotNull="true" dbPosition="1" dbPrimaryKey="true" dbSize="16" dbTypeName="CHAR () FOR BIT DATA" inputType="" javaName="eventId" javaType="byte[]" jdbcTypeCode="-2" label="Event id" notNull="true" selected="true"/>
+<column dbComment="" dbDefaultValue="" dbForeignKey="true" dbName="PERSONN_ID" dbNotNull="true" dbPosition="2" dbPrimaryKey="true" dbSize="16" dbTypeName="CHAR () FOR BIT DATA" inputType="" javaName="personnId" javaType="byte[]" jdbcTypeCode="-2" label="Personn id" notNull="true" selected="true"/>
+<fk name="EVENT_PERSONN_PARTICIPANTS_EVENT_FK">
+<fkcol colname="EVENT_ID" colref="ID" deferrable="7" deleterule="3" sequence="1" tablename="EVENT_PERSONN_PARTICIPANTS" tableref="EVENT" updaterule="3"/>
+</fk>
+<fk name="EVENT_PERSONN_PARTICIPANTS_PERSONN_FK">
+<fkcol colname="PERSONN_ID" colref="ID" deferrable="7" deleterule="3" sequence="1" tablename="EVENT_PERSONN_PARTICIPANTS" tableref="PERSONN" updaterule="3"/>
+</fk>
+</table>
+<table catalog="" databaseType="TABLE" javaBean="Participant" name="PARTICIPANT" schema="EVENTMANAGER">
+<column dbComment="" dbDefaultValue="" dbForeignKey="true" dbName="EVENT_ID" dbNotNull="true" dbPosition="1" dbPrimaryKey="true" dbSize="16" dbTypeName="CHAR () FOR BIT DATA" inputType="" javaName="eventId" javaType="byte[]" jdbcTypeCode="-2" label="Event id" notNull="true" selected="true"/>
+<column dbComment="" dbDefaultValue="" dbName="MAIL" dbNotNull="true" dbPosition="2" dbPrimaryKey="true" dbSize="255" dbTypeName="VARCHAR" inputType="text" javaName="mail" javaType="java.lang.String" jdbcTypeCode="12" label="Mail" maxLength="255" notEmpty="true" notNull="true" selected="true"/>
+<column dbComment="" dbDefaultValue="" dbName="FIRST_NAME" dbNotNull="false" dbPosition="3" dbSize="255" dbTypeName="VARCHAR" inputType="text" javaName="firstName" javaType="java.lang.String" jdbcTypeCode="12" label="First name" maxLength="255" notNull="false" selected="true"/>
+<column dbComment="" dbDefaultValue="" dbName="LAST_NAME" dbNotNull="false" dbPosition="4" dbSize="255" dbTypeName="VARCHAR" inputType="text" javaName="lastName" javaType="java.lang.String" jdbcTypeCode="12" label="Last name" maxLength="255" notNull="false" selected="true"/>
+<column dbComment="" dbDefaultValue="" dbName="COMPANY" dbNotNull="false" dbPosition="5" dbSize="255" dbTypeName="VARCHAR" inputType="text" javaName="company" javaType="java.lang.String" jdbcTypeCode="12" label="Company" maxLength="255" notNull="false" selected="true"/>
+<fk name="PARTICIPANT_EVENT_FK">
+<fkcol colname="EVENT_ID" colref="ID" deferrable="7" deleterule="3" sequence="1" tablename="PARTICIPANT" tableref="EVENT" updaterule="3"/>
+</fk>
+<link cardinality="ManyToOne" cascade="" fetch="DEFAULT" foreignKeyName="PARTICIPANT_EVENT_FK" id="LINK_FK_PARTICIPANT_EVENT_FK_O" inverseSideOf="" javaName="event" javaType="Event" joinTableName="" mappedBy="" optional="UNDEFINED" owningSide="true" sourceTableName="PARTICIPANT" targetEntity="Event" targetTableName="EVENT" used="true">
+<joinColumns>
+<joinColumn insertable="false" name="EVENT_ID" nullable="true" referencedColumnName="ID" unique="false" updatable="false"/>
+</joinColumns>
+</link>
+</table>
+<table catalog="" databaseType="TABLE" javaBean="Personn" name="PERSONN" schema="EVENTMANAGER">
+<column dbComment="" dbDefaultValue="" dbName="ID" dbNotNull="true" dbPosition="1" dbPrimaryKey="true" dbSize="16" dbTypeName="CHAR () FOR BIT DATA" inputType="" javaName="id" javaType="byte[]" jdbcTypeCode="-2" label="Id" notNull="true" selected="true"/>
+<column dbComment="" dbDefaultValue="" dbName="MAIL" dbNotNull="true" dbPosition="2" dbSize="255" dbTypeName="VARCHAR" inputType="text" javaName="mail" javaType="java.lang.String" jdbcTypeCode="12" label="Mail" maxLength="255" notEmpty="true" notNull="true" selected="true"/>
+<column dbComment="" dbDefaultValue="" dbName="PASSWORD" dbNotNull="true" dbPosition="3" dbSize="255" dbTypeName="VARCHAR" inputType="text" javaName="password" javaType="java.lang.String" jdbcTypeCode="12" label="Password" maxLength="255" notEmpty="true" notNull="true" selected="true"/>
+<column dbComment="" dbDefaultValue="" dbName="FIRST_NAME" dbNotNull="false" dbPosition="4" dbSize="255" dbTypeName="VARCHAR" inputType="text" javaName="firstName" javaType="java.lang.String" jdbcTypeCode="12" label="First name" maxLength="255" notNull="false" selected="true"/>
+<column dbComment="" dbDefaultValue="" dbName="LAST_NAME" dbNotNull="false" dbPosition="5" dbSize="255" dbTypeName="VARCHAR" inputType="text" javaName="lastName" javaType="java.lang.String" jdbcTypeCode="12" label="Last name" maxLength="255" notNull="false" selected="true"/>
+<column dbComment="" dbDefaultValue="" dbName="COMPANY" dbNotNull="false" dbPosition="6" dbSize="255" dbTypeName="VARCHAR" inputType="text" javaName="company" javaType="java.lang.String" jdbcTypeCode="12" label="Company" maxLength="255" notNull="false" selected="true"/>
+<column dateType="D" dbComment="" dbDefaultValue="" dbName="UPDATED" dbNotNull="true" dbPosition="7" dbSize="10" dbTypeName="DATE" inputType="date" javaName="updated" javaType="java.util.Date" jdbcTypeCode="91" label="Updated" notNull="true" selected="true"/>
+<column dateType="D" dbComment="" dbDefaultValue="" dbName="CREATED" dbNotNull="true" dbPosition="8" dbSize="10" dbTypeName="DATE" inputType="date" javaName="created" javaType="java.util.Date" jdbcTypeCode="91" label="Created" notNull="true" selected="true"/>
+<link cardinality="ManyToMany" cascade="" fetch="DEFAULT" foreignKeyName="" id="LINK_JT_EVENTMANAGER.EVENT_PERSONN_OWNER_I" inverseSideOf="LINK_JT_EVENTMANAGER.EVENT_PERSONN_OWNER_O" javaName="listOfEvent" javaType="java.util.List" joinTableName="EVENT_PERSONN_OWNER" mappedBy="listOfPersonn" optional="UNDEFINED" owningSide="false" sourceTableName="PERSONN" targetEntity="Event" targetTableName="EVENT" used="true"/>
+<link cardinality="ManyToMany" cascade="" fetch="DEFAULT" foreignKeyName="" id="LINK_JT_EVENTMANAGER.EVENT_PERSONN_PARTICIPANTS_I" inverseSideOf="LINK_JT_EVENTMANAGER.EVENT_PERSONN_PARTICIPANTS_O" javaName="listOfEvent2" javaType="java.util.List" joinTableName="EVENT_PERSONN_PARTICIPANTS" mappedBy="listOfPersonn2" optional="UNDEFINED" owningSide="false" sourceTableName="PERSONN" targetEntity="Event" targetTableName="EVENT" used="true"/>
+</table>
+<table catalog="" databaseType="TABLE" javaBean="Slug" name="SLUG" schema="EVENTMANAGER">
+<column dbComment="" dbDefaultValue="" dbForeignKey="true" dbName="EVENT_ID" dbNotNull="true" dbPosition="1" dbPrimaryKey="true" dbSize="16" dbTypeName="CHAR () FOR BIT DATA" inputType="" javaName="eventId" javaType="byte[]" jdbcTypeCode="-2" label="Event id" notNull="true" selected="true"/>
+<column dbComment="" dbDefaultValue="" dbName="SLUG" dbNotNull="true" dbPosition="2" dbPrimaryKey="true" dbSize="255" dbTypeName="VARCHAR" inputType="text" javaName="slug" javaType="java.lang.String" jdbcTypeCode="12" label="Slug" maxLength="255" notEmpty="true" notNull="true" selected="true"/>
+<fk name="SLUG_EVENT_FK">
+<fkcol colname="EVENT_ID" colref="ID" deferrable="7" deleterule="3" sequence="1" tablename="SLUG" tableref="EVENT" updaterule="3"/>
+</fk>
+<link cardinality="ManyToOne" cascade="" fetch="DEFAULT" foreignKeyName="SLUG_EVENT_FK" id="LINK_FK_SLUG_EVENT_FK_O" inverseSideOf="" javaName="event" javaType="Event" joinTableName="" mappedBy="" optional="UNDEFINED" owningSide="true" sourceTableName="SLUG" targetEntity="Event" targetTableName="EVENT" used="true">
+<joinColumns>
+<joinColumn insertable="false" name="EVENT_ID" nullable="true" referencedColumnName="ID" unique="false" updatable="false"/>
+</joinColumns>
+</link>
+</table>
+</tableList>
+</root>

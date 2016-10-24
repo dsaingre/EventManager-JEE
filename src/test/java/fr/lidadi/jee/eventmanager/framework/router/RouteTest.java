@@ -88,6 +88,21 @@ public class RouteTest extends Mockito {
     }
 
     @Test
+    public void givenPathMatchesConfig3() throws Exception {
+        GlobalEndPoint globalEndPoint = new GlobalEndPoint();
+
+        List<Route> config = new LinkedList<>();
+        config.add(new Route(GET, "/events", "fr.lidadi.jee.eventmanager.app.event.Events.fetchAll()"));
+        config.add(new Route(POST, "/events", "fr.lidadi.jee.eventmanager.app.event.Events.add()"));
+        config.add(new Route(PUT, "/events", "fr.lidadi.jee.eventmanager.app.event.Events.update()"));
+
+        List<AbstractMap.SimpleEntry<Route, Map<String, Object>>> matches = globalEndPoint.matches(GET, "/events", config);
+
+        System.out.println("matches : " + matches);
+        assertTrue(matches.size() == 1);
+    }
+
+    @Test
     public void givenPathMatches_zeroParam1() throws Exception {
         Route route = new Route(HttpMethod.GET, "/tests", "com.ladadi.Test.findAll()");
         Optional<Map<String, Object>> stringObjectMap = route.givenPathMatchesUrlPattern("/tests", HttpMethod.GET);
