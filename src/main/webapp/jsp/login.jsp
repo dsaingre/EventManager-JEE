@@ -20,7 +20,7 @@
 
         <div class="container">
             <div class="row">
-                <form class="col s6 push-s3">
+                <form class="col s6 push-s3" method="Post" action="loginAction">
                     <div class="row">
                         <h3 class="center-align">
                             Identification
