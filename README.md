@@ -48,3 +48,29 @@ public class EventServlet implements HttpErrorResponse {
     }
 }
 ```
+
+## Flash
+Flash messages are :
+    - set in a controller 
+    - test if the key is defined
+    - display in view **only once** (the message is deleted after)
+    
+For the moment this is implemented using http sessions.    
+
+### Set a message
+Associate message "Wrong credentials" to key "error" : 
+```java
+private Flashing flashing = new Flashing();
+// ...
+flashing.flashing(req.getSession(), "error", "Wrong credentials");
+```
+
+
+### Test if a key is defined & display a message
+Get the message associated to key "error" : 
+```java
+<c:if test="${app:flashExist(sessionScope, \"error\")}">
+    <div class="alert alert-error">${app:consumeFlash(sessionScope, "error")}</div>
+</c:if>
+```
+
