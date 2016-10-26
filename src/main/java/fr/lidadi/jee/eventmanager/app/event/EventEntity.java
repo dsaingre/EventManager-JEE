@@ -8,7 +8,7 @@ package fr.lidadi.jee.eventmanager.app.event;
 
 import fr.lidadi.jee.eventmanager.dao.Entity;
 import fr.lidadi.jee.eventmanager.app.participant.ParticipantEntity;
-import fr.lidadi.jee.eventmanager.app.person.PersonnEntity;
+import fr.lidadi.jee.eventmanager.app.person.Person;
 import fr.lidadi.jee.eventmanager.app.slug.SlugEntity;
 
 //import javax.validation.constraints.* ;
@@ -29,10 +29,6 @@ import javax.persistence.*;
 
 
 @javax.persistence.Entity(name = "event")
-// Define named queries here
-@NamedQueries ( {
-  @NamedQuery ( name="EventEntity.findAll", query="SELECT EE FROM event AS EE" )
-} )
 public class EventEntity implements Entity {
 
 
@@ -78,13 +74,13 @@ public class EventEntity implements Entity {
     //----------------------------------------------------------------------
     // ENTITY LINKS ( RELATIONSHIP )
     //----------------------------------------------------------------------
-    @ManyToMany(targetEntity=PersonnEntity.class)
+    @ManyToMany(targetEntity=Person.class)
     @JoinTable(name="EVENT_PERSONN_PARTICIPANTS",
       joinColumns=@JoinColumn(name="EVENT_ID", referencedColumnName="ID"),
       inverseJoinColumns=@JoinColumn(name="PERSONN_ID", referencedColumnName="ID")
      )
 
-    private List<PersonnEntity> listOfPersonn2;
+    private List<Person> listOfPersonn2;
 
     @OneToMany(mappedBy="event", targetEntity=SlugEntity.class)
     private List<SlugEntity> listOfSlug  ;
@@ -92,13 +88,13 @@ public class EventEntity implements Entity {
     @OneToMany(mappedBy="event", targetEntity=ParticipantEntity.class)
     private List<ParticipantEntity> listOfParticipant;
 
-    @ManyToMany(targetEntity=PersonnEntity.class)
+    @ManyToMany(targetEntity=Person.class)
     @JoinTable(name="EVENT_PERSONN_OWNER",
       joinColumns=@JoinColumn(name="EVENT_ID", referencedColumnName="ID"),
       inverseJoinColumns=@JoinColumn(name="PERSONN_ID", referencedColumnName="ID")
      )
 
-    private List<PersonnEntity> listOfPersonn;
+    private List<Person> listOfPersonn;
 
 
     //----------------------------------------------------------------------
@@ -108,7 +104,7 @@ public class EventEntity implements Entity {
 		super();
     }
 
-    public EventEntity(UUID id, String name, Date startDate, Date endDate, Date publishingDate, String location, Date updated, Date created, List<PersonnEntity> listOfPersonn2, List<SlugEntity> listOfSlug, List<ParticipantEntity> listOfParticipant, List<PersonnEntity> listOfPersonn) {
+    public EventEntity(UUID id, String name, Date startDate, Date endDate, Date publishingDate, String location, Date updated, Date created, List<Person> listOfPersonn2, List<SlugEntity> listOfSlug, List<ParticipantEntity> listOfParticipant, List<Person> listOfPersonn) {
         this.id = id;
         this.name = name;
         this.startDate = startDate;
@@ -196,10 +192,10 @@ public class EventEntity implements Entity {
     //----------------------------------------------------------------------
     // GETTERS & SETTERS FOR LINKS
     //----------------------------------------------------------------------
-    public void setListOfPersonn2( List<PersonnEntity> listOfPersonn2 ) {
+    public void setListOfPersonn2( List<Person> listOfPersonn2 ) {
         this.listOfPersonn2 = listOfPersonn2;
     }
-    public List<PersonnEntity> getListOfPersonn2() {
+    public List<Person> getListOfPersonn2() {
         return this.listOfPersonn2;
     }
 
@@ -217,10 +213,10 @@ public class EventEntity implements Entity {
         return this.listOfParticipant;
     }
 
-    public void setListOfPersonn( List<PersonnEntity> listOfPersonn ) {
+    public void setListOfPersonn( List<Person> listOfPersonn ) {
         this.listOfPersonn = listOfPersonn;
     }
-    public List<PersonnEntity> getListOfPersonn() {
+    public List<Person> getListOfPersonn() {
         return this.listOfPersonn;
     }
 

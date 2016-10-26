@@ -1,10 +1,12 @@
 package fr.lidadi.jee.eventmanager.dao;
 
 
-import javax.persistence.EntityExistsException;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import fr.lidadi.jee.eventmanager.app.person.Person;
+
+import javax.persistence.*;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 import java.util.Optional;
@@ -14,9 +16,8 @@ import java.util.Optional;
  */
 public abstract class Dao<T extends Entity, PK> {
 
-    private EntityManagerFactory emf = Persistence.createEntityManagerFactory("eventmanager");
-
-    protected EntityManager em = emf.createEntityManager();
+    protected EntityManager em = EntityManagerProvider.getInstance().getEntityManager();
+    protected CriteriaBuilder criteriaBuilder = EntityManagerProvider.getInstance().getCriteriaBuilder();
 
     private Class<T> getGenericName()
     {
@@ -27,8 +28,11 @@ public abstract class Dao<T extends Entity, PK> {
     private Class<T> tClass = getGenericName();
 
     public List<T> getAll(){
-        System.out.println(tClass.getSimpleName() + ".findAll");
-        return em.createNamedQuery(tClass.getSimpleName() + ".findAll").getResultList();
+        CriteriaQuery<T> query = criteriaBuilder.createQuery(tClass);
+        Root<T> from = query.from(tClass);
+
+        query.select(from);
+        return em.createQuery(query).getResultList();
     }
 
 

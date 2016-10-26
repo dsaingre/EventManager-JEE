@@ -1,6 +1,6 @@
 package fr.lidadi.jee.eventmanager.app.event;
 
-import fr.lidadi.jee.eventmanager.app.person.PersonnEntity;
+import fr.lidadi.jee.eventmanager.app.person.Person;
 
 import java.util.*;
 
@@ -21,7 +21,7 @@ public class EventService {
                 "Nantes",
                 new Date(),
                 new Date(),
-                new LinkedList<PersonnEntity>(),
+                new LinkedList<Person>(),
                 new LinkedList<>(),
                 new LinkedList<>(),
                 new LinkedList<>()
@@ -35,7 +35,7 @@ public class EventService {
                 "Paris",
                 new Date(),
                 new Date(),
-                new LinkedList<PersonnEntity>(),
+                new LinkedList<Person>(),
                 new LinkedList<>(),
                 new LinkedList<>(),
                 new LinkedList<>()
@@ -43,6 +43,10 @@ public class EventService {
     }
 
     public List<EventEntity> fetchAll() {
+        return eventEntities;
+    }
+
+    public List<EventEntity> fetchAllByOwner(UUID owner) {
         return eventEntities;
     }
 

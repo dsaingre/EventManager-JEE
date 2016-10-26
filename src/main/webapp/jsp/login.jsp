@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="app" uri="/WEB-INF/app.tld"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,8 +20,11 @@
     <main>
 
         <div class="container">
+
+
+
             <div class="row">
-                <form class="col s6 push-s3" method="Post" action="loginAction">
+                <form class="col s6 push-s3" method="POST" action="<app:uri src="/authentication"/>">
                     <div class="row">
                         <h3 class="center-align">
                             Identification
@@ -32,14 +36,14 @@
                     <div class="row">
                         <div class="input-field col s12">
                             <i class="material-icons prefix">perm_identity</i>
-                            <input id="email" type="email" class="validate">
+                            <input id="email" name="email" type="email" class="validate">
                             <label for="email" data-error="Veuillez entrer une adresse mail valide">Email (exemple : john.doe@exemple.com)</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s12">
                             <i class="material-icons prefix">vpn_key</i>
-                            <input id="password" type="password">
+                            <input id="password" name="password" type="password">
                             <label for="password">Mot de passe</label>
                         </div>
                     </div>

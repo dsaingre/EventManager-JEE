@@ -27,10 +27,6 @@ import javax.persistence.Entity;
  */
 
 @Entity(name="participant")
-// Define named queries here
-@NamedQueries ( {
-  @NamedQuery ( name="ParticipantEntity.findAll", query="SELECT x FROM participant x" )
-} )
 public class ParticipantEntity implements fr.lidadi.jee.eventmanager.dao.Entity {
 
 

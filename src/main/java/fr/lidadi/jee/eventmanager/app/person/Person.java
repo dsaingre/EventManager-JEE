@@ -26,18 +26,18 @@ import java.util.UUID;
  *
  */
 
-@javax.persistence.Entity(name="personn")
+@javax.persistence.Entity
+@Table(name="person")
 // Define named queries here
-@NamedQueries ( {
-  @NamedQuery ( name="PersonnEntity.findAll", query="SELECT x FROM personn x" )
-} )
-public class PersonnEntity implements Entity {
+//@NamedQueries ( {
+//  @NamedQuery ( name="Person.findAll", query="SELECT x FROM personn x" )
+//} )
+public class Person implements Entity {
 
     //----------------------------------------------------------------------
     // ENTITY PRIMARY KEY ( BASED ON A SINGLE FIELD )
     //----------------------------------------------------------------------
     @Id
-    @Lob
     @Column(name="ID", nullable=false)
     private UUID id;
 
@@ -45,8 +45,8 @@ public class PersonnEntity implements Entity {
     //----------------------------------------------------------------------
     // ENTITY DATA FIELDS
     //----------------------------------------------------------------------
-    @Column(name="MAIL", nullable=false, length=255)
-    private String     mail         ;
+    @Column(name="EMAIL", nullable=false, length=255)
+    private String     email        ;
 
     @Column(name="PASSWORD", nullable=false, length=255)
     private String     password     ;
@@ -83,8 +83,21 @@ public class PersonnEntity implements Entity {
     //----------------------------------------------------------------------
     // CONSTRUCTOR(S)
     //----------------------------------------------------------------------
-    public PersonnEntity() {
+    public Person() {
 		super();
+    }
+
+    public Person(UUID id, String email, String password, String firstName, String lastName, String company, Date updated, Date created, List<EventEntity> listOfEvent, List<EventEntity> listOfEvent2) {
+        this.id = id;
+        this.email = email;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.company = company;
+        this.updated = updated;
+        this.created = created;
+        this.listOfEvent = listOfEvent;
+        this.listOfEvent2 = listOfEvent2;
     }
 
     //----------------------------------------------------------------------
@@ -101,11 +114,11 @@ public class PersonnEntity implements Entity {
     // GETTERS & SETTERS FOR FIELDS
     //----------------------------------------------------------------------
     //--- DATABASE MAPPING : MAIL ( VARCHAR )
-    public void setMail( String mail ) {
-        this.mail = mail;
+    public void setEmail( String email ) {
+        this.email = email;
     }
-    public String getMail() {
-        return this.mail;
+    public String getEmail() {
+        return this.email;
     }
 
     //--- DATABASE MAPPING : PASSWORD ( VARCHAR )
@@ -183,7 +196,7 @@ public class PersonnEntity implements Entity {
         sb.append("[");
         // attribute 'id' not usable (type = byte[])
         sb.append("]:");
-        sb.append(mail);
+        sb.append(email);
         sb.append("|");
         sb.append(password);
         sb.append("|");
@@ -202,5 +215,9 @@ public class PersonnEntity implements Entity {
     @Override
     public UUID getPrimaryKey() {
         return this.getId();
+    }
+
+    public static String getTableName() {
+        return "person";
     }
 }

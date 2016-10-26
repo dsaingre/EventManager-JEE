@@ -28,9 +28,9 @@ import javax.persistence.*;
 
 @javax.persistence.Entity(name="slug")
 // Define named queries here
-@NamedQueries ( {
-  @NamedQuery ( name="SlugEntity.findAll", query="SELECT x FROM slug x" )
-} )
+//@NamedQueries ( {
+//  @NamedQuery ( name="SlugEntity.findAll", query="SELECT x FROM slug x" )
+//} )
 public class SlugEntity implements Entity {
 
     private static final long serialVersionUID = 1L;
