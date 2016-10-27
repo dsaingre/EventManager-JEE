@@ -9,7 +9,7 @@
         <ul id="nav-mobile" class="right hide-on-med-and-down">
             <li><a href="<app:uri src="/events"/>">Parcourir les évènements</a></li>
             <li><a href="<app:uri src="/myevents"/>">Les évènements que j'ai créé</a></li>
-            <li><a href="<app:uri src="/addevent"/>">Ajouter un évènement ${sessionScope.containsKey("user")}</a></li>
+            <li><a href="<app:uri src="/addevent"/>">Ajouter un évènement</a></li>
             <c:if test="${! sessionScope.containsKey(\"user\")}">
                 <li class="${isLoginPage}"><a href="<app:uri src="/login"/>">S'identifier</a></li>
                 <li class="${isSignupPage}"><a href="<app:uri src="/signup"/>">Créer un compte</a></li>
@@ -24,11 +24,12 @@
 
 <div class="hspace-50"></div>
 
+<div class="container">
+    <c:if test="${app:flashExist(sessionScope, \"error\")}">
+        <div class="alert alert-error">${app:consumeFlash(sessionScope, "error")}</div>
+    </c:if>
 
-<c:if test="${app:flashExist(sessionScope, \"error\")}">
-    <div class="alert alert-error">${app:consumeFlash(sessionScope, "error")}</div>
-</c:if>
-
-<c:if test="${app:flashExist(sessionScope, \"info\")}">
-    <div class="alert alert-info">${app:consumeFlash(sessionScope, "info")}</div>
-</c:if>
+    <c:if test="${app:flashExist(sessionScope, \"info\")}">
+        <div class="alert alert-info">${app:consumeFlash(sessionScope, "info")}</div>
+    </c:if>
+</div>
