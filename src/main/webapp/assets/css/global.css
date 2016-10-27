@@ -29,3 +29,18 @@ body {
 main {
     flex: 1 0 auto;
 }
+
+
+
+
+/*   ALERTS   */
+.alert{
+    padding: 20px;
+    margin: 10px;
+    border-radius: 0 0 2px 2px;
+}
+
+.alert-error{
+    color: white;
+    background-color: #F44336;
+}

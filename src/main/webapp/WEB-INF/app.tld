@@ -10,4 +10,15 @@
             <name>src</name>
         </attribute>
     </tag>
+
+    <function>
+        <name>consumeFlash</name>
+        <function-class>fr.lidadi.jee.eventmanager.framework.Flashing</function-class>
+        <function-signature>java.lang.String consumeFlash(java.util.Map, java.lang.String)</function-signature>
+    </function>
+    <function>
+        <name>flashExist</name>
+        <function-class>fr.lidadi.jee.eventmanager.framework.Flashing</function-class>
+        <function-signature>boolean flashExist(java.util.Map, java.lang.String)</function-signature>
+    </function>
 </taglib>

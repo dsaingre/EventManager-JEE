@@ -28,10 +28,6 @@ import javax.persistence.Entity;
  */
 
 @Entity(name="eventpersonnparticipants")
-// Define named queries here
-@NamedQueries ( {
-  @NamedQuery ( name="EventPersonnParticipantsEntity.findAll", query="SELECT x FROM eventpersonnparticipants x" )
-} )
 public class EventPersonnParticipantsEntity implements fr.lidadi.jee.eventmanager.dao.Entity {
 
     //----------------------------------------------------------------------

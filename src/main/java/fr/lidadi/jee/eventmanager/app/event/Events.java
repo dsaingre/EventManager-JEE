@@ -1,6 +1,7 @@
 package fr.lidadi.jee.eventmanager.app.event;
 
 import java.io.IOException;
+import java.util.Enumeration;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import fr.lidadi.jee.eventmanager.framework.HttpErrorResponse;
+import fr.lidadi.jee.eventmanager.framework.router.http.SecuredRequest;
 
 /**
  * Created by damien on 08/10/2016.
@@ -56,5 +58,13 @@ public class Events implements HttpErrorResponse {
     public void addView(HttpServlet servlet, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         okJsp(servlet, req, resp, "/event/addView.jsp");
     }
+
+
+
+    public void myEvents(HttpServlet servlet, SecuredRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setAttribute("events", this.eventService.fetchAllByOwner(req.getUser().getId()));
+        okJsp(servlet, req, resp, "/event/myEvents.jsp");
+    }
+
 
 }

@@ -13,8 +13,10 @@ public class Router implements HttpRouter {
         return config
                 .get("/login")
                     .to("fr.lidadi.jee.eventmanager.app.person.Persons.login()")
-                .post("/loginAction")
-                	.to("fr.lidadi.jee.eventmanager.app.person.Persons.loginAction()")
+                .get("/logout")
+                    .to("fr.lidadi.jee.eventmanager.app.person.Persons.logout()")
+                .post("/authentication")
+                    .to("fr.lidadi.jee.eventmanager.app.person.Persons.authentication()")
                 .get("/signup")
                     .to("fr.lidadi.jee.eventmanager.app.person.Persons.signup()")
                 .post("/signupAction")
@@ -35,6 +37,8 @@ public class Router implements HttpRouter {
                 .put("/events")
                     .to("fr.lidadi.jee.eventmanager.app.event.Events.update()")
                 .delete("/events/{id}")
-                    .to("fr.lidadi.jee.eventmanager.app.event.Events.delete(UUID id)");
+                    .to("fr.lidadi.jee.eventmanager.app.event.Events.delete(UUID id)")
+                .get("/myevents")
+                    .to("fr.lidadi.jee.eventmanager.app.event.Events.myEvents()");
     }
 }

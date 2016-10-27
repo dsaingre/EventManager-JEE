@@ -26,10 +26,6 @@ import java.util.UUID;
 
 
 @javax.persistence.Entity(name="eventpersonnowner")
-// Define named queries here
-@NamedQueries( {
-  @NamedQuery ( name="EventPersonnOwnerEntity.findAll", query="SELECT x FROM eventpersonnowner x" )
-} )
 public class EventPersonnOwnerEntity implements Entity {
 
 
