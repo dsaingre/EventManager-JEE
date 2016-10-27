@@ -17,6 +17,8 @@ public class Router implements HttpRouter {
                 	.to("fr.lidadi.jee.eventmanager.app.person.Persons.loginAction()")
                 .get("/signup")
                     .to("fr.lidadi.jee.eventmanager.app.person.Persons.signup()")
+                .post("/signupAction")
+                	.to("fr.lidadi.jee.eventmanager.app.person.Persons.signupAction()")
                 .get("/help")
                     .to("fr.lidadi.jee.eventmanager.app.person.Persons.help()")
 

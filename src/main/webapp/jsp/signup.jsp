@@ -24,7 +24,7 @@
 	<div class="container">
 		<div class="row">
 
-			<form class="col s6 push-s3">
+			<form class="col s6 push-s3" method="Post" action="signupAction">
 				<div class="row">
 					<h3 class="center-align">Inscription</h3>
 					<h6 class="center-align">Veuillez saisir votre adresse email
@@ -33,7 +33,7 @@
 				<div class="row">
 					<div class="input-field col s12">
 						<i class="material-icons prefix">perm_identity</i> <input
-							id="email" type="email" class="validate"> <label
+							id="email" type="email" name="email" class="validate"> <label
 							for="email" data-error="Veuillez entrer une adresse mail valide">Email
 							(exemple : john.doe@exemple.com)</label>
 					</div>
@@ -41,21 +41,22 @@
 				<div class="row">
 					<div class="input-field col s12">
 						<i class="material-icons prefix">vpn_key</i> <input id="password"
-							type="password"> <label for="password">Mot de
-							passe</label>
+							type="password" name="password"> <label for="password">Mot
+							de passe</label>
 					</div>
 				</div>
 				<div class="row">
 					<div class="input-field col s12">
 						<i class="material-icons prefix">vpn_key</i> <input
-							id="password_conf" type="password"> <label for="password_conf" data-error="Password not match" data-success="Password Match">Confirmez
-							le mot de passe</label>
+							id="password_conf" type="password" name="password_conf">
+						<label for="password_conf" data-error="Password not match"
+							data-success="Password Match">Confirmez le mot de passe</label>
 					</div>
 				</div>
 				<div class="row">
 					<div class="center">
-						<button class="btn waves-effect waves-light "
-							type="submit" name="action" id="connect">
+						<button class="btn waves-effect waves-light " type="submit"
+							name="action" id="connect">
 							S'inscrire <i class="material-icons right">send</i>
 						</button>
 					</div>

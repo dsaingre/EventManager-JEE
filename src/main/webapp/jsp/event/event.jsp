@@ -21,9 +21,20 @@
 <main>
 
     <div class="container">
-        <a href="<app:uri src="/events"/>">← Retour à la page des évènements</a>
+        <a href="<app:uri src="/events"/>">← Retour à la page des événements</a>
 
-        <p>${event}</p>
+        <h3>${event.name}</h3>
+        <p>${event.location}</p>
+        <p>${event.startDate}</p>
+        <p>${event.endDate}</p>
+        <p>${event.publishingDate}</p>
+        <p>${event.startDate}</p>
+        <p>${event.updated}</p>
+        <p>${event.created}</p>
+        <p>${event.listOfPersonn}</p>
+        <p>${event.listOfPersonn2}</p>
+        <p>${event.listOfParticipant}</p>
+        <p>${event.listOfSlug}</p>
 
         <p><a href="">S'y inscrire</a></p>
     </div>

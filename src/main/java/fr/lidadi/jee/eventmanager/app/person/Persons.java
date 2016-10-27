@@ -24,7 +24,15 @@ public class Persons implements HttpErrorResponse {
 		System.out.println("NUMBER OF PARAMETERS :" + req.getParameterMap().size());
 		System.out.println(req.getQueryString());
 //		System.out.println(req.get);
-		okJsp(servlet, req, resp, "/login.jsp");
+		okJsp(servlet, req, resp, "/welcome.jsp");
+	}
+
+	public void signupAction(HttpServlet servlet, HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		System.out.println("NUMBER OF PARAMETERS :" + req.getParameterMap().size());
+		System.out.println(req.getParameter("email"));
+//		System.out.println(req.get);
+		okJsp(servlet, req, resp, "/welcome.jsp");
 	}
 
 	public void signup(HttpServlet servlet, HttpServletRequest req, HttpServletResponse resp)
