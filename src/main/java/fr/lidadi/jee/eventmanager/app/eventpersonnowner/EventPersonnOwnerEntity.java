@@ -7,11 +7,10 @@
 
 package fr.lidadi.jee.eventmanager.app.eventpersonnowner;
 
-import fr.lidadi.jee.eventmanager.dao.Entity;
+import fr.lidadi.jee.eventmanager.framework.dao.Entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Arrays;
 import java.util.UUID;
 
 

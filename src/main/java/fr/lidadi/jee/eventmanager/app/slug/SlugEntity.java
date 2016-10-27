@@ -8,7 +8,7 @@
 package fr.lidadi.jee.eventmanager.app.slug;
 
 import fr.lidadi.jee.eventmanager.app.event.EventEntity;
-import fr.lidadi.jee.eventmanager.dao.Entity;
+import fr.lidadi.jee.eventmanager.framework.dao.Entity;
 
 import java.io.Serializable;
 import java.util.UUID;

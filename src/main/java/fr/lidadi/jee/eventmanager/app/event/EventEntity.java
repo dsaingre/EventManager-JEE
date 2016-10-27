@@ -6,7 +6,7 @@
 
 package fr.lidadi.jee.eventmanager.app.event;
 
-import fr.lidadi.jee.eventmanager.dao.Entity;
+import fr.lidadi.jee.eventmanager.framework.dao.Entity;
 import fr.lidadi.jee.eventmanager.app.participant.ParticipantEntity;
 import fr.lidadi.jee.eventmanager.app.person.Person;
 import fr.lidadi.jee.eventmanager.app.slug.SlugEntity;

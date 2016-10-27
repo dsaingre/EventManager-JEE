@@ -1,7 +1,6 @@
 package fr.lidadi.jee.eventmanager.app.event;
 
-import fr.lidadi.jee.eventmanager.app.event.EventEntity;
-import fr.lidadi.jee.eventmanager.dao.Dao;
+import fr.lidadi.jee.eventmanager.framework.dao.Dao;
 
 import java.util.UUID;
 

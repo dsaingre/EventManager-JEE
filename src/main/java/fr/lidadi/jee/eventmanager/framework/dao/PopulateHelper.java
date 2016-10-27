@@ -1,4 +1,4 @@
-package fr.lidadi.jee.eventmanager.dao;
+package fr.lidadi.jee.eventmanager.framework.dao;
 
 import fr.lidadi.jee.eventmanager.app.event.EventEntity;
 import fr.lidadi.jee.eventmanager.app.person.Person;

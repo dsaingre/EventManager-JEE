@@ -7,7 +7,7 @@
 package fr.lidadi.jee.eventmanager.app.person;
 
 import fr.lidadi.jee.eventmanager.app.event.EventEntity;
-import fr.lidadi.jee.eventmanager.dao.Entity;
+import fr.lidadi.jee.eventmanager.framework.dao.Entity;
 
 import javax.persistence.*;
 

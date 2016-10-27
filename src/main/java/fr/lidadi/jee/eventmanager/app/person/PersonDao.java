@@ -1,6 +1,6 @@
 package fr.lidadi.jee.eventmanager.app.person;
 
-import fr.lidadi.jee.eventmanager.dao.Dao;
+import fr.lidadi.jee.eventmanager.framework.dao.Dao;
 
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;

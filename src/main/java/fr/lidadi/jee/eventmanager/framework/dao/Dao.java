@@ -1,7 +1,9 @@
-package fr.lidadi.jee.eventmanager.dao;
+package fr.lidadi.jee.eventmanager.framework.dao;
 
 
 import fr.lidadi.jee.eventmanager.app.person.Person;
+import fr.lidadi.jee.eventmanager.framework.dao.sqldsl.SQLRequestFactory;
+import fr.lidadi.jee.eventmanager.framework.dao.sqldsl.clause.SQLClauses;
 
 import javax.persistence.*;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -10,6 +12,10 @@ import javax.persistence.criteria.Root;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 import java.util.Optional;
+
+import static fr.lidadi.jee.eventmanager.framework.dao.sqldsl.SQLRequestFactory.and;
+import static fr.lidadi.jee.eventmanager.framework.dao.sqldsl.SQLRequestFactory.equal;
+import static fr.lidadi.jee.eventmanager.framework.dao.sqldsl.SQLRequestFactory.where;
 
 /**
  * Created by damien on 12/10/2016.
@@ -40,6 +46,16 @@ public abstract class Dao<T extends Entity, PK> {
         return Optional.ofNullable(em.find(tClass, code));
     }
 
+    public List<T> findBy(SQLClauses sqlClauses){
+
+        CriteriaQuery<T> query = criteriaBuilder.createQuery(tClass);
+
+        Root<T> from = query.from(tClass);
+
+        sqlClauses.visit(query, criteriaBuilder, from);
+
+        return em.createQuery(query).getResultList();
+    }
 
     public Optional<T> add(T eventEntity){
         em.getTransaction().begin();
