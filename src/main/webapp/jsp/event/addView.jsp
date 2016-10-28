@@ -10,6 +10,7 @@
     <!-- icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="<app:uri src="/assets/css/global.css"/>" rel="stylesheet">
+    <link href="<app:uri src="/assets/css/materialize.clockpicker.css"/>" rel="stylesheet">
     <!-- Compiled and minified Materialize JavaScript -->
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Dino Planner - Login</title>
@@ -21,13 +22,13 @@
 <main>
 
     <div class="container">
-        <h3>Ajouter un évènement</h3>
+        <h3>Créer un événement</h3>
 
         <form action="">
             <div class="row">
                 <div class="input-field col s12">
                     <input id="name" type="text" class="validate">
-                    <label for="name">Name</label>
+                    <label for="name">Intitulé</label>
                 </div>
             </div>
             <div class="row">
@@ -42,8 +43,8 @@
                     <label for="start_date">Date de début</label>
                 </div>
                 <div class="input-field col s6">
-                    <input id="start_time" type="text" class="validate">
                     <label for="start_time">Heure de début</label>
+                    <input id="start_time" type="time" class="validate timepicker">
                 </div>
             </div>
             <div class="row">
@@ -52,8 +53,8 @@
                     <label for="end_date">Date de fin</label>
                 </div>
                 <div class="input-field col s6">
-                    <input id="end_time" type="text" class="validate">
                     <label for="end_time">Heure de fin</label>
+                    <input id="end_time" type="time" class="validate timepicker">
                 </div>
             </div>
             <div class="row">
@@ -74,13 +75,8 @@
 
 <script type="text/javascript" src="<app:uri src="/assets/js/lib/jquery-2.1.1.min.js"/>"></script>
 <script type="text/javascript" src="<app:uri src="/assets/js/lib/materialize.min.js"/>"></script>
-<script>
-    $(document).ready(function() {
-        $('.datepicker').pickadate({
-            selectMonths: true, // Creates a dropdown to control month
-            selectYears: 15 // Creates a dropdown of 15 years to control year
-        });
-    });
-</script>
+<script type="text/javascript" src="<app:uri src="/assets/js/lib/materialize.clockpicker.js"/>"></script>
+<script type="text/javascript" src="<app:uri src="/assets/js/addEvent.js"/>"></script>
+
 </body>
 </html>
