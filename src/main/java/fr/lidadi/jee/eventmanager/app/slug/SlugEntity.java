@@ -4,20 +4,22 @@
  */
 // This Bean has a composite Primary Key
 
-
 package fr.lidadi.jee.eventmanager.app.slug;
-
-import fr.lidadi.jee.eventmanager.app.event.EventEntity;
-import fr.lidadi.jee.eventmanager.framework.dao.Entity;
 
 import java.io.Serializable;
 import java.util.UUID;
 
 //import javax.validation.constraints.* ;
 //import org.hibernate.validator.constraints.* ;
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import javax.persistence.EmbeddedId;
+import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 
-import javax.persistence.*;
-
+import fr.lidadi.jee.eventmanager.app.event.EventEntity;
+import fr.lidadi.jee.eventmanager.framework.dao.Entity;
 
 /**
  * Persistent class for entity stored in table "SLUG"
@@ -26,173 +28,178 @@ import javax.persistence.*;
  *
  */
 
-@javax.persistence.Entity(name="slug")
+@javax.persistence.Entity(name = "slug")
 // Define named queries here
-//@NamedQueries ( {
-//  @NamedQuery ( name="SlugEntity.findAll", query="SELECT x FROM slug x" )
-//} )
+// @NamedQueries ( {
+// @NamedQuery ( name="SlugEntity.findAll", query="SELECT x FROM slug x" )
+// } )
 public class SlugEntity implements Entity {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    //----------------------------------------------------------------------
-    // ENTITY PRIMARY KEY ( EMBEDDED IN AN EXTERNAL CLASS )
-    //----------------------------------------------------------------------
+	// ----------------------------------------------------------------------
+	// ENTITY PRIMARY KEY ( EMBEDDED IN AN EXTERNAL CLASS )
+	// ----------------------------------------------------------------------
 	@EmbeddedId
-    private SlugEntityKey compositePrimaryKey ;
+	private SlugEntityKey compositePrimaryKey;
 
+	// ----------------------------------------------------------------------
+	// ENTITY DATA FIELDS
+	// ----------------------------------------------------------------------
 
-    //----------------------------------------------------------------------
-    // ENTITY DATA FIELDS
-    //----------------------------------------------------------------------
+	// ----------------------------------------------------------------------
+	// ENTITY LINKS ( RELATIONSHIP )
+	// ----------------------------------------------------------------------
+	@ManyToOne
+	@JoinColumn(name = "EVENT_ID", referencedColumnName = "ID", insertable = false, updatable = false)
+	private EventEntity event;
 
-
-    //----------------------------------------------------------------------
-    // ENTITY LINKS ( RELATIONSHIP )
-    //----------------------------------------------------------------------
-    @ManyToOne
-    @JoinColumn(name="EVENT_ID", referencedColumnName="ID", insertable=false, updatable=false)
-    private EventEntity event       ;
-
-
-    //----------------------------------------------------------------------
-    // CONSTRUCTOR(S)
-    //----------------------------------------------------------------------
-    public SlugEntity() {
+	// ----------------------------------------------------------------------
+	// CONSTRUCTOR(S)
+	// ----------------------------------------------------------------------
+	public SlugEntity() {
 		super();
 		this.compositePrimaryKey = new SlugEntityKey();
-    }
+	}
 
-    //----------------------------------------------------------------------
-    // GETTER & SETTER FOR THE COMPOSITE KEY
-    //----------------------------------------------------------------------
-    public void setEventId( UUID eventId ) {
-        this.compositePrimaryKey.setEventId( eventId ) ;
-    }
-    public UUID getEventId() {
-        return this.compositePrimaryKey.getEventId() ;
-    }
-    public void setSlug( String slug ) {
-        this.compositePrimaryKey.setSlug( slug ) ;
-    }
-    public String getSlug() {
-        return this.compositePrimaryKey.getSlug() ;
-    }
+	public SlugEntity(UUID uuid, String slug, EventEntity event) {
+		super();
+		this.compositePrimaryKey = new SlugEntityKey(uuid, slug);
+		this.event = event;
+	}
 
+	// ----------------------------------------------------------------------
+	// GETTER & SETTER FOR THE COMPOSITE KEY
+	// ----------------------------------------------------------------------
+	public void setEventId(UUID eventId) {
+		this.compositePrimaryKey.setEventId(eventId);
+	}
 
-    //----------------------------------------------------------------------
-    // GETTERS & SETTERS FOR FIELDS
-    //----------------------------------------------------------------------
+	public UUID getEventId() {
+		return this.compositePrimaryKey.getEventId();
+	}
 
-    //----------------------------------------------------------------------
-    // GETTERS & SETTERS FOR LINKS
-    //----------------------------------------------------------------------
-    public void setEvent( EventEntity event ) {
-        this.event = event;
-    }
-    public EventEntity getEvent() {
-        return this.event;
-    }
+	public void setSlug(String slug) {
+		this.compositePrimaryKey.setSlug(slug);
+	}
 
+	public String getSlug() {
+		return this.compositePrimaryKey.getSlug();
+	}
 
-    //----------------------------------------------------------------------
-    // toString METHOD
-    //----------------------------------------------------------------------
-    public String toString() {
-        StringBuffer sb = new StringBuffer();
-        sb.append("[");
-        if ( compositePrimaryKey != null ) {
-            sb.append(compositePrimaryKey.toString());
-        }
-        else {
-            sb.append( "(null-key)" );
-        }
-        sb.append("]:");
-        return sb.toString();
-    }
+	// ----------------------------------------------------------------------
+	// GETTERS & SETTERS FOR FIELDS
+	// ----------------------------------------------------------------------
 
-    @Override
-    public Object getPrimaryKey() {
-        return compositePrimaryKey;
-    }
+	// ----------------------------------------------------------------------
+	// GETTERS & SETTERS FOR LINKS
+	// ----------------------------------------------------------------------
+	public void setEvent(EventEntity event) {
+		this.event = event;
+	}
 
+	public EventEntity getEvent() {
+		return this.event;
+	}
 
-    @Embeddable
-    public class SlugEntityKey implements Serializable {
-        private static final long serialVersionUID = 1L;
+	// ----------------------------------------------------------------------
+	// toString METHOD
+	// ----------------------------------------------------------------------
+	public String toString() {
+		StringBuffer sb = new StringBuffer();
+		sb.append("[");
+		if (compositePrimaryKey != null) {
+			sb.append(compositePrimaryKey.toString());
+		} else {
+			sb.append("(null-key)");
+		}
+		sb.append("]:");
+		return sb.toString();
+	}
 
-        // ----------------------------------------------------------------------
-        // ENTITY KEY ATTRIBUTES
-        // ----------------------------------------------------------------------
-        @Lob
-        @Column(name = "EVENT_ID", nullable = false)
-        private UUID eventId;
+	@Override
+	public Object getPrimaryKey() {
+		return compositePrimaryKey;
+	}
 
-        @Column(name = "SLUG", nullable = false, length = 255)
-        private String slug;
+	@Embeddable
+	public class SlugEntityKey implements Serializable {
+		private static final long serialVersionUID = 1L;
 
-        // ----------------------------------------------------------------------
-        // CONSTRUCTORS
-        // ----------------------------------------------------------------------
-        public SlugEntityKey() {
-            super();
-        }
+		// ----------------------------------------------------------------------
+		// ENTITY KEY ATTRIBUTES
+		// ----------------------------------------------------------------------
+		@Lob
+		@Column(name = "EVENT_ID", nullable = false)
+		private UUID eventId;
 
-        public SlugEntityKey(UUID eventId, String slug) {
-            super();
-            this.eventId = eventId;
-            this.slug = slug;
-        }
+		@Column(name = "SLUG", nullable = false, length = 255)
+		private String slug;
 
-        // ----------------------------------------------------------------------
-        // GETTERS & SETTERS FOR KEY FIELDS
-        // ----------------------------------------------------------------------
-        public void setEventId(UUID value) {
-            this.eventId = value;
-        }
+		// ----------------------------------------------------------------------
+		// CONSTRUCTORS
+		// ----------------------------------------------------------------------
+		public SlugEntityKey() {
+			super();
+		}
 
-        public UUID getEventId() {
-            return this.eventId;
-        }
+		public SlugEntityKey(UUID eventId, String slug) {
+			super();
+			this.eventId = eventId;
+			this.slug = slug;
+		}
 
-        public void setSlug(String value) {
-            this.slug = value;
-        }
+		// ----------------------------------------------------------------------
+		// GETTERS & SETTERS FOR KEY FIELDS
+		// ----------------------------------------------------------------------
+		public void setEventId(UUID value) {
+			this.eventId = value;
+		}
 
-        public String getSlug() {
-            return this.slug;
-        }
+		public UUID getEventId() {
+			return this.eventId;
+		}
 
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
+		public void setSlug(String value) {
+			this.slug = value;
+		}
 
-            SlugEntityKey that = (SlugEntityKey) o;
+		public String getSlug() {
+			return this.slug;
+		}
 
-            if (getEventId() != null ? !getEventId().equals(that.getEventId()) : that.getEventId() != null)
-                return false;
-            return getSlug() != null ? getSlug().equals(that.getSlug()) : that.getSlug() == null;
+		@Override
+		public boolean equals(Object o) {
+			if (this == o)
+				return true;
+			if (o == null || getClass() != o.getClass())
+				return false;
 
-        }
+			SlugEntityKey that = (SlugEntityKey) o;
 
-        @Override
-        public int hashCode() {
-            int result = getEventId() != null ? getEventId().hashCode() : 0;
-            result = 31 * result + (getSlug() != null ? getSlug().hashCode() : 0);
-            return result;
-        }
+			if (getEventId() != null ? !getEventId().equals(that.getEventId()) : that.getEventId() != null)
+				return false;
+			return getSlug() != null ? getSlug().equals(that.getSlug()) : that.getSlug() == null;
 
-        // ----------------------------------------------------------------------
-        // toString METHOD
-        // ----------------------------------------------------------------------
-        public String toString() {
-            StringBuffer sb = new StringBuffer();
-            sb.append(eventId);
-            sb.append("|");
-            sb.append(slug);
-            return sb.toString();
-        }
-    }
+		}
+
+		@Override
+		public int hashCode() {
+			int result = getEventId() != null ? getEventId().hashCode() : 0;
+			result = 31 * result + (getSlug() != null ? getSlug().hashCode() : 0);
+			return result;
+		}
+
+		// ----------------------------------------------------------------------
+		// toString METHOD
+		// ----------------------------------------------------------------------
+		public String toString() {
+			StringBuffer sb = new StringBuffer();
+			sb.append(eventId);
+			sb.append("|");
+			sb.append(slug);
+			return sb.toString();
+		}
+	}
 
 }
