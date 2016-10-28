@@ -24,6 +24,7 @@
         <a href="<app:uri src="/events"/>">← Retour à la page des événements</a>
 
         <h3>${event.name}</h3>
+        <h3>${event.description}</h3>
         <p>${event.location}</p>
         <p>${event.startDate}</p>
         <p>${event.endDate}</p>

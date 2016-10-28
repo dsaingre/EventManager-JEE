@@ -45,6 +45,9 @@ public class EventEntity implements Entity {
     //----------------------------------------------------------------------
     @Column(name="NAME", nullable=false, length=255)
     private String     name         ;
+    
+    @Column(name="DESCRIPTION", columnDefinition="text")
+    private String     description  ;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name="START_DATE")
@@ -104,9 +107,10 @@ public class EventEntity implements Entity {
 		super();
     }
 
-    public EventEntity(UUID id, String name, Date startDate, Date endDate, Date publishingDate, String location, Date updated, Date created, List<Person> listOfPersonn2, List<SlugEntity> listOfSlug, List<ParticipantEntity> listOfParticipant, List<Person> listOfPersonn) {
+    public EventEntity(UUID id, String name, String description, Date startDate, Date endDate, Date publishingDate, String location, Date updated, Date created, List<Person> listOfPersonn2, List<SlugEntity> listOfSlug, List<ParticipantEntity> listOfParticipant, List<Person> listOfPersonn) {
         this.id = id;
         this.name = name;
+        this.description = description;
         this.startDate = startDate;
         this.endDate = endDate;
         this.publishingDate = publishingDate;
@@ -140,7 +144,15 @@ public class EventEntity implements Entity {
         return this.name;
     }
 
-    //--- DATABASE MAPPING : START_DATE ( TIMESTAMP )
+	public void setDescription(String description) {
+		this.description = description;
+	}
+    
+    public String getDescription() {
+		return description;
+	}
+
+	//--- DATABASE MAPPING : START_DATE ( TIMESTAMP )
     public void setStartDate( Date startDate ) {
         this.startDate = startDate;
     }

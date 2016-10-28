@@ -14,7 +14,8 @@ public class EventService {
     public EventService() {
         eventEntities.add(new EventEntity(
                 UUID.randomUUID(),
-                "event name",
+                "Grosse fête du yaourt",
+                "Yummy",
                 new Date(),
                 new Date(),
                 new Date(),
@@ -28,7 +29,8 @@ public class EventService {
         ));
         eventEntities.add(new EventEntity(
                 UUID.randomUUID(),
-                "event name 2",
+                "Journée d'uniformisation des sets de table",
+                "Parce que y'en a marre quand c'est pas bien rangé, mal aligné, pas assorti et surtout pas raccord",
                 new Date(),
                 new Date(),
                 new Date(),

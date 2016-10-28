@@ -27,20 +27,20 @@
         <form action="">
             <div class="row">
                 <div class="input-field col s12">
-                    <input id="name" type="text" class="validate">
                     <label for="name">Intitulé</label>
+                    <input id="name" type="text" class="validate">
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s12">
-                    <input id="address" type="text" class="validate">
                     <label for="address">Adresse</label>
+                    <input id="address" type="text" class="validate">
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s6">
-                    <input id="start_date" type="date" class="validate datepicker">
                     <label for="start_date">Date de début</label>
+                    <input id="start_date" type="date" class="validate datepicker">
                 </div>
                 <div class="input-field col s6">
                     <label for="start_time">Heure de début</label>
@@ -49,17 +49,23 @@
             </div>
             <div class="row">
                 <div class="input-field col s6">
-                    <input id="end_date" type="date" class="validate datepicker">
                     <label for="end_date">Date de fin</label>
+                    <input id="end_date" type="date" class="datepicker">
                 </div>
                 <div class="input-field col s6">
                     <label for="end_time">Heure de fin</label>
-                    <input id="end_time" type="time" class="validate timepicker">
+                    <input id="end_time" type="time" class="timepicker">
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <label for="description">Description</label>
+                    <textarea id="description" class="materialize-textarea"></textarea>
                 </div>
             </div>
             <div class="row">
                 <div class="center">
-                    <button class="btn waves-effect waves-light" type="submit" name="action" id="connect">Publier l'évènement
+                    <button class="btn waves-effect waves-light" type="submit" name="action" id="connect">Publier l'événement
                         <i class="material-icons right">send</i>
                     </button>
                 </div>
