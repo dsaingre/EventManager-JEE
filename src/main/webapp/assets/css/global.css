@@ -44,3 +44,14 @@ main {
     color: white;
     background-color: #F44336;
 }
+
+.alert-info{
+    color: white;
+    background-color: #26a69a;
+    text: center;
+}
+
+.alert-success{
+    color: white;
+    background-color: #00c853;
+}

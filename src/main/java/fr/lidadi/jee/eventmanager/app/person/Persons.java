@@ -53,11 +53,11 @@ public class Persons implements HttpErrorResponse {
                     Optional.ofNullable(session.getAttribute("last_url"))
                             .orElse("/")
                             .toString();
-            redirect(req, resp, last_url);
+            redirect(req, resp, last_url, new Tuple<String, String>("info", "Identification réussie !"));
             return;
         }
 
-        redirect(req, resp, "/login", new Tuple<String, String>("error", "Impossible de vous identifier, avez-vous inserÃ© les bonnes informations ?"));
+        redirect(req, resp, "/login", new Tuple<String, String>("error", "Impossible de vous identifier, avez-vous inseré les bonnes informations ?"));
     }
 
     public void signup(HttpServlet servlet, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

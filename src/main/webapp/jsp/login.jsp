@@ -18,11 +18,7 @@
     <%@ include file="header.jsp" %>
 
     <main>
-
         <div class="container">
-
-
-
             <div class="row">
                 <form class="col s6 push-s3" method="POST" action="<app:uri src="/authentication"/>">
                     <div class="row">
@@ -30,7 +26,7 @@
                             Identification
                         </h3>
                         <h6 class="center-align">
-                            Veuillez entrer votre email et votre mot de passe pour vous connecter.
+                            Veuillez renseigner votre adresse email et votre mot de passe pour vous connecter.
                         </h6>
                     </div>
                     <div class="row">

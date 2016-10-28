@@ -32,4 +32,8 @@
     <c:if test="${app:flashExist(sessionScope, \"info\")}">
         <div class="alert alert-info">${app:consumeFlash(sessionScope, "info")}</div>
     </c:if>
+
+    <c:if test="${app:flashExist(sessionScope, \"success\")}">
+        <div class="alert alert-success">${app:consumeFlash(sessionScope, "success")}</div>
+    </c:if>
 </div>
