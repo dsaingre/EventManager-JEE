@@ -12,60 +12,51 @@ var passwordConfField = document.getElementById("password_conf");
 var connectButton = document.getElementById("connect");
 
 var email = "";
+var isValidEmail = false; 
 var password = "";
 var passwordConf = "";
 
-emailFieldCallback();
-passwordFieldCallback();
-passwordConfFieldCallback();
+fieldCallback();
 activeOrDesactiveLoginButton();
 
 emailField.addEventListener("keyup", function(e) {
-	emailFieldCallback();
+	fieldCallback();
+});
+emailField.addEventListener("focusout", function(e) {
+	fieldCallback();
 });
 passwordField.addEventListener("keyup", function(e) {
-	passwordFieldCallback();
+	fieldCallback();
 });
 passwordConfField.addEventListener("keyup", function(e) {
-	passwordConfFieldCallback();
+	fieldCallback();
 });
 passwordConfField.addEventListener("focusout", function(e) {
-	passwordConfFieldCallback();
+	fieldCallback();
 });
 
-function emailFieldCallback() {
+function fieldCallback() {
 	email = emailField.value;
-	activeOrDesactiveLoginButton();
-}
-
-function passwordFieldCallback() {
+	isValidEmail = emailField.classList.contains("valid");
 	password = passwordField.value;
-	activeOrDesactiveLoginButton();
-	passwordMatching();
-}
-
-function passwordConfFieldCallback() {
 	passwordConf = passwordConfField.value;
 	activeOrDesactiveLoginButton();
-	passwordMatching(passwordConf);
 }
+
 
 function activeOrDesactiveLoginButton() {
-	if (email.length != 0 && password.length != 0 && passwordConf.length != 0) {
-		removeClass(connectButton, "disabled")
-	} else {
-		addClass(connectButton, "disabled")
-	}
-}
-
-function passwordMatching(pwdConf) {
-	if (password == pwdConf) {
-		removeClass(connectButton, "disabled")
+	if (password == passwordConf) {
 		removeClass(passwordField, "invalid")
 		removeClass(passwordConfField, "invalid")
-	} else if (pwdConf != undefined && pwdConf.length != 0) {
-		addClass(connectButton, "disabled")
+		addClass(passwordField, "valid")
+		addClass(passwordConfField, "valid")
+		if (email.length != 0 && isValidEmail) {
+			removeClass(connectButton, "disabled")
+			return
+		}
+	} else {
 		addClass(passwordField, "invalid")
 		addClass(passwordConfField, "invalid")
 	}
+		addClass(connectButton, "disabled")
 }

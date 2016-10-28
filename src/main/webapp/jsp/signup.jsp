@@ -55,7 +55,7 @@
 				</div>
 				<div class="row">
 					<div class="center">
-						<button class="btn waves-effect waves-light " type="submit"
+						<button class="btn waves-effect waves-light" type="submit"
 							name="action" id="connect">
 							S'inscrire <i class="material-icons right">send</i>
 						</button>

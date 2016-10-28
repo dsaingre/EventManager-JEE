@@ -61,7 +61,7 @@ public class Persons implements HttpErrorResponse {
     }
 
     public void signup(HttpServlet servlet, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        flashing.flashing(req.getSession(), "error", "Wrong credentials");
+//        flashing.flashing(req.getSession(), "error", "Wrong credentials");
         req.setAttribute("isSignupPage", "active");
         okJsp(servlet, req, resp, "/signup.jsp");
     }
