@@ -7,10 +7,7 @@
 
 package fr.lidadi.jee.eventmanager.app.eventpersonnowner;
 
-import fr.lidadi.jee.eventmanager.dao.*;
-
 import java.io.Serializable;
-import java.util.Arrays;
 import java.util.UUID;
 
 //import javax.validation.constraints.* ;
@@ -28,7 +25,7 @@ import javax.persistence.Entity;
  */
 
 @Entity(name="eventpersonnparticipants")
-public class EventPersonnParticipantsEntity implements fr.lidadi.jee.eventmanager.dao.Entity {
+public class EventPersonnParticipantsEntity implements fr.lidadi.jee.eventmanager.framework.dao.Entity {
 
     //----------------------------------------------------------------------
     // ENTITY PRIMARY KEY ( EMBEDDED IN AN EXTERNAL CLASS )

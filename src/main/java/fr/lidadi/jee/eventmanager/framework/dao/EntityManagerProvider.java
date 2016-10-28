@@ -1,4 +1,4 @@
-package fr.lidadi.jee.eventmanager.dao;
+package fr.lidadi.jee.eventmanager.framework.dao;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;

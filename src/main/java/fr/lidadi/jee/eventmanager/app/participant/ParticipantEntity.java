@@ -27,7 +27,7 @@ import javax.persistence.Entity;
  */
 
 @Entity(name="participant")
-public class ParticipantEntity implements fr.lidadi.jee.eventmanager.dao.Entity {
+public class ParticipantEntity implements fr.lidadi.jee.eventmanager.framework.dao.Entity {
 
 
     //----------------------------------------------------------------------
