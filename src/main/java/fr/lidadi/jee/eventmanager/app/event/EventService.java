@@ -1,7 +1,5 @@
 package fr.lidadi.jee.eventmanager.app.event;
 
-import fr.lidadi.jee.eventmanager.app.person.Person;
-
 import java.util.*;
 
 /**
@@ -9,54 +7,18 @@ import java.util.*;
  */
 public class EventService {
 
-    LinkedList<EventEntity> eventEntities = new LinkedList<>();
+    private EventDao eventDao = new EventDao();
 
-    public EventService() {
-        eventEntities.add(new EventEntity(
-                UUID.randomUUID(),
-                "Grosse fête du yaourt",
-                "Yummy",
-                new Date(),
-                new Date(),
-                new Date(),
-                "Nantes",
-                new Date(),
-                new Date(),
-                new LinkedList<Person>(),
-                new LinkedList<>(),
-                new LinkedList<>(),
-                new LinkedList<>()
-        ));
-        eventEntities.add(new EventEntity(
-                UUID.randomUUID(),
-                "Journée d'uniformisation des sets de table",
-                "Parce que y'en a marre quand c'est pas bien rangé, mal aligné, pas assorti et surtout pas raccord",
-                new Date(),
-                new Date(),
-                new Date(),
-                "Paris",
-                new Date(),
-                new Date(),
-                new LinkedList<Person>(),
-                new LinkedList<>(),
-                new LinkedList<>(),
-                new LinkedList<>()
-        ));
+    public List<Event> fetchAll() {
+        return eventDao.getAll();
     }
 
-    public List<EventEntity> fetchAll() {
-        return eventEntities;
+    public List<Event> fetchAllByOwner(UUID owner) {
+        return eventDao.getByOwner(owner);
     }
 
-    public List<EventEntity> fetchAllByOwner(UUID owner) {
-        return eventEntities;
-    }
-
-
-    public Optional<EventEntity> fetch(UUID id) {
-        return eventEntities.stream()
-                .filter(eventEntity -> eventEntity.getId().equals(id))
-                .findFirst();
+    public Optional<Event> fetch(UUID id) {
+        return eventDao.get(id);
     }
 
 }

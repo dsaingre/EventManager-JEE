@@ -6,7 +6,7 @@
 
 package fr.lidadi.jee.eventmanager.app.person;
 
-import fr.lidadi.jee.eventmanager.app.event.EventEntity;
+import fr.lidadi.jee.eventmanager.app.event.Event;
 import fr.lidadi.jee.eventmanager.framework.dao.Entity;
 
 import javax.persistence.*;
@@ -20,74 +20,68 @@ import java.util.UUID;
 
 
 /**
- * Persistent class for entity stored in table "PERSONN"
+ * Persistent class for entity stored in table "Person"
  *
  * @author Telosys Tools Generator
- *
  */
 
 @javax.persistence.Entity
-@Table(name="person")
-// Define named queries here
-//@NamedQueries ( {
-//  @NamedQuery ( name="Person.findAll", query="SELECT x FROM personn x" )
-//} )
+@Table(name = "person")
 public class Person implements Entity {
 
     //----------------------------------------------------------------------
     // ENTITY PRIMARY KEY ( BASED ON A SINGLE FIELD )
     //----------------------------------------------------------------------
     @Id
-    @Column(name="ID", nullable=false)
+    @Column(name = "ID", nullable = false)
     private UUID id;
 
 
     //----------------------------------------------------------------------
     // ENTITY DATA FIELDS
     //----------------------------------------------------------------------
-    @Column(name="EMAIL", nullable=false, length=255)
-    private String     email        ;
+    @Column(name = "EMAIL", nullable = false, length = 255)
+    private String email;
 
-    @Column(name="PASSWORD", nullable=false, length=255)
-    private String     password     ;
+    @Column(name = "PASSWORD", nullable = false, length = 255)
+    private String password;
 
-    @Column(name="FIRST_NAME", length=255)
-    private String     firstName    ;
+    @Column(name = "FIRST_NAME", length = 255)
+    private String firstName;
 
-    @Column(name="LAST_NAME", length=255)
-    private String     lastName     ;
+    @Column(name = "LAST_NAME", length = 255)
+    private String lastName;
 
-    @Column(name="COMPANY", length=255)
-    private String     company      ;
-
-    @Temporal(TemporalType.DATE)
-    @Column(name="UPDATED", nullable=false)
-    private Date       updated      ;
+    @Column(name = "COMPANY", length = 255)
+    private String company;
 
     @Temporal(TemporalType.DATE)
-    @Column(name="CREATED", nullable=false)
-    private Date       created      ;
+    @Column(name = "UPDATED", nullable = false)
+    private Date updated;
 
+    @Temporal(TemporalType.DATE)
+    @Column(name = "CREATED", nullable = false)
+    private Date created;
 
 
     //----------------------------------------------------------------------
     // ENTITY LINKS ( RELATIONSHIP )
     //----------------------------------------------------------------------
-    @ManyToMany(mappedBy="listOfPersonn", targetEntity=EventEntity.class)
-    private List<EventEntity> listOfEvent ;
+    @ManyToMany(mappedBy = "registeredPersons", targetEntity = Event.class)
+    private List<Event> subscribedEvents;
 
-    @ManyToMany(mappedBy="listOfPersonn2", targetEntity=EventEntity.class)
-    private List<EventEntity> listOfEvent2;
+    @ManyToMany(mappedBy = "owners", targetEntity = Event.class)
+    private List<Event> createdEvents;
 
 
     //----------------------------------------------------------------------
     // CONSTRUCTOR(S)
     //----------------------------------------------------------------------
     public Person() {
-		super();
+        super();
     }
 
-    public Person(UUID id, String email, String password, String firstName, String lastName, String company, Date updated, Date created, List<EventEntity> listOfEvent, List<EventEntity> listOfEvent2) {
+    public Person(UUID id, String email, String password, String firstName, String lastName, String company, Date updated, Date created, List<Event> subscribedEvents, List<Event> createdEvents) {
         this.id = id;
         this.email = email;
         this.password = password;
@@ -96,16 +90,17 @@ public class Person implements Entity {
         this.company = company;
         this.updated = updated;
         this.created = created;
-        this.listOfEvent = listOfEvent;
-        this.listOfEvent2 = listOfEvent2;
+        this.subscribedEvents = subscribedEvents;
+        this.createdEvents = createdEvents;
     }
 
     //----------------------------------------------------------------------
     // GETTER & SETTER FOR THE KEY FIELD
     //----------------------------------------------------------------------
-    public void setId( UUID id ) {
-        this.id = id ;
+    public void setId(UUID id) {
+        this.id = id;
     }
+
     public UUID getId() {
         return this.id;
     }
@@ -114,57 +109,64 @@ public class Person implements Entity {
     // GETTERS & SETTERS FOR FIELDS
     //----------------------------------------------------------------------
     //--- DATABASE MAPPING : MAIL ( VARCHAR )
-    public void setEmail( String email ) {
+    public void setEmail(String email) {
         this.email = email;
     }
+
     public String getEmail() {
         return this.email;
     }
 
     //--- DATABASE MAPPING : PASSWORD ( VARCHAR )
-    public void setPassword( String password ) {
+    public void setPassword(String password) {
         this.password = password;
     }
+
     public String getPassword() {
         return this.password;
     }
 
     //--- DATABASE MAPPING : FIRST_NAME ( VARCHAR )
-    public void setFirstName( String firstName ) {
+    public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
+
     public String getFirstName() {
         return this.firstName;
     }
 
     //--- DATABASE MAPPING : LAST_NAME ( VARCHAR )
-    public void setLastName( String lastName ) {
+    public void setLastName(String lastName) {
         this.lastName = lastName;
     }
+
     public String getLastName() {
         return this.lastName;
     }
 
     //--- DATABASE MAPPING : COMPANY ( VARCHAR )
-    public void setCompany( String company ) {
+    public void setCompany(String company) {
         this.company = company;
     }
+
     public String getCompany() {
         return this.company;
     }
 
     //--- DATABASE MAPPING : UPDATED ( DATE )
-    public void setUpdated( Date updated ) {
+    public void setUpdated(Date updated) {
         this.updated = updated;
     }
+
     public Date getUpdated() {
         return this.updated;
     }
 
     //--- DATABASE MAPPING : CREATED ( DATE )
-    public void setCreated( Date created ) {
+    public void setCreated(Date created) {
         this.created = created;
     }
+
     public Date getCreated() {
         return this.created;
     }
@@ -173,18 +175,20 @@ public class Person implements Entity {
     //----------------------------------------------------------------------
     // GETTERS & SETTERS FOR LINKS
     //----------------------------------------------------------------------
-    public void setListOfEvent( List<EventEntity> listOfEvent ) {
-        this.listOfEvent = listOfEvent;
-    }
-    public List<EventEntity> getListOfEvent() {
-        return this.listOfEvent;
+    public void setSubscribedEvents(List<Event> subscribedEvents) {
+        this.subscribedEvents = subscribedEvents;
     }
 
-    public void setListOfEvent2( List<EventEntity> listOfEvent2 ) {
-        this.listOfEvent2 = listOfEvent2;
+    public List<Event> getSubscribedEvents() {
+        return this.subscribedEvents;
     }
-    public List<EventEntity> getListOfEvent2() {
-        return this.listOfEvent2;
+
+    public void setCreatedEvents(List<Event> createdEvents) {
+        this.createdEvents = createdEvents;
+    }
+
+    public List<Event> getCreatedEvents() {
+        return this.createdEvents;
     }
 
 
