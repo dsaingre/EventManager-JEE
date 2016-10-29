@@ -45,7 +45,7 @@ public class PopulateHelper {
         );
         
         lisa = new Person(UUID.randomUUID(),
-                "zouill94@hotmail.com",
+                "zouill94@hotmail.fr",
                 "aze",
                 "lisa",
                 "Panzani",
@@ -76,7 +76,7 @@ public class PopulateHelper {
                 "Chez wam",
                 new Date(),
                 new Date(),
-                list(damien),
+                list(lisa),
                 list(),
                 list(),
                 list()
@@ -98,7 +98,7 @@ public class PopulateHelper {
                 "Aux mines",
                 new Date(),
                 new Date(),
-                list(),
+                list(lisa),
                 list(),
                 list(),
                 list()
@@ -120,7 +120,7 @@ public class PopulateHelper {
                 "Pôle nord",
                 new Date(),
                 new Date(),
-                list(),
+                list(lisa),
                 list(),
                 list(),
                 list()

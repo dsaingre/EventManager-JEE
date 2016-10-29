@@ -31,14 +31,6 @@ public class Persons implements HttpErrorResponse {
         redirect(req, resp, "/");
     }
     
-	public void loginAction(HttpServlet servlet, HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException {
-		System.out.println("NUMBER OF PARAMETERS :" + req.getParameterMap().size());
-		System.out.println(req.getQueryString());
-//		System.out.println(req.get);
-		okJsp(servlet, req, resp, "/welcome.jsp");
-	}
-
     public void authentication(HttpServlet servlet, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         String email = req.getParameter("email");
@@ -69,9 +61,12 @@ public class Persons implements HttpErrorResponse {
 	public void signupAction(HttpServlet servlet, HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		System.out.println("NUMBER OF PARAMETERS :" + req.getParameterMap().size());
+		
+		// Creating a new profile
+		Person newMember = new Person();
+		
 		System.out.println(req.getParameter("email"));
-//		System.out.println(req.get);
-		okJsp(servlet, req, resp, "/welcome.jsp");
+		redirect(req, resp, "/login.jsp", new Tuple<String, String>("error", "Votre compte a bien été créé ! Merci d'utiliser vos nouveaux identifiants pour vous connecter."));
     }
 
     public void help(HttpServlet servlet, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
