@@ -1,17 +1,18 @@
 package fr.lidadi.jee.eventmanager.framework.dao;
 
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.UUID;
 
-import javax.persistence.EntityManager;
-
-import fr.lidadi.jee.eventmanager.app.event.EventDao;
 import fr.lidadi.jee.eventmanager.app.event.Event;
+import fr.lidadi.jee.eventmanager.app.event.EventDao;
 import fr.lidadi.jee.eventmanager.app.person.Person;
 import fr.lidadi.jee.eventmanager.app.person.PersonDao;
 import fr.lidadi.jee.eventmanager.app.slug.Slug;
+
+import javax.persistence.EntityManager;
+import java.util.Date;
+import java.util.List;
+import java.util.UUID;
+
+import static fr.lidadi.jee.eventmanager.framework.utils.ListBuilder.list;
 
 /**
  * Created by damien on 25/10/2016.
@@ -19,27 +20,50 @@ import fr.lidadi.jee.eventmanager.app.slug.Slug;
 public class PopulateHelper {
 
 	public void populate(EntityManager em) {
-
-		PersonDao personDao = new PersonDao();
-
-		List<Person> persons = new LinkedList<>();
-
-		persons.add(new Person(UUID.randomUUID(), "dam.ray49@gmail.com", "damien", "Damien", "RAYMOND", "noeup'App",
-				new Date(), new Date(), new LinkedList<Event>(), new LinkedList<Event>()));
-
-		persons.forEach(personDao::add);
-
+        populatePerson();
 		populateEvent();
+	}
+
+	private void populatePerson() {
+        PersonDao personDao = new PersonDao();
+
+        List<Person> persons = list();
+
+        persons.add(new Person(UUID.randomUUID(),
+                               "dam.ray49@gmail.com",
+                               "damien",
+                               "Damien",
+                               "RAYMOND",
+                               "noeup'App",
+                               new Date(),
+                               new Date(),
+                               list(),
+                               list()
+                )
+        );
+
+        persons.forEach(personDao::add);
 	}
 
 	private void populateEvent() {
 		EventDao eventDao = new EventDao();
-		List<Event> events = new LinkedList<>();
+		List<Event> events = list();
 
 		// Event 1
-		Event event = new Event(UUID.randomUUID(), "Mon anniv'", "grosse teuf chez wam", new Date(),
-				new Date(), new Date(), "Chez wam", new Date(), new Date(), new LinkedList<>(), new LinkedList<>(),
-				new LinkedList<>(), new LinkedList<>());
+		Event event = new Event(UUID.randomUUID(),
+                                "Mon anniv'",
+                                "grosse teuf chez wam",
+                                new Date(),
+                                new Date(),
+                                new Date(),
+                                "Chez wam",
+                                new Date(),
+                                new Date(),
+                                list(),
+                                list(),
+                                list(),
+                                list()
+        );
 
 		Slug slug = new Slug(UUID.randomUUID(), "mon-anniv", event);
 
@@ -48,9 +72,20 @@ public class PopulateHelper {
 		events.add(event);
 
 		// Event 2
-		Event event2 = new Event(UUID.randomUUID(), "Soirée JEE", "Dernier rush avant la fin du monde",
-				new Date(), new Date(), new Date(), "Aux mines", new Date(), new Date(), new LinkedList<>(),
-				new LinkedList<>(), new LinkedList<>(), new LinkedList<>());
+		Event event2 = new Event(UUID.randomUUID(),
+                                 "Soirée JEE",
+                                 "Dernier rush avant la fin du monde",
+				                 new Date(),
+                                 new Date(),
+                                 new Date(),
+                                 "Aux mines",
+                                 new Date(),
+                                 new Date(),
+                                 list(),
+                                 list(),
+                                 list(),
+                                 list()
+        );
 
 		Slug slug2 = new Slug(UUID.randomUUID(), "soiree-jee", event2);
 
@@ -59,9 +94,20 @@ public class PopulateHelper {
 		events.add(event2);
 
 		// Event 3
-		Event event3 = new Event(UUID.randomUUID(), "Hibernation", "Au revoir les ours", new Date(),
-				new Date(), new Date(), "Pôle nord", new Date(), new Date(), new LinkedList<>(), new LinkedList<>(),
-				new LinkedList<>(), new LinkedList<>());
+		Event event3 = new Event(UUID.randomUUID(),
+                                 "Hibernation",
+                                 "Au revoir les ours",
+                                 new Date(),
+				                 new Date(),
+                                 new Date(),
+                                 "Pôle nord",
+                                 new Date(),
+                                 new Date(),
+                                 list(),
+                                 list(),
+				                 list(),
+                                 list()
+        );
 
 		Slug slug3 = new Slug(UUID.randomUUID(), "hibernation", event3);
 
