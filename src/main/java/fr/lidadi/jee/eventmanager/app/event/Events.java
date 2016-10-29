@@ -39,32 +39,32 @@ public class Events implements HttpErrorResponse {
 		okJsp(servlet, req, resp, "/event/events.jsp");
 	}
 
-	public void fetch(HttpServlet servlet, HttpServletRequest req, HttpServletResponse resp, UUID id)
+	public void myEvents(HttpServlet servlet, SecuredRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		Optional<EventEntity> event = this.eventService.fetch(id);
-		if (!event.isPresent()) {
-			okJsp(servlet, req, resp, "/event/eventNotFound.jsp");
-			return;
-		}
-		req.setAttribute("event", event.get());
-		okJsp(servlet, req, resp, "/event/event.jsp");
+		req.setAttribute("events", this.eventService.fetchAllByOwner(req.getUser().getId()));
+		okJsp(servlet, req, resp, "/event/myEvents.jsp");
 	}
 
-	public void addView(HttpServlet servlet, HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException {
-		okJsp(servlet, req, resp, "/event/addView.jsp");
-	}
+
+    public void fetch(HttpServlet servlet, HttpServletRequest req, HttpServletResponse resp, UUID id) throws ServletException, IOException {
+        Optional<Event> event = this.eventService.fetch(id);
+        if(! event.isPresent()){
+            okJsp(servlet, req, resp, "/event/eventNotFound.jsp");
+            return;
+        }
+        req.setAttribute("event", event.get());
+        okJsp(servlet, req, resp, "/event/event.jsp");
+    }
+
+    public void addView(HttpServlet servlet, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        okJsp(servlet, req, resp, "/event/addView.jsp");
+    }
+    
 
 	public void addEventAction(HttpServlet servlet, HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		System.out.println(req.getParameter("start_time"));
 		okJsp(servlet, req, resp, "/event/addView.jsp");
-	}
-
-	public void myEvents(HttpServlet servlet, SecuredRequest req, HttpServletResponse resp)
-			throws ServletException, IOException {
-		req.setAttribute("events", this.eventService.fetchAllByOwner(req.getUser().getId()));
-		okJsp(servlet, req, resp, "/event/myEvents.jsp");
 	}
 
 }

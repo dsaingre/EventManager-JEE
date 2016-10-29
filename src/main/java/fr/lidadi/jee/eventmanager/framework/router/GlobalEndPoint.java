@@ -143,7 +143,7 @@ public class GlobalEndPoint extends HttpServlet implements HttpErrorResponse {
                     redirect(req,
                             resp,
                             "/login",
-                            new Tuple<String, String>("error", "Pour accéder à cette ressource, merci de vous connecter")
+                            new Tuple<String, String>("error", "Pour accÃ©der Ã  cette ressource, merci de vous connecter")
                     );
                     unauthorized(resp);
                     return;

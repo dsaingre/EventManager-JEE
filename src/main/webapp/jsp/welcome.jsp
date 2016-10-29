@@ -56,7 +56,7 @@
 				              <p>Début : <c:out value="${event.startDate}"/></p>
 				            </div>
 				            <div class="card-action">
-				              <a href="/event/${event.listOfSlug.get(0).getSlug()}">Détail de l'événement</a>
+				              <a href="/event/${event.slugs.get(0).getSlug()}">Détail de l'événement</a>
 				            </div>
 				          </div>
 				        </div>

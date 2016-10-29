@@ -1,78 +1,138 @@
 package fr.lidadi.jee.eventmanager.framework.dao;
 
+
+import fr.lidadi.jee.eventmanager.app.event.Event;
+import fr.lidadi.jee.eventmanager.app.event.EventDao;
+import fr.lidadi.jee.eventmanager.app.person.Person;
+import fr.lidadi.jee.eventmanager.app.person.PersonDao;
+import fr.lidadi.jee.eventmanager.app.slug.Slug;
+
+import javax.persistence.EntityManager;
 import java.util.Date;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
 
-import javax.persistence.EntityManager;
-
-import fr.lidadi.jee.eventmanager.app.event.EventDao;
-import fr.lidadi.jee.eventmanager.app.event.EventEntity;
-import fr.lidadi.jee.eventmanager.app.person.Person;
-import fr.lidadi.jee.eventmanager.app.person.PersonDao;
-import fr.lidadi.jee.eventmanager.app.slug.SlugEntity;
+import static fr.lidadi.jee.eventmanager.framework.utils.ListBuilder.list;
 
 /**
  * Created by damien on 25/10/2016.
  */
 public class PopulateHelper {
 
-	public void populate(EntityManager em) {
+    public void populate(EntityManager em) {
+        populatePerson();
+        populateEvent();
+    }
 
-		PersonDao personDao = new PersonDao();
+    private Person damien;
+    private Person lisa;
 
-		List<Person> persons = new LinkedList<>();
+    private void populatePerson() {
+        PersonDao personDao = new PersonDao();
 
-		persons.add(new Person(UUID.randomUUID(), "dam.ray49@gmail.com", "damien", "Damien", "RAYMOND", "noeup'App",
-				new Date(), new Date(), new LinkedList<EventEntity>(), new LinkedList<EventEntity>()));
-		
-		persons.add(new Person(UUID.randomUUID(), "zouill94@hotmail.fr", "aze", "Lisa", "Panzani", "iRaiser",
-				new Date(), new Date(), new LinkedList<EventEntity>(), new LinkedList<EventEntity>()));
+        List<Person> persons = list();
 
-		persons.forEach(personDao::add);
+        damien = new Person(UUID.randomUUID(),
+                "dam.ray49@gmail.com",
+                "damien",
+                "Damien",
+                "RAYMOND",
+                "noeup'App",
+                new Date(),
+                new Date(),
+                list(),
+                list()
+        );
+        
+        lisa = new Person(UUID.randomUUID(),
+                "zouill94@hotmail.com",
+                "aze",
+                "lisa",
+                "Panzani",
+                "iRaiser",
+                new Date(),
+                new Date(),
+                list(),
+                list()
+        );
 
-		populateEventEntity();
-	}
+        persons.add(damien);
+        persons.add(lisa);
 
-	private void populateEventEntity() {
-		EventDao eventDao = new EventDao();
-		List<EventEntity> events = new LinkedList<>();
+        persons.forEach(personDao::add);
+    }
 
-		// Event 1
-		EventEntity event = new EventEntity(UUID.randomUUID(), "Mon anniv'", "grosse teuf chez wam", new Date(),
-				new Date(), new Date(), "Chez wam", new Date(), new Date(), new LinkedList<>(), new LinkedList<>(),
-				new LinkedList<>(), new LinkedList<>());
+    private void populateEvent() {
+        EventDao eventDao = new EventDao();
+        List<Event> events = list();
 
-		SlugEntity slug = new SlugEntity(UUID.randomUUID(), "mon-anniv", event);
+        // Event 1
+        Event event = new Event(UUID.randomUUID(),
+                "Mon anniv'",
+                "grosse teuf chez wam",
+                new Date(),
+                new Date(),
+                new Date(),
+                "Chez wam",
+                new Date(),
+                new Date(),
+                list(damien),
+                list(),
+                list(),
+                list()
+        );
 
-		event.getListOfSlug().add(slug);
+        Slug slug = new Slug(UUID.randomUUID(), "mon-anniv", event);
 
-		events.add(event);
+        event.getSlugs().add(slug);
 
-		// Event 2
-		EventEntity event2 = new EventEntity(UUID.randomUUID(), "Soirée JEE", "Dernier rush avant la fin du monde",
-				new Date(), new Date(), new Date(), "Aux mines", new Date(), new Date(), new LinkedList<>(),
-				new LinkedList<>(), new LinkedList<>(), new LinkedList<>());
+        events.add(event);
 
-		SlugEntity slug2 = new SlugEntity(UUID.randomUUID(), "soiree-jee", event2);
+        // Event 2
+        Event event2 = new Event(UUID.randomUUID(),
+                "Soirée JEE",
+                "Dernier rush avant la fin du monde",
+                new Date(),
+                new Date(),
+                new Date(),
+                "Aux mines",
+                new Date(),
+                new Date(),
+                list(),
+                list(),
+                list(),
+                list()
+        );
 
-		event2.getListOfSlug().add(slug2);
+        Slug slug2 = new Slug(UUID.randomUUID(), "soiree-jee", event2);
 
-		events.add(event2);
+        event2.getSlugs().add(slug2);
 
-		// Event 3
-		EventEntity event3 = new EventEntity(UUID.randomUUID(), "Hibernation", "Au revoir les ours", new Date(),
-				new Date(), new Date(), "Pôle nord", new Date(), new Date(), new LinkedList<>(), new LinkedList<>(),
-				new LinkedList<>(), new LinkedList<>());
+        events.add(event2);
 
-		SlugEntity slug3 = new SlugEntity(UUID.randomUUID(), "hibernation", event3);
+        // Event 3
+        Event event3 = new Event(UUID.randomUUID(),
+                "Hibernation",
+                "Au revoir les ours",
+                new Date(),
+                new Date(),
+                new Date(),
+                "Pôle nord",
+                new Date(),
+                new Date(),
+                list(),
+                list(),
+                list(),
+                list()
+        );
 
-		event3.getListOfSlug().add(slug3);
+        Slug slug3 = new Slug(UUID.randomUUID(), "hibernation", event3);
 
-		events.add(event3);
+        event3.getSlugs().add(slug3);
 
-		events.forEach(eventDao::add);
-	}
+        events.add(event3);
+
+        events.forEach(eventDao::add);
+    }
 
 }

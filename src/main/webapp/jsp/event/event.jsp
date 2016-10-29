@@ -32,10 +32,10 @@
         <p>${event.startDate}</p>
         <p>${event.updated}</p>
         <p>${event.created}</p>
-        <p>${event.listOfPersonn}</p>
-        <p>${event.listOfPersonn2}</p>
-        <p>${event.listOfParticipant}</p>
-        <p>${event.listOfSlug}</p>
+        <p>${event.registeredPersons}</p>
+        <p>${event.owners}</p>
+        <p>${event.participants}</p>
+        <p>${event.slugs}</p>
 
         <p><a href="">S'y inscrire</a></p>
     </div>
