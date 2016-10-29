@@ -12,6 +12,7 @@ import javax.persistence.criteria.Root;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import static fr.lidadi.jee.eventmanager.framework.dao.sqldsl.SQLRequestFactory.and;
 import static fr.lidadi.jee.eventmanager.framework.dao.sqldsl.SQLRequestFactory.equal;
@@ -103,5 +104,6 @@ public abstract class Dao<T extends Entity, PK> {
 
         return Optional.of(eventFound);
     }
+
 
 }

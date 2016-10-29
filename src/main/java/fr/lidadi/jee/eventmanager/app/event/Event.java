@@ -259,4 +259,11 @@ public class Event implements Entity {
         return sb.toString();
     }
 
+    public List<Person> getOwners() {
+        return owners;
+    }
+
+    public void setOwners(List<Person> owners) {
+        this.owners = owners;
+    }
 }

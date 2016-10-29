@@ -19,103 +19,106 @@ import static fr.lidadi.jee.eventmanager.framework.utils.ListBuilder.list;
  */
 public class PopulateHelper {
 
-	public void populate(EntityManager em) {
+    public void populate(EntityManager em) {
         populatePerson();
-		populateEvent();
-	}
+        populateEvent();
+    }
 
-	private void populatePerson() {
+    private Person damien;
+
+    private void populatePerson() {
         PersonDao personDao = new PersonDao();
 
         List<Person> persons = list();
 
-        persons.add(new Person(UUID.randomUUID(),
-                               "dam.ray49@gmail.com",
-                               "damien",
-                               "Damien",
-                               "RAYMOND",
-                               "noeup'App",
-                               new Date(),
-                               new Date(),
-                               list(),
-                               list()
-                )
+        damien = new Person(UUID.randomUUID(),
+                "dam.ray49@gmail.com",
+                "damien",
+                "Damien",
+                "RAYMOND",
+                "noeup'App",
+                new Date(),
+                new Date(),
+                list(),
+                list()
         );
+
+        persons.add(damien);
 
         persons.forEach(personDao::add);
-	}
+    }
 
-	private void populateEvent() {
-		EventDao eventDao = new EventDao();
-		List<Event> events = list();
+    private void populateEvent() {
+        EventDao eventDao = new EventDao();
+        List<Event> events = list();
 
-		// Event 1
-		Event event = new Event(UUID.randomUUID(),
-                                "Mon anniv'",
-                                "grosse teuf chez wam",
-                                new Date(),
-                                new Date(),
-                                new Date(),
-                                "Chez wam",
-                                new Date(),
-                                new Date(),
-                                list(),
-                                list(),
-                                list(),
-                                list()
+        // Event 1
+        Event event = new Event(UUID.randomUUID(),
+                "Mon anniv'",
+                "grosse teuf chez wam",
+                new Date(),
+                new Date(),
+                new Date(),
+                "Chez wam",
+                new Date(),
+                new Date(),
+                list(damien),
+                list(),
+                list(),
+                list()
         );
 
-		Slug slug = new Slug(UUID.randomUUID(), "mon-anniv", event);
+        Slug slug = new Slug(UUID.randomUUID(), "mon-anniv", event);
 
-		event.getSlugs().add(slug);
+        event.getSlugs().add(slug);
 
-		events.add(event);
+        events.add(event);
 
-		// Event 2
-		Event event2 = new Event(UUID.randomUUID(),
-                                 "Soirée JEE",
-                                 "Dernier rush avant la fin du monde",
-				                 new Date(),
-                                 new Date(),
-                                 new Date(),
-                                 "Aux mines",
-                                 new Date(),
-                                 new Date(),
-                                 list(),
-                                 list(),
-                                 list(),
-                                 list()
+        // Event 2
+        Event event2 = new Event(UUID.randomUUID(),
+                "Soirée JEE",
+                "Dernier rush avant la fin du monde",
+                new Date(),
+                new Date(),
+                new Date(),
+                "Aux mines",
+                new Date(),
+                new Date(),
+                list(),
+                list(),
+                list(),
+                list()
         );
 
-		Slug slug2 = new Slug(UUID.randomUUID(), "soiree-jee", event2);
+        Slug slug2 = new Slug(UUID.randomUUID(), "soiree-jee", event2);
 
-		event2.getSlugs().add(slug2);
+        event2.getSlugs().add(slug2);
 
-		events.add(event2);
+        events.add(event2);
 
-		// Event 3
-		Event event3 = new Event(UUID.randomUUID(),
-                                 "Hibernation",
-                                 "Au revoir les ours",
-                                 new Date(),
-				                 new Date(),
-                                 new Date(),
-                                 "Pôle nord",
-                                 new Date(),
-                                 new Date(),
-                                 list(),
-                                 list(),
-				                 list(),
-                                 list()
+        // Event 3
+        Event event3 = new Event(UUID.randomUUID(),
+                "Hibernation",
+                "Au revoir les ours",
+                new Date(),
+                new Date(),
+                new Date(),
+                "Pôle nord",
+                new Date(),
+                new Date(),
+                list(),
+                list(),
+                list(),
+                list()
         );
 
-		Slug slug3 = new Slug(UUID.randomUUID(), "hibernation", event3);
+        Slug slug3 = new Slug(UUID.randomUUID(), "hibernation", event3);
 
-		event3.getSlugs().add(slug3);
+        event3.getSlugs().add(slug3);
 
-		events.add(event3);
+        events.add(event3);
 
-		events.forEach(eventDao::add);
-	}
+        events.forEach(eventDao::add);
+    }
 
 }
