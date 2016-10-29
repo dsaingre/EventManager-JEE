@@ -74,3 +74,16 @@ Get the message associated to key "error" :
 </c:if>
 ```
 
+## CRUD database
+In order to communicate with database, you have to :
+- Create an entity that extends `fr.lidadi.jee.eventmanager.framework.dao.Entity`
+- Create a Dao that extends `fr.lidadi.jee.eventmanager.framework.dao.Dao`
+
+Then, you can use defined methods such as :
+- getAll()
+- get(PK id) : get an entity from it primary key (PK is the type of the primary key)
+- findBy(SQLClauses sqlClauses) : equivalent to getAll with conditions 
+- add(T entity) 
+- update(T entity) 
+- delete(PK id) 
+
