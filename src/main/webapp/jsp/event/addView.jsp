@@ -24,43 +24,43 @@
     <div class="container">
         <h3>Créer un événement</h3>
 
-        <form action="">
+        <form action="addEventAction" method="Post">
             <div class="row">
                 <div class="input-field col s12">
                     <label for="name">Intitulé</label>
-                    <input id="name" type="text" class="validate">
+                    <input id="name" type="text" class="validate" name="name">
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s12">
                     <label for="address">Adresse</label>
-                    <input id="address" type="text" class="validate">
+                    <input id="address" type="text" class="validate" name="address">
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s6">
                     <label for="start_date">Date de début</label>
-                    <input id="start_date" type="date" class="validate datepicker">
+                    <input id="start_date" type="date" class="datepicker" name="start_date">
                 </div>
                 <div class="input-field col s6">
                     <label for="start_time">Heure de début</label>
-                    <input id="start_time" type="time" class="validate timepicker">
+                    <input id="start_time" type="time" class="timepicker" name ="start_time">
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s6">
                     <label for="end_date">Date de fin</label>
-                    <input id="end_date" type="date" class="datepicker">
+                    <input id="end_date" type="date" class="datepicker" name="end_date">
                 </div>
                 <div class="input-field col s6">
                     <label for="end_time">Heure de fin</label>
-                    <input id="end_time" type="time" class="timepicker">
+                    <input id="end_time" type="time" class="timepicker" name="end_time">
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s12">
                     <label for="description">Description</label>
-                    <textarea id="description" class="materialize-textarea"></textarea>
+                    <textarea id="description" class="materialize-textarea" name="description"></textarea>
                 </div>
             </div>
             <div class="row">

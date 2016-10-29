@@ -55,6 +55,12 @@ public class Events implements HttpErrorResponse {
 		okJsp(servlet, req, resp, "/event/addView.jsp");
 	}
 
+	public void addEventAction(HttpServlet servlet, HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		System.out.println(req.getParameter("start_time"));
+		okJsp(servlet, req, resp, "/event/addView.jsp");
+	}
+
 	public void myEvents(HttpServlet servlet, SecuredRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		req.setAttribute("events", this.eventService.fetchAllByOwner(req.getUser().getId()));

@@ -46,10 +46,12 @@ function fieldCallback() {
 
 function activeOrDesactiveLoginButton() {
 	if (password == passwordConf) {
-		removeClass(passwordField, "invalid")
-		removeClass(passwordConfField, "invalid")
-		addClass(passwordField, "valid")
-		addClass(passwordConfField, "valid")
+		if (password.length != 0 && passwordConf.length != 0) {
+			removeClass(passwordField, "invalid")
+			removeClass(passwordConfField, "invalid")
+			addClass(passwordField, "valid")
+			addClass(passwordConfField, "valid")
+		}
 		if (email.length != 0 && isValidEmail) {
 			removeClass(connectButton, "disabled")
 			return

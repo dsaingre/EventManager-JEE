@@ -26,6 +26,9 @@ public class PopulateHelper {
 
 		persons.add(new Person(UUID.randomUUID(), "dam.ray49@gmail.com", "damien", "Damien", "RAYMOND", "noeup'App",
 				new Date(), new Date(), new LinkedList<EventEntity>(), new LinkedList<EventEntity>()));
+		
+		persons.add(new Person(UUID.randomUUID(), "zouill94@hotmail.fr", "aze", "Lisa", "Panzani", "iRaiser",
+				new Date(), new Date(), new LinkedList<EventEntity>(), new LinkedList<EventEntity>()));
 
 		persons.forEach(personDao::add);
 
