@@ -38,6 +38,8 @@ public class Router implements HttpRouter {
                     .to("fr.lidadi.jee.eventmanager.app.event.Events.add()")
                 .get("/events/{id}/publish")
                     .to("fr.lidadi.jee.eventmanager.app.event.Events.publish(UUID id)")
+                .get("/events/{id}/apply")
+                    .to("fr.lidadi.jee.eventmanager.app.event.Events.apply(UUID id)")
                 .get("/update/event/{id}")
                     .to("fr.lidadi.jee.eventmanager.app.event.Events.update(UUID id)")
                 .post("/update/event/{id}")
@@ -45,6 +47,11 @@ public class Router implements HttpRouter {
                 .get("/events/{id}/delete")
                     .to("fr.lidadi.jee.eventmanager.app.event.Events.delete(UUID id)")
                 .get("/myevents")
-                    .to("fr.lidadi.jee.eventmanager.app.event.Events.myEvents()");
+                    .to("fr.lidadi.jee.eventmanager.app.event.Events.myEvents()")
+
+                .get("/events/{eventId}/participants/add")
+                    .to("fr.lidadi.jee.eventmanager.app.participant.Participants.addView(UUID eventId)")
+                .post("/events/{eventId}/participants/add")
+                    .to("fr.lidadi.jee.eventmanager.app.participant.Participants.add(UUID eventId)");
     }
 }

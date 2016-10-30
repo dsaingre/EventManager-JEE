@@ -21,7 +21,15 @@
 <main>
 
     <div class="container">
-        <a href="<app:uri src="/events"/>">← Retour à la page des événements</a>
+        <div class="row">
+            <div class="col s6">
+                <a href="<app:uri src="/events"/>">← Retour à la page des événements</a>
+            </div>
+            <div class="col s6 right-align">
+                <a class="waves-effect waves-light btn" href="<app:uri src="/events/"/>${event.id}/apply"><i class="material-icons left">done</i>S'y inscrire</a>
+            </div>
+        </div>
+
 
         <h3>${event.name}</h3>
         <h3>${event.description}</h3>
@@ -37,7 +45,6 @@
         <p>${event.participants}</p>
         <p>${event.slug}</p>
 
-        <p><a href="">S'y inscrire</a></p>
     </div>
 
 </main>

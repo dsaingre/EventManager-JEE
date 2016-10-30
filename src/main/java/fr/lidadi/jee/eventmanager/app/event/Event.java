@@ -222,12 +222,20 @@ public class Event implements Entity {
         this.participants = participants;
     }
 
+    public void addParticipant(Participant participant) {
+        this.participants.add(participant);
+    }
+
     public List<Person> getRegisteredPersons() {
         return this.registeredPersons;
     }
 
     public void setRegisteredPersons(List<Person> registeredPersons) {
         this.registeredPersons = registeredPersons;
+    }
+
+    public void addRegisteredPerson(Person person) {
+        this.registeredPersons.add(person);
     }
 
     //----------------------------------------------------------------------

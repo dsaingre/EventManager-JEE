@@ -1,5 +1,6 @@
 package fr.lidadi.jee.eventmanager.app.event;
 
+import fr.lidadi.jee.eventmanager.app.participant.Participant;
 import fr.lidadi.jee.eventmanager.app.person.Person;
 import fr.lidadi.jee.eventmanager.framework.Flashing;
 
@@ -40,5 +41,16 @@ public class EventService {
 
     public void delete(Event event) {
         eventDao.delete(event.getId());
+    }
+
+    public void linkRegisteredPerson(Event event, Person person) {
+        event.addRegisteredPerson(person);
+        eventDao.update(event);
+    }
+
+    public void linkParticipant(Event event, Participant participant) {
+        event.addParticipant(participant);
+        eventDao.update(event);
+
     }
 }

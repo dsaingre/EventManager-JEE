@@ -20,4 +20,8 @@ public class Tuple<A,B> {
     public B getScn() {
         return scn;
     }
+
+    public static <A,B> Tuple<A,B> tuple(A fst, B scn){
+        return new Tuple<>(fst, scn);
+    }
 }
