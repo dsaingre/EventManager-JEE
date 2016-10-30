@@ -49,20 +49,20 @@ public class PopulateHelper {
 
 		// Event 1
 		Event event = new Event(UUID.randomUUID(), "Mon anniv'", "grosse teuf chez wam", new Date(), new Date(),
-				new Date(), "Chez wam", new Date(), new Date(), list(lisa, damien), "mon-anniv", list(), list());
+				new Date(), "Chez wam", new Date(), new Date(), list(lisa, damien), "mon-anniv", list(), list(damien));
 
 		events.add(event);
 
 		// Event 2
 		Event event2 = new Event(UUID.randomUUID(), "Soirée JEE", "Dernier rush avant la fin du monde", new Date(),
 				new Date(), null, "Aux mines", new Date(), new Date(), list(lisa, damien), "soiree-jee", list(),
-				list());
+				list(damien));
 
 		events.add(event2);
 
 		// Event 3
 		Event event3 = new Event(UUID.randomUUID(), "Hibernation", "Au revoir les ours", new Date(), new Date(),
-				new Date(), "Pôle nord", new Date(), new Date(), list(lisa), "hibernation", list(), list());
+				new Date(), "Pôle nord", new Date(), new Date(), list(lisa), "hibernation", list(), list(damien));
 
 		events.add(event3);
 

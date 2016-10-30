@@ -15,6 +15,7 @@
 					<li><a href="<app:uri src="/logout"/>">Déconnexion</a></li>
 				</c:when>
 				<c:otherwise>
+					<li><a href="<app:uri src="/signup"/>">Nouvel événement</a></li>
 					<li class="${isLoginPage}"><a href="<app:uri src="/login"/>">S'identifier</a></li>
 					<li class="${isSignupPage}"><a href="<app:uri src="/signup"/>">Créer
 							un compte</a></li>

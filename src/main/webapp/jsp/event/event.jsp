@@ -24,32 +24,80 @@
 
 	<div class="container">
 		<a href="<app:uri src="/myevents"/>">← Retour</a>
-		<div class="pink lighten-4">
-			<h3>${event.name}</h3>
-			<p>${event.description}</p>
-			<p>${event.location}</p>
-			<p>${event.startDate}</p>
-			<p>${event.endDate}</p>
-			<p>${event.publishingDate}</p>
-			<p>${event.startDate}</p>
-			<p>${event.updated}</p>
-			<p>${event.created}</p>
-			<p>${event.registeredPersons}</p>
-			<p>${event.owners}</p>
-			<p>${event.participants}</p>
-			<p>${event.slug}</p>
+		<div class="blue-grey lighten-1 event-box white-text">
+			<div class="row event-name valign-wrapper">
+				<h4 class="valign col s10">${event.name}</h4>
+				<c:choose>
+					<c:when test="${event.owners.contains(user)}">
+						<div class="chip center col s5 right">Vous êtes le créateur de cet événement</div>
+					</c:when>
+					<c:when test="${event.registeredPersons.contains(user)}">
+						<div class="chip center col s3 right">Vous êtes déjà inscrit</div>
+					</c:when>
+					<c:when test="${event.participants.contains(user)}">
+						<div class="chip center col s3 right">Vous êtes déjà inscrit</div>
+					</c:when>
+					<c:otherwise>
+						<a href="" class="btn right">S'inscrire</a>
+					</c:otherwise>
+				</c:choose>
+			</div>
+			<div>
+				<p>
+					<i class="material-icons">room</i> ${event.location}
+				</p>
+				<p>
+					<i class="material-icons">today</i> Du ${event.startDate} au
+					${event.endDate}
+				</p>
+				<div class="event-desc blue-grey lighten-3">
+					<p>${event.description}</p>
+				</div>
 
-			<c:forEach items="${event.owners}" var="user">
-				${user.firstName}
-				${user.lastName}
-				${user.id}
-				
-			</c:forEach>
 
-			<p>utilisateur connecté : ${user}</p>
+				<c:if test="${event.owners.contains(user)}">
+					<c:if
+						test="${!event.participants.isEmpty() || !event.registeredPersons.isEmpty()}">
+						<table
+							class="highlight bordered grey-text blue-grey lighten-3 text-darken-2 event-user-list">
+							<thead>
+								<tr>
+									<th data-field="id">Participants</th>
+								</tr>
+							</thead>
+
+							<tbody>
+								<c:forEach items="${event.participants}" var="user">
+									<tr>
+										<td>${user.firstName} ${user.lastName}</td>
+									</tr>
+								</c:forEach>
+								<c:forEach items="${event.registeredPersons}" var="user">
+									<tr>
+										<td>${user.firstName} ${user.lastName}</td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+					</c:if>
+				</c:if>
+
+
+
+
+
+
+
+
+
+				Créé par :
+				<c:forEach items="${event.owners}" var="owner">
+					<div class="chip class teal lighten-3">${owner.firstName}
+						${owner.lastName}</div>
+				</c:forEach>
+			</div>
+
 		</div>
-		
-
 	</div>
 
 	</main>

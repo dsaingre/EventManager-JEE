@@ -48,7 +48,7 @@
 							<p>${event.description}</p>
 						</div>
 						<div class="card-action white-text">
-							<a href="<app:uri src="/events/" />${event.getId()}"
+							<a href="<app:uri src="/events/" />${event.slug}"
 								class="lime-text text-accent-3"> <i
 								class="tiny material-icons">search</i> Voir les informations
 							</a> <a href="<app:uri src="/update/event/"/>${event.getId()}"
