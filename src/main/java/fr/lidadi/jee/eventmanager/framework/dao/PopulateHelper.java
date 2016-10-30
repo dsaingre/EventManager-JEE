@@ -77,14 +77,10 @@ public class PopulateHelper {
                 new Date(),
                 new Date(),
                 list(lisa),
-                list(),
+                "mon-anniv",
                 list(),
                 list()
         );
-
-        Slug slug = new Slug(UUID.randomUUID(), "mon-anniv", event);
-
-        event.getSlugs().add(slug);
 
         events.add(event);
 
@@ -99,14 +95,10 @@ public class PopulateHelper {
                 new Date(),
                 new Date(),
                 list(lisa),
-                list(),
+                "soiree-jee",
                 list(),
                 list()
         );
-
-        Slug slug2 = new Slug(UUID.randomUUID(), "soiree-jee", event2);
-
-        event2.getSlugs().add(slug2);
 
         events.add(event2);
 
@@ -121,14 +113,11 @@ public class PopulateHelper {
                 new Date(),
                 new Date(),
                 list(lisa),
-                list(),
+                "hibernation",
                 list(),
                 list()
         );
 
-        Slug slug3 = new Slug(UUID.randomUUID(), "hibernation", event3);
-
-        event3.getSlugs().add(slug3);
 
         events.add(event3);
 

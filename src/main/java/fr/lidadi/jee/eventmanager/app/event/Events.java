@@ -46,8 +46,8 @@ public class Events implements HttpErrorResponse {
 	}
 
 
-    public void fetch(HttpServlet servlet, HttpServletRequest req, HttpServletResponse resp, UUID id) throws ServletException, IOException {
-        Optional<Event> event = this.eventService.fetch(id);
+    public void fetch(HttpServlet servlet, HttpServletRequest req, HttpServletResponse resp, String slug) throws ServletException, IOException {
+        Optional<Event> event = this.eventService.fetchBySlug(slug);
         if(! event.isPresent()){
             okJsp(servlet, req, resp, "/event/eventNotFound.jsp");
             return;

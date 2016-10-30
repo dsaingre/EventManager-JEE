@@ -20,5 +20,8 @@ public class EventService {
     public Optional<Event> fetch(UUID id) {
         return eventDao.get(id);
     }
+    public Optional<Event> fetchBySlug(String slug) {
+        return eventDao.getBySlug(slug);
+    }
 
 }

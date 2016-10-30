@@ -18,6 +18,9 @@ public class SQLRequestFactory {
     public static Where where(SQLLogicalOperator operator){
         return new Where(operator);
     }
+    public static Where where(SQLEqualityOperator operator){
+        return new Where(and(operator));
+    }
 
     public static Like Like(Equal equal){
         return new Like(equal);

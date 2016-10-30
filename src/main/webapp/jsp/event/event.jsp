@@ -35,7 +35,7 @@
         <p>${event.registeredPersons}</p>
         <p>${event.owners}</p>
         <p>${event.participants}</p>
-        <p>${event.slugs}</p>
+        <p>${event.slug}</p>
 
         <p><a href="">S'y inscrire</a></p>
     </div>
