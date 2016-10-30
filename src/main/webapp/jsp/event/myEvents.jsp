@@ -32,21 +32,20 @@
 				<div class="col s6 m12">
 					<div class="card teal darken-1">
 						<div class="card-content white-text">
-							<span class="card-title col s10">${event.name}</span>
+							<span class="card-title">${event.name}</span>
 
 							<c:choose>
 								<c:when test="${event.publishingDate != null}">
-									<div class="chip teal lighten-2 col s1 offset-s1">Publié</div>
+									<div class="chip teal lighten-2 col s1 offset-s11 white-text">Publié</div>
 								</c:when>
 								<c:otherwise>
 									<a href="<app:uri src="/publish/event/"/>${event.getId()}"
-										class="waves-effect waves-light btn teal lighten-2 col s2"><i
+										class="waves-effect waves-light btn teal lighten-2 col s2 offset-s10"><i
 										class="material-icons left">language</i>Publier</a>
 								</c:otherwise>
 							</c:choose>
 
 							<p>${event.description}</p>
-							<p>${event.location}</p>
 						</div>
 						<div class="card-action white-text">
 							<a href="<app:uri src="/events/" />${event.getId()}"
@@ -59,6 +58,7 @@
 								class="lime-text text-accent-3"> <i
 								class="tiny material-icons">delete</i> Supprimer
 							</a>
+
 						</div>
 					</div>
 				</div>
