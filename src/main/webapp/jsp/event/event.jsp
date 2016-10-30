@@ -37,7 +37,7 @@
 			<p>${event.registeredPersons}</p>
 			<p>${event.owners}</p>
 			<p>${event.participants}</p>
-			<p>${event.slugs}</p>
+			<p>${event.slug}</p>
 
 			<c:forEach items="${event.owners}" var="user">
 				${user.firstName}
@@ -46,17 +46,10 @@
 				
 			</c:forEach>
 
+			<p>utilisateur connecté : ${user}</p>
 		</div>
-		${sessionScope.get(\"user\")}
-		<p>
+		
 
-			<%-- 			<c:choose>
-				<c:when
-					test="${event.owners.contains($sessionScope.) } ${sessionScope.containsKey(\"user\")}"> Yipikai</c:when>
-					<c:otherwise>Neiiiin</c:otherwise>
-			</c:choose> --%>
-			<a href="">S'inscrire</a>
-		</p>
 	</div>
 
 	</main>
