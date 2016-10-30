@@ -6,11 +6,6 @@
 
 package fr.lidadi.jee.eventmanager.app.person;
 
-import fr.lidadi.jee.eventmanager.app.event.Event;
-import fr.lidadi.jee.eventmanager.framework.dao.Entity;
-
-import javax.persistence.*;
-
 //import javax.validation.constraints.* ;
 //import org.hibernate.validator.constraints.* ;
 
@@ -18,6 +13,15 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import fr.lidadi.jee.eventmanager.app.event.Event;
+import fr.lidadi.jee.eventmanager.framework.dao.Entity;
 
 /**
  * Persistent class for entity stored in table "Person"
@@ -29,199 +33,207 @@ import java.util.UUID;
 @Table(name = "person")
 public class Person implements Entity {
 
-    //----------------------------------------------------------------------
-    // ENTITY PRIMARY KEY ( BASED ON A SINGLE FIELD )
-    //----------------------------------------------------------------------
-    @Id
-    @Column(name = "ID", nullable = false)
-    private UUID id;
+	// ----------------------------------------------------------------------
+	// ENTITY PRIMARY KEY ( BASED ON A SINGLE FIELD )
+	// ----------------------------------------------------------------------
+	@Id
+	@Column(name = "ID", nullable = false)
+	private UUID id;
 
+	// ----------------------------------------------------------------------
+	// ENTITY DATA FIELDS
+	// ----------------------------------------------------------------------
+	@Column(name = "EMAIL", nullable = false, length = 255)
+	private String email;
 
-    //----------------------------------------------------------------------
-    // ENTITY DATA FIELDS
-    //----------------------------------------------------------------------
-    @Column(name = "EMAIL", nullable = false, length = 255)
-    private String email;
+	@Column(name = "PASSWORD", nullable = false, length = 255)
+	private String password;
 
-    @Column(name = "PASSWORD", nullable = false, length = 255)
-    private String password;
+	@Column(name = "FIRST_NAME", length = 255)
+	private String firstName;
 
-    @Column(name = "FIRST_NAME", length = 255)
-    private String firstName;
+	@Column(name = "LAST_NAME", length = 255)
+	private String lastName;
 
-    @Column(name = "LAST_NAME", length = 255)
-    private String lastName;
+	@Column(name = "COMPANY", length = 255)
+	private String company;
 
-    @Column(name = "COMPANY", length = 255)
-    private String company;
+	@Temporal(TemporalType.DATE)
+	@Column(name = "UPDATED", nullable = false)
+	private Date updated;
 
-    @Temporal(TemporalType.DATE)
-    @Column(name = "UPDATED", nullable = false)
-    private Date updated;
+	@Temporal(TemporalType.DATE)
+	@Column(name = "CREATED", nullable = false)
+	private Date created;
 
-    @Temporal(TemporalType.DATE)
-    @Column(name = "CREATED", nullable = false)
-    private Date created;
+	// ----------------------------------------------------------------------
+	// ENTITY LINKS ( RELATIONSHIP )
+	// ----------------------------------------------------------------------
+	@ManyToMany(mappedBy = "registeredPersons", targetEntity = Event.class)
+	private List<Event> subscribedEvents;
 
+	@ManyToMany(mappedBy = "owners", targetEntity = Event.class)
+	private List<Event> createdEvents;
 
-    //----------------------------------------------------------------------
-    // ENTITY LINKS ( RELATIONSHIP )
-    //----------------------------------------------------------------------
-    @ManyToMany(mappedBy = "registeredPersons", targetEntity = Event.class)
-    private List<Event> subscribedEvents;
+	// ----------------------------------------------------------------------
+	// CONSTRUCTOR(S)
+	// ----------------------------------------------------------------------
+	public Person() {
+		super();
+	}
 
-    @ManyToMany(mappedBy = "owners", targetEntity = Event.class)
-    private List<Event> createdEvents;
+	public Person(UUID id, String email, String password, String firstName, String lastName, String company,
+			Date updated, Date created, List<Event> subscribedEvents, List<Event> createdEvents) {
+		this.id = id;
+		this.email = email;
+		this.password = password;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.company = company;
+		this.updated = updated;
+		this.created = created;
+		this.subscribedEvents = subscribedEvents;
+		this.createdEvents = createdEvents;
+	}
 
+	// ----------------------------------------------------------------------
+	// GETTER & SETTER FOR THE KEY FIELD
+	// ----------------------------------------------------------------------
+	public void setId(UUID id) {
+		this.id = id;
+	}
 
-    //----------------------------------------------------------------------
-    // CONSTRUCTOR(S)
-    //----------------------------------------------------------------------
-    public Person() {
-        super();
-    }
+	public UUID getId() {
+		return this.id;
+	}
 
-    public Person(UUID id, String email, String password, String firstName, String lastName, String company, Date updated, Date created, List<Event> subscribedEvents, List<Event> createdEvents) {
-        this.id = id;
-        this.email = email;
-        this.password = password;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.company = company;
-        this.updated = updated;
-        this.created = created;
-        this.subscribedEvents = subscribedEvents;
-        this.createdEvents = createdEvents;
-    }
+	// ----------------------------------------------------------------------
+	// GETTERS & SETTERS FOR FIELDS
+	// ----------------------------------------------------------------------
+	// --- DATABASE MAPPING : MAIL ( VARCHAR )
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-    //----------------------------------------------------------------------
-    // GETTER & SETTER FOR THE KEY FIELD
-    //----------------------------------------------------------------------
-    public void setId(UUID id) {
-        this.id = id;
-    }
+	public String getEmail() {
+		return this.email;
+	}
 
-    public UUID getId() {
-        return this.id;
-    }
+	// --- DATABASE MAPPING : PASSWORD ( VARCHAR )
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
-    //----------------------------------------------------------------------
-    // GETTERS & SETTERS FOR FIELDS
-    //----------------------------------------------------------------------
-    //--- DATABASE MAPPING : MAIL ( VARCHAR )
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	public String getPassword() {
+		return this.password;
+	}
 
-    public String getEmail() {
-        return this.email;
-    }
+	// --- DATABASE MAPPING : FIRST_NAME ( VARCHAR )
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
 
-    //--- DATABASE MAPPING : PASSWORD ( VARCHAR )
-    public void setPassword(String password) {
-        this.password = password;
-    }
+	public String getFirstName() {
+		return this.firstName;
+	}
 
-    public String getPassword() {
-        return this.password;
-    }
+	// --- DATABASE MAPPING : LAST_NAME ( VARCHAR )
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
 
-    //--- DATABASE MAPPING : FIRST_NAME ( VARCHAR )
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
+	public String getLastName() {
+		return this.lastName;
+	}
 
-    public String getFirstName() {
-        return this.firstName;
-    }
+	// --- DATABASE MAPPING : COMPANY ( VARCHAR )
+	public void setCompany(String company) {
+		this.company = company;
+	}
 
-    //--- DATABASE MAPPING : LAST_NAME ( VARCHAR )
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
+	public String getCompany() {
+		return this.company;
+	}
 
-    public String getLastName() {
-        return this.lastName;
-    }
+	// --- DATABASE MAPPING : UPDATED ( DATE )
+	public void setUpdated(Date updated) {
+		this.updated = updated;
+	}
 
-    //--- DATABASE MAPPING : COMPANY ( VARCHAR )
-    public void setCompany(String company) {
-        this.company = company;
-    }
+	public Date getUpdated() {
+		return this.updated;
+	}
 
-    public String getCompany() {
-        return this.company;
-    }
+	// --- DATABASE MAPPING : CREATED ( DATE )
+	public void setCreated(Date created) {
+		this.created = created;
+	}
 
-    //--- DATABASE MAPPING : UPDATED ( DATE )
-    public void setUpdated(Date updated) {
-        this.updated = updated;
-    }
+	public Date getCreated() {
+		return this.created;
+	}
 
-    public Date getUpdated() {
-        return this.updated;
-    }
+	// ----------------------------------------------------------------------
+	// GETTERS & SETTERS FOR LINKS
+	// ----------------------------------------------------------------------
+	public void setSubscribedEvents(List<Event> subscribedEvents) {
+		this.subscribedEvents = subscribedEvents;
+	}
 
-    //--- DATABASE MAPPING : CREATED ( DATE )
-    public void setCreated(Date created) {
-        this.created = created;
-    }
+	public List<Event> getSubscribedEvents() {
+		return this.subscribedEvents;
+	}
 
-    public Date getCreated() {
-        return this.created;
-    }
+	public void setCreatedEvents(List<Event> createdEvents) {
+		this.createdEvents = createdEvents;
+	}
 
+	public List<Event> getCreatedEvents() {
+		return this.createdEvents;
+	}
 
-    //----------------------------------------------------------------------
-    // GETTERS & SETTERS FOR LINKS
-    //----------------------------------------------------------------------
-    public void setSubscribedEvents(List<Event> subscribedEvents) {
-        this.subscribedEvents = subscribedEvents;
-    }
+	// ----------------------------------------------------------------------
+	// toString METHOD
+	// ----------------------------------------------------------------------
+	public String toString() {
+		StringBuffer sb = new StringBuffer();
+		sb.append("[");
+		// attribute 'id' not usable (type = byte[])
+		sb.append("]:");
+		sb.append(email);
+		sb.append("|");
+		sb.append(password);
+		sb.append("|");
+		sb.append(firstName);
+		sb.append("|");
+		sb.append(lastName);
+		sb.append("|");
+		sb.append(company);
+		sb.append("|");
+		sb.append(updated);
+		sb.append("|");
+		sb.append(created);
+		return sb.toString();
+	}
 
-    public List<Event> getSubscribedEvents() {
-        return this.subscribedEvents;
-    }
+	@Override
+	public UUID getPrimaryKey() {
+		return this.getId();
+	}
 
-    public void setCreatedEvents(List<Event> createdEvents) {
-        this.createdEvents = createdEvents;
-    }
+	public static String getTableName() {
+		return "person";
+	}
 
-    public List<Event> getCreatedEvents() {
-        return this.createdEvents;
-    }
-
-
-    //----------------------------------------------------------------------
-    // toString METHOD
-    //----------------------------------------------------------------------
-    public String toString() {
-        StringBuffer sb = new StringBuffer();
-        sb.append("[");
-        // attribute 'id' not usable (type = byte[])
-        sb.append("]:");
-        sb.append(email);
-        sb.append("|");
-        sb.append(password);
-        sb.append("|");
-        sb.append(firstName);
-        sb.append("|");
-        sb.append(lastName);
-        sb.append("|");
-        sb.append(company);
-        sb.append("|");
-        sb.append(updated);
-        sb.append("|");
-        sb.append(created);
-        return sb.toString();
-    }
-
-    @Override
-    public UUID getPrimaryKey() {
-        return this.getId();
-    }
-
-    public static String getTableName() {
-        return "person";
-    }
+	@Override
+	public boolean equals(Object other) {
+		if (other == null)
+			return false;
+		if (other == this)
+			return true;
+		if (!(other instanceof Person))
+			return false;
+		Person other_person = (Person) other;
+		return this.id.equals(other_person.id);
+	}
 }
