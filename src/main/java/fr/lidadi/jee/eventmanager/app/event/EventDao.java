@@ -16,6 +16,10 @@ import static fr.lidadi.jee.eventmanager.framework.dao.sqldsl.SQLRequestFactory.
 public class EventDao extends Dao<Event, UUID> {
 
 
+    public List<Event> getAllPublished(){
+        return this.findBy(where(isNotNull("publishingDate")));
+    }
+
     public List<Event> getByOwner(UUID owner) {
         return this.getAll().stream()
                 .filter(event ->

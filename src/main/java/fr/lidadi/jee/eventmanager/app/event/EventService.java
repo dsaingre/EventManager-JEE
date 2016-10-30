@@ -9,8 +9,8 @@ public class EventService {
 
     private EventDao eventDao = new EventDao();
 
-    public List<Event> fetchAll() {
-        return eventDao.getAll();
+    public List<Event> fetchAllPublished() {
+        return eventDao.getAllPublished();
     }
 
     public List<Event> fetchAllByOwner(UUID owner) {
