@@ -37,4 +37,8 @@ public class EventService {
         event.setPublishingDate(new Date());
         eventDao.update(event);
     }
+
+    public void delete(Event event) {
+        eventDao.delete(event.getId());
+    }
 }

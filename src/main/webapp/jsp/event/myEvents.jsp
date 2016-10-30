@@ -55,7 +55,8 @@
 							</a> <a href="<app:uri src="/update/event/"/>${event.getId()}"
 								class="lime-text text-accent-3"> <i
 								class="tiny material-icons">mode_edit</i> Modifier
-							</a> <a href="<app:uri src="/delete/event/"/>${event.getId()}"
+							</a> <a href="<app:uri src="/events/"/>${event.getId()}/delete"
+									onclick="confirm('Étes-vous sûr(e) de supprimer ? Les données ne pourront pas être récupérées')"
 								class="lime-text text-accent-3"> <i
 								class="tiny material-icons">delete</i> Supprimer
 							</a>
