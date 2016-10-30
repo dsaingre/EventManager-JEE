@@ -72,19 +72,15 @@ public class PopulateHelper {
                 "grosse teuf chez wam",
                 new Date(),
                 new Date(),
-                null,
+                new Date(),
                 "Chez wam",
                 new Date(),
                 new Date(),
-                list(lisa),
-                list(),
+                list(lisa, damien),
+                "mon-anniv",
                 list(),
                 list()
         );
-
-        Slug slug = new Slug(UUID.randomUUID(), "mon-anniv", event);
-
-        event.getSlugs().add(slug);
 
         events.add(event);
 
@@ -94,19 +90,15 @@ public class PopulateHelper {
                 "Dernier rush avant la fin du monde",
                 new Date(),
                 new Date(),
-                new Date(),
+                null,
                 "Aux mines",
                 new Date(),
                 new Date(),
-                list(lisa),
-                list(),
+                list(lisa, damien),
+                "soiree-jee",
                 list(),
                 list()
         );
-
-        Slug slug2 = new Slug(UUID.randomUUID(), "soiree-jee", event2);
-
-        event2.getSlugs().add(slug2);
 
         events.add(event2);
 
@@ -121,14 +113,11 @@ public class PopulateHelper {
                 new Date(),
                 new Date(),
                 list(lisa),
-                list(),
+                "hibernation",
                 list(),
                 list()
         );
 
-        Slug slug3 = new Slug(UUID.randomUUID(), "hibernation", event3);
-
-        event3.getSlugs().add(slug3);
 
         events.add(event3);
 

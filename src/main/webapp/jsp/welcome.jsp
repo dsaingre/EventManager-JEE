@@ -64,7 +64,7 @@
 								</p>
 							</div>
 							<div class="card-action white-text">
-								<a href="/event/${event.slugs.get(0).getSlug()}"
+								<a href="<app:uri src="/events/"/>${event.slug}"
 									class="lime-text text-accent-3">Détail de l'événement</a>
 							</div>
 						</div>

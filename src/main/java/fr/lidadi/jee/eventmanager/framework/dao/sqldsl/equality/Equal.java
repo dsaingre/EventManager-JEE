@@ -11,9 +11,9 @@ import javax.persistence.criteria.Root;
 public class Equal implements SQLEqualityOperator {
 
     private String key;
-    private String value;
+    private Object value;
 
-    public Equal(String key, String value) {
+    public Equal(String key, Object value) {
         this.key = key;
         this.value = value;
     }

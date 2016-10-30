@@ -9,8 +9,8 @@ public class EventService {
 
     private EventDao eventDao = new EventDao();
 
-    public List<Event> fetchAll() {
-        return eventDao.getAll();
+    public List<Event> fetchAllPublished() {
+        return eventDao.getAllPublished();
     }
 
     public List<Event> fetchAllByOwner(UUID owner) {
@@ -19,6 +19,9 @@ public class EventService {
 
     public Optional<Event> fetch(UUID id) {
         return eventDao.get(id);
+    }
+    public Optional<Event> fetchBySlug(String slug) {
+        return eventDao.getBySlug(slug);
     }
 
 }

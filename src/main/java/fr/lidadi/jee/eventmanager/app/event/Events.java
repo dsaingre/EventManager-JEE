@@ -1,6 +1,7 @@
 package fr.lidadi.jee.eventmanager.app.event;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -21,12 +22,9 @@ public class Events implements HttpErrorResponse {
 
 	public void welcome(HttpServlet servlet, HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
+		List<Event> events = this.eventService.fetchAllPublished();
 
-		EventDao eventDao = new EventDao();
-
-		System.out.println(eventDao.getAll());
-
-		req.setAttribute("events", eventDao.getAll());
+		req.setAttribute("events", events);
 
 		okJsp(servlet, req, resp, "/welcome.jsp");
 	}
@@ -34,7 +32,7 @@ public class Events implements HttpErrorResponse {
 	public void fetchAll(HttpServlet servlet, HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 
-		req.setAttribute("events", this.eventService.fetchAll());
+		req.setAttribute("events", this.eventService.fetchAllPublished());
 
 		okJsp(servlet, req, resp, "/event/events.jsp");
 	}
@@ -46,8 +44,8 @@ public class Events implements HttpErrorResponse {
 	}
 
 
-    public void fetch(HttpServlet servlet, HttpServletRequest req, HttpServletResponse resp, UUID id) throws ServletException, IOException {
-        Optional<Event> event = this.eventService.fetch(id);
+    public void fetch(HttpServlet servlet, HttpServletRequest req, HttpServletResponse resp, String slug) throws ServletException, IOException {
+        Optional<Event> event = this.eventService.fetchBySlug(slug);
         if(! event.isPresent()){
             okJsp(servlet, req, resp, "/event/eventNotFound.jsp");
             return;
