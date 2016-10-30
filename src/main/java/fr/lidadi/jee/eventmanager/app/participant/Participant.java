@@ -25,7 +25,8 @@ import javax.persistence.Entity;
  * @author Telosys Tools Generator
  */
 
-@Entity(name = "participant")
+@javax.persistence.Entity
+@Table(name = "participant")
 public class Participant implements fr.lidadi.jee.eventmanager.framework.dao.Entity {
 
 
@@ -33,7 +34,7 @@ public class Participant implements fr.lidadi.jee.eventmanager.framework.dao.Ent
     // ENTITY PRIMARY KEY ( EMBEDDED IN AN EXTERNAL CLASS )
     //----------------------------------------------------------------------
     @EmbeddedId
-    private ParticipantEntityKey compositePrimaryKey;
+    private ParticipantKey compositePrimaryKey;
 
 
     //----------------------------------------------------------------------
@@ -62,7 +63,15 @@ public class Participant implements fr.lidadi.jee.eventmanager.framework.dao.Ent
     //----------------------------------------------------------------------
     public Participant() {
         super();
-        this.compositePrimaryKey = new ParticipantEntityKey();
+        this.compositePrimaryKey = new ParticipantKey();
+    }
+
+    public Participant(String email, String firstName, String lastName, String company, Event event) {
+        this.compositePrimaryKey = new ParticipantKey(event.getId(), email);
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.company = company;
+        this.event = event;
     }
 
     //----------------------------------------------------------------------
@@ -155,13 +164,12 @@ public class Participant implements fr.lidadi.jee.eventmanager.framework.dao.Ent
 
 
     @Embeddable
-    public class ParticipantEntityKey implements Serializable {
+    public class ParticipantKey implements Serializable {
         private static final long serialVersionUID = 1L;
 
         // ----------------------------------------------------------------------
         // ENTITY KEY ATTRIBUTES
         // ----------------------------------------------------------------------
-        @Lob
         @Column(name = "EVENT_ID", nullable = false)
         private UUID eventId;
 
@@ -171,11 +179,11 @@ public class Participant implements fr.lidadi.jee.eventmanager.framework.dao.Ent
         // ----------------------------------------------------------------------
         // CONSTRUCTORS
         // ----------------------------------------------------------------------
-        public ParticipantEntityKey() {
+        public ParticipantKey() {
             super();
         }
 
-        public ParticipantEntityKey(UUID eventId, String mail) {
+        public ParticipantKey(UUID eventId, String mail) {
             super();
             this.eventId = eventId;
             this.mail = mail;
@@ -205,7 +213,7 @@ public class Participant implements fr.lidadi.jee.eventmanager.framework.dao.Ent
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
 
-            ParticipantEntityKey that = (ParticipantEntityKey) o;
+            ParticipantKey that = (ParticipantKey) o;
 
             if (getEventId() != null ? !getEventId().equals(that.getEventId()) : that.getEventId() != null)
                 return false;

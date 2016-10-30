@@ -10,8 +10,8 @@
 			<%-- <li><a href="<app:uri src="/events"/>">Parcourir les évènements</a></li> --%>
 			<c:choose>
 				<c:when test="${sessionScope.containsKey(\"user\")}">
-					<li><a href="<app:uri src="/addevent"/>">Nouvel événement</a></li>
-					<li><a href="<app:uri src="/myevents"/>">Mes événements</a></li>
+					<li class="${isEventAdd}"><a href="<app:uri src="/addevent"/>"><i class="material-icons left">playlist_add</i>Nouvel événement</a></li>
+					<li class="${isMyEvents}"><a href="<app:uri src="/myevents"/>">Mes événements</a></li>
 					<li><a href="<app:uri src="/logout"/>">Déconnexion</a></li>
 				</c:when>
 				<c:otherwise>

@@ -12,9 +12,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import fr.lidadi.jee.eventmanager.app.event.Event;
+import fr.lidadi.jee.eventmanager.app.event.EventService;
 import fr.lidadi.jee.eventmanager.framework.Flashing;
 import fr.lidadi.jee.eventmanager.framework.HttpErrorResponse;
 import fr.lidadi.jee.eventmanager.framework.utils.Tuple;
+
+import static fr.lidadi.jee.eventmanager.framework.utils.Tuple.tuple;
 
 /**
  * Created by damien on 17/10/2016.
@@ -22,10 +26,21 @@ import fr.lidadi.jee.eventmanager.framework.utils.Tuple;
 public class Persons implements HttpErrorResponse {
 
 	private PersonService personService = new PersonService();
+	private EventService eventService = new EventService();
 	private Flashing flashing = new Flashing();
 
 	public void login(HttpServlet servlet, HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
+		try{
+			UUID eventId = UUID.fromString(req.getParameter("event"));
+			Optional<Event> event = eventService.fetch(eventId);
+            System.out.println("event found : " + event);
+            req.setAttribute("event", event.orElse(null));
+		}catch (IllegalArgumentException | NullPointerException e){
+            System.out.println("event query param not found");
+            // just ignore if event query param is not set or not correct
+		}
+
 		req.setAttribute("isLoginPage", "active");
 		okJsp(servlet, req, resp, "/login.jsp");
 	}
@@ -40,6 +55,9 @@ public class Persons implements HttpErrorResponse {
 	public void authentication(HttpServlet servlet, HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 
+		String event = req.getParameter("event");
+
+
 		String email = req.getParameter("email");
 		String password = req.getParameter("password");
 
@@ -48,11 +66,16 @@ public class Persons implements HttpErrorResponse {
 			HttpSession session = req.getSession();
 			session.setAttribute("user", login.get());
 			String last_url = Optional.ofNullable(session.getAttribute("last_url")).orElse("/").toString();
-			redirect(req, resp, last_url, new Tuple<String, String>("info", "Identification réussie !"));
+            if(event != null){
+                redirect(req, resp, "/events/" + event + "/apply");
+                return;
+            }
+
+			redirect(req, resp, last_url, tuple("info", "Identification réussie !"));
 			return;
 		}
 
-		redirect(req, resp, "/login", new Tuple<String, String>("error",
+		redirect(req, resp, "/login", tuple("error",
 				"Impossible de vous identifier, merci de vérifier que les informations renseignées sont correctes."));
 	}
 
@@ -84,9 +107,9 @@ public class Persons implements HttpErrorResponse {
 
 		if (!person.isPresent()) {
 			redirect(req, resp, "/signup",
-					new Tuple<String, String>("error", "Un compte existe déjà pour cette adresse mail"));
+					tuple("error", "Un compte existe déjà pour cette adresse mail"));
 		} else {
-			redirect(req, resp, "/login", new Tuple<String, String>("info",
+			redirect(req, resp, "/login", tuple("info",
 					"Votre compte a bien été créé ! Merci d'utiliser vos nouveaux identifiants pour vous connecter."));
 		}
 	}

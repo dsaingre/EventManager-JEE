@@ -36,15 +36,22 @@ public class Router implements HttpRouter {
                     .to("fr.lidadi.jee.eventmanager.app.event.Events.addEventAction()")
                 .post("/events")
                     .to("fr.lidadi.jee.eventmanager.app.event.Events.add()")
-                .get("/publish/event/{id}")
+                .get("/events/{id}/publish")
                     .to("fr.lidadi.jee.eventmanager.app.event.Events.publish(UUID id)")
+                .get("/events/{id}/apply")
+                    .to("fr.lidadi.jee.eventmanager.app.event.Events.apply(UUID id)")
                 .get("/update/event/{id}")
                     .to("fr.lidadi.jee.eventmanager.app.event.Events.update(UUID id)")
                 .post("/update/event/{id}")
                     .to("fr.lidadi.jee.eventmanager.app.event.Events.updateAction(UUID id)")
-                .get("/delete/event/{id}")
+                .get("/events/{id}/delete")
                     .to("fr.lidadi.jee.eventmanager.app.event.Events.delete(UUID id)")
                 .get("/myevents")
-                    .to("fr.lidadi.jee.eventmanager.app.event.Events.myEvents()");
+                    .to("fr.lidadi.jee.eventmanager.app.event.Events.myEvents()")
+
+                .get("/events/{eventId}/participants/add")
+                    .to("fr.lidadi.jee.eventmanager.app.participant.Participants.addView(UUID eventId)")
+                .post("/events/{eventId}/participants/add")
+                    .to("fr.lidadi.jee.eventmanager.app.participant.Participants.add(UUID eventId)");
     }
 }

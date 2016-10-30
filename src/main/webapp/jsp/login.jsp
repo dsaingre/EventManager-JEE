@@ -20,13 +20,24 @@
     <main>
         <div class="container">
             <div class="row">
-                <form class="col s6 push-s3" method="POST" action="<app:uri src="/authentication"/>">
+                <c:if test="${event == null}">
+                    <form class="col s6 push-s3" method="POST" action="<app:uri src="/authentication"/>">
+                </c:if>
+                <c:if test="${event != null}">
+                    <form class="col s6 push-s3" method="POST" action="<app:uri src="/authentication"/>?event=${event.id}">
+                </c:if>
                     <div class="row">
                         <h3 class="center-align">
                             Identification
                         </h3>
                         <h6 class="center-align">
-                            Veuillez renseigner votre adresse email et votre mot de passe pour vous connecter.
+                            Veuillez renseigner votre adresse email et votre mot de passe pour vous connecter
+                            <c:if test="${event == null}">
+                                .
+                            </c:if>
+                            <c:if test="${event != null}">
+                                et ainsi vous <span style="font-weight: bold;">inscrire à "${event.name}"</span>
+                            </c:if>
                         </h6>
                     </div>
                     <div class="row">

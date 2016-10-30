@@ -38,7 +38,7 @@
 						<div class="chip center col s3 right">Vous êtes déjà inscrit</div>
 					</c:when>
 					<c:otherwise>
-						<a href="" class="btn right">S'inscrire</a>
+                        <a class="waves-effect waves-light btn right" href="<app:uri src="/events/"/>${event.id}/apply">S'inscrire</a>
 					</c:otherwise>
 				</c:choose>
 			</div>
@@ -54,7 +54,6 @@
 					<p>${event.description}</p>
 				</div>
 
-
 				<c:if test="${event.owners.contains(user)}">
 					<c:if
 						test="${!event.participants.isEmpty() || !event.registeredPersons.isEmpty()}">
@@ -65,6 +64,7 @@
 									<th data-field="id">Participants</th>
 								</tr>
 							</thead>
+
 
 							<tbody>
 								<c:forEach items="${event.participants}" var="user">

@@ -8,6 +8,7 @@ import fr.lidadi.jee.eventmanager.framework.router.config.Config;
 import fr.lidadi.jee.eventmanager.framework.router.config.HttpMethod;
 import fr.lidadi.jee.eventmanager.framework.router.config.Route;
 import fr.lidadi.jee.eventmanager.framework.router.http.SecuredRequest;
+import fr.lidadi.jee.eventmanager.framework.router.http.UserAwareRequest;
 import fr.lidadi.jee.eventmanager.framework.utils.Tuple;
 
 import javax.servlet.ServletException;
@@ -135,8 +136,10 @@ public class GlobalEndPoint extends HttpServlet implements HttpErrorResponse {
 
             req.setAttribute("authenticated", false);
 
+            Optional<Person> userOpt = getUserInSession(req);
+
+            // When user has to be logged
             if (isSecureRequired(method)){
-                Optional<Person> userOpt = getUserInSession(req);
                 if(! userOpt.isPresent()){
                     // Save url to redirect user to it last url
                     req.getSession().setAttribute("last_url", route.getPath());
@@ -152,6 +155,11 @@ public class GlobalEndPoint extends HttpServlet implements HttpErrorResponse {
                 Person user = userOpt.get();
                 req.setAttribute("user", user);
                 paramsToGiveToMethod[1] = new SecuredRequest(req, user);
+            }
+
+            // When user can be logged
+            if(isUserAwareRequired(method)){
+                paramsToGiveToMethod[1] = new UserAwareRequest(req, userOpt);
             }
 
 
@@ -181,6 +189,15 @@ public class GlobalEndPoint extends HttpServlet implements HttpErrorResponse {
 
         return requestParameterType !=  null &&
                 SecuredRequest.class.isAssignableFrom(requestParameterType);
+    }
+
+    private boolean isUserAwareRequired(Method method) {
+        Class<?>[] parameterTypes = method.getParameterTypes();
+
+        Class<?> requestParameterType = parameterTypes[1];
+
+        return requestParameterType !=  null &&
+                UserAwareRequest.class.isAssignableFrom(requestParameterType);
     }
 
     private Object getInstanceFromClass(HttpServletResponse resp, String className, Class<?> clazz) throws IOException, InstantiationException, IllegalAccessException, InvocationTargetException {
