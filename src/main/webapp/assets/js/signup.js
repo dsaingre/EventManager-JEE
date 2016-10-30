@@ -51,10 +51,10 @@ function activeOrDesactiveLoginButton() {
 			removeClass(passwordConfField, "invalid")
 			addClass(passwordField, "valid")
 			addClass(passwordConfField, "valid")
-		}
-		if (email.length != 0 && isValidEmail) {
-			removeClass(connectButton, "disabled")
-			return
+			if (email.length != 0 && isValidEmail) {
+				removeClass(connectButton, "disabled")
+				return
+			}
 		}
 	} else {
 		addClass(passwordField, "invalid")
