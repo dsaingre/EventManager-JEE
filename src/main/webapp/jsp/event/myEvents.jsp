@@ -32,20 +32,20 @@
 				<div class="col s6 m12">
 					<div class="card teal darken-1">
 						<div class="card-content white-text">
-							<span class="card-title">${event.name}</span>
+							<div class="valign-wrapper">
+								<span class="card-title valign col s12">${event.name}</span>
 
-							<c:choose>
-								<c:when test="${event.publishingDate != null}">
-									<div class="chip teal lighten-2 col s1 offset-s11 white-text">Publié</div>
-								</c:when>
-								<c:otherwise>
-									<a href="<app:uri src="/events/"/>${event.getId()}/publish"
-										class="waves-effect waves-light btn teal lighten-2 col s2"><i
-
-										class="material-icons left">language</i>Publier</a>
-								</c:otherwise>
-							</c:choose>
-
+								<c:choose>
+									<c:when test="${event.publishingDate != null}">
+										<div class="chip teal lighten-2 white-text right">Publié</div>
+									</c:when>
+									<c:otherwise>
+										<a href="<app:uri src="/events/"/>${event.getId()}/publish"
+											class="waves-effect waves-light btn teal lighten-2 right">Publier</a>
+									</c:otherwise>
+								</c:choose>
+							</div>
+							
 							<p>${event.description}</p>
 						</div>
 						<div class="card-action white-text">
@@ -56,7 +56,7 @@
 								class="lime-text text-accent-3"> <i
 								class="tiny material-icons">mode_edit</i> Modifier
 							</a> <a href="<app:uri src="/events/"/>${event.getId()}/delete"
-									onclick="confirm('Étes-vous sûr(e) de supprimer ? Les données ne pourront pas être récupérées')"
+								onclick="confirm('Êtes-vous sûr(e) de vouloir supprimer cet événement ? Les données ne pourront pas être récupérées.')"
 								class="lime-text text-accent-3"> <i
 								class="tiny material-icons">delete</i> Supprimer
 							</a>
