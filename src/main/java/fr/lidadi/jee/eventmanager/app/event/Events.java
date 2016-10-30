@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import fr.lidadi.jee.eventmanager.framework.HttpErrorResponse;
 import fr.lidadi.jee.eventmanager.framework.router.http.SecuredRequest;
+import fr.lidadi.jee.eventmanager.framework.utils.Tuple;
 
 /**
  * Created by damien on 08/10/2016.
@@ -52,6 +53,25 @@ public class Events implements HttpErrorResponse {
         }
         req.setAttribute("event", event.get());
         okJsp(servlet, req, resp, "/event/event.jsp");
+    }
+
+
+    public void publish(HttpServlet servlet, SecuredRequest req, HttpServletResponse resp, UUID id) throws ServletException, IOException {
+		Optional<Event> eventOpt = eventService.fetch(id);
+
+
+        if(eventOpt.isPresent()){
+            Event event = eventOpt.get();
+            if(! eventService.isUserOwnerOfEvent(req.getUser(), event)){
+                redirect(req, resp, "/", new Tuple<String, String>("error", "Page non trouvée"));
+                return;
+            }
+            eventService.publish(event);
+            redirect(req, resp, "/myevents", new Tuple<String, String>("info", "L'évènement a bien été publié !"));
+            return;
+        }
+        redirect(req, resp, "/myevents", new Tuple<String, String>("error", "Impossible de trouver l'évènement."));
+
     }
 
     public void addView(HttpServlet servlet, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

@@ -1,5 +1,9 @@
 package fr.lidadi.jee.eventmanager.app.event;
 
+import fr.lidadi.jee.eventmanager.app.person.Person;
+import fr.lidadi.jee.eventmanager.framework.Flashing;
+
+import javax.servlet.http.HttpSession;
 import java.util.*;
 
 /**
@@ -24,4 +28,13 @@ public class EventService {
         return eventDao.getBySlug(slug);
     }
 
+    public boolean isUserOwnerOfEvent(Person person, Event event){
+        return event.getOwners().contains(person);
+    }
+
+    public void publish(Event event) {
+        // update publish field (value = now)
+        event.setPublishingDate(new Date());
+        eventDao.update(event);
+    }
 }

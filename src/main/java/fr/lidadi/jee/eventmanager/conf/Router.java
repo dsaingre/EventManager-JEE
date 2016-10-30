@@ -36,7 +36,7 @@ public class Router implements HttpRouter {
                     .to("fr.lidadi.jee.eventmanager.app.event.Events.addEventAction()")
                 .post("/events")
                     .to("fr.lidadi.jee.eventmanager.app.event.Events.add()")
-                .get("/publish/event/{id}")
+                .get("/events/{id}/publish")
                     .to("fr.lidadi.jee.eventmanager.app.event.Events.publish(UUID id)")
                 .get("/update/event/{id}")
                     .to("fr.lidadi.jee.eventmanager.app.event.Events.update(UUID id)")

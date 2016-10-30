@@ -39,7 +39,7 @@
 									<div class="chip teal lighten-2 col s1 offset-s1">Publié</div>
 								</c:when>
 								<c:otherwise>
-									<a href="<app:uri src="/publish/event/"/>${event.getId()}"
+									<a href="<app:uri src="/events/"/>${event.getId()}/publish"
 										class="waves-effect waves-light btn teal lighten-2 col s2"><i
 										class="material-icons left">language</i>Publier</a>
 								</c:otherwise>
@@ -49,7 +49,7 @@
 							<p>${event.location}</p>
 						</div>
 						<div class="card-action white-text">
-							<a href="<app:uri src="/events/" />${event.getId()}"
+							<a href="<app:uri src="/events/" />${event.slug}"
 								class="lime-text text-accent-3"> <i
 								class="tiny material-icons">search</i> Voir les informations
 							</a> <a href="<app:uri src="/update/event/"/>${event.getId()}"
