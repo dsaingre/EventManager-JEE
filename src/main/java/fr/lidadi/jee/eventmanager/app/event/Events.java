@@ -44,12 +44,14 @@ public class Events implements HttpErrorResponse {
 
 	public void myEvents(HttpServlet servlet, SecuredRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		req.setAttribute("events", this.eventService.fetchAllByOwner(req.getUser().getId()));
+        req.setAttribute("isMyEvents", "active");
+        req.setAttribute("events", this.eventService.fetchAllByOwner(req.getUser().getId()));
 		okJsp(servlet, req, resp, "/event/myEvents.jsp");
 	}
 
 
     public void fetch(HttpServlet servlet, HttpServletRequest req, HttpServletResponse resp, String slug) throws ServletException, IOException {
+        req.setAttribute("isMyEvents", "active");
         Optional<Event> event = this.eventService.fetchBySlug(slug);
         if(! event.isPresent()){
             okJsp(servlet, req, resp, "/event/eventNotFound.jsp");
@@ -118,7 +120,8 @@ public class Events implements HttpErrorResponse {
     }
 
 
-    public void addView(HttpServlet servlet, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void addView(HttpServlet servlet, SecuredRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setAttribute("isEventAdd", "active");
         okJsp(servlet, req, resp, "/event/addView.jsp");
     }
     
