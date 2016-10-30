@@ -30,18 +30,21 @@
 		<form action="addEventAction" method="Post">
 			<div class="row">
 				<div class="input-field col s12">
+					<i class="material-icons prefix">label</i>
 					<label for="name">Intitulé</label> <input id="name" type="text"
 						name="name">
 				</div>
 			</div>
 			<div class="row">
 				<div class="input-field col s12">
+					<i class="material-icons prefix">location_on</i>
 					<label for="address">Adresse</label> <input id="address"
 						type="text" name="address">
 				</div>
 			</div>
 			<div class="row">
 				<div class="input-field col s4">
+					<i class="material-icons prefix">today</i>
 					<label for="start_date">Date de début</label> <input
 						id="start_date" type="date" class="datepicker" name="start_date">
 				</div>
@@ -50,6 +53,7 @@
 						id="start_time" type="time" class="timepicker" name="start_time">
 				</div>
 				<div class="input-field col s4">
+					<i class="material-icons prefix">today</i>
 					<label for="end_date">Date de fin</label> <input id="end_date"
 						type="date" class="datepicker" name="end_date">
 				</div>
@@ -60,6 +64,7 @@
 			</div>
 			<div class="row">
 				<div class="input-field col s12">
+					<i class="material-icons prefix">description</i>
 					<label for="description">Description</label>
 					<textarea id="description" class="materialize-textarea"
 						name="description"></textarea>
