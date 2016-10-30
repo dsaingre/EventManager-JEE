@@ -72,7 +72,7 @@ public class PopulateHelper {
                 "grosse teuf chez wam",
                 new Date(),
                 new Date(),
-                new Date(),
+                null,
                 "Chez wam",
                 new Date(),
                 new Date(),
