@@ -72,9 +72,12 @@ public class Event implements Entity {
     @Column(name = "CREATED", nullable = false)
     private Date created;
 
+//
+//    @OneToMany(mappedBy = "event", targetEntity = Slug.class)
+//    private String slug;
 
-    @OneToMany(mappedBy = "event", targetEntity = Slug.class)
-    private List<Slug> slugs;
+    @Column(name = "slug", nullable = false, unique = true)
+    private String slug;
 
     @OneToMany(mappedBy = "event", targetEntity = Participant.class)
     private List<Participant> participants;
@@ -101,7 +104,7 @@ public class Event implements Entity {
         super();
     }
 
-    public Event(UUID id, String name, String description, Date startDate, Date endDate, Date publishingDate, String location, Date updated, Date created, List<Person> owners, List<Slug> slugs, List<Participant> participants, List<Person> registeredPersons) {
+    public Event(UUID id, String name, String description, Date startDate, Date endDate, Date publishingDate, String location, Date updated, Date created, List<Person> owners, String slug, List<Participant> participants, List<Person> registeredPersons) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -112,7 +115,7 @@ public class Event implements Entity {
         this.updated = updated;
         this.created = created;
         this.owners = owners;
-        this.slugs = slugs;
+        this.slug = slug;
         this.participants = participants;
         this.registeredPersons = registeredPersons;
     }
@@ -203,12 +206,12 @@ public class Event implements Entity {
         this.created = created;
     }
 
-    public List<Slug> getSlugs() {
-        return this.slugs;
+    public String getSlug() {
+        return this.slug;
     }
 
-    public void setSlugs(List<Slug> slugs) {
-        this.slugs = slugs;
+    public void setSlug(String slug) {
+        this.slug = slug;
     }
 
     public List<Participant> getParticipants() {

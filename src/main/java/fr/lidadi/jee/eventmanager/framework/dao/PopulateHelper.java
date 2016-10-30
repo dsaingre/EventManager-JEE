@@ -12,7 +12,6 @@ import fr.lidadi.jee.eventmanager.app.event.Event;
 import fr.lidadi.jee.eventmanager.app.event.EventDao;
 import fr.lidadi.jee.eventmanager.app.person.Person;
 import fr.lidadi.jee.eventmanager.app.person.PersonDao;
-import fr.lidadi.jee.eventmanager.app.slug.Slug;
 
 /**
  * Created by damien on 25/10/2016.
@@ -50,31 +49,20 @@ public class PopulateHelper {
 
 		// Event 1
 		Event event = new Event(UUID.randomUUID(), "Mon anniv'", "grosse teuf chez wam", new Date(), new Date(),
-				new Date(), "Chez wam", new Date(), new Date(), list(lisa), list(), list(), list());
-
-		Slug slug = new Slug(UUID.randomUUID(), "mon-anniv", event);
-
-		event.getSlugs().add(slug);
+				new Date(), "Chez wam", new Date(), new Date(), list(lisa, damien), "mon-anniv", list(), list());
 
 		events.add(event);
 
 		// Event 2
 		Event event2 = new Event(UUID.randomUUID(), "Soirée JEE", "Dernier rush avant la fin du monde", new Date(),
-				new Date(), new Date(), "Aux mines", new Date(), new Date(), list(lisa), list(), list(), list());
-
-		Slug slug2 = new Slug(UUID.randomUUID(), "soiree-jee", event2);
-
-		event2.getSlugs().add(slug2);
+				new Date(), null, "Aux mines", new Date(), new Date(), list(lisa, damien), "soiree-jee", list(),
+				list());
 
 		events.add(event2);
 
 		// Event 3
 		Event event3 = new Event(UUID.randomUUID(), "Hibernation", "Au revoir les ours", new Date(), new Date(),
-				new Date(), "Pôle nord", new Date(), new Date(), list(lisa), list(), list(), list());
-
-		Slug slug3 = new Slug(UUID.randomUUID(), "hibernation", event3);
-
-		event3.getSlugs().add(slug3);
+				new Date(), "Pôle nord", new Date(), new Date(), list(lisa), "hibernation", list(), list());
 
 		events.add(event3);
 

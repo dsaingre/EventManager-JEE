@@ -32,13 +32,33 @@
 				<div class="col s6 m12">
 					<div class="card teal darken-1">
 						<div class="card-content white-text">
-							<span class="card-title">${event.name}</span>
+							<span class="card-title col s10">${event.name}</span>
+
+							<c:choose>
+								<c:when test="${event.publishingDate != null}">
+									<div class="chip teal lighten-2 col s1 offset-s1">Publié</div>
+								</c:when>
+								<c:otherwise>
+									<a href="<app:uri src="/publish/event/"/>${event.getId()}"
+										class="waves-effect waves-light btn teal lighten-2 col s2"><i
+										class="material-icons left">language</i>Publier</a>
+								</c:otherwise>
+							</c:choose>
+
 							<p>${event.description}</p>
+							<p>${event.location}</p>
 						</div>
 						<div class="card-action white-text">
-							<p>${event.location}</p>
 							<a href="<app:uri src="/events/" />${event.getId()}"
-								class="lime-text text-accent-3">Voir les informations</a>
+								class="lime-text text-accent-3"> <i
+								class="tiny material-icons">search</i> Voir les informations
+							</a> <a href="<app:uri src="/update/event/"/>${event.getId()}"
+								class="lime-text text-accent-3"> <i
+								class="tiny material-icons">mode_edit</i> Modifier
+							</a> <a href="<app:uri src="/delete/event/"/>${event.getId()}"
+								class="lime-text text-accent-3"> <i
+								class="tiny material-icons">delete</i> Supprimer
+							</a>
 						</div>
 					</div>
 				</div>
