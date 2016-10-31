@@ -1,0 +1,94 @@
+.hspace-20 {
+	margin-top: 20px;
+}
+
+.hspace-30 {
+	margin-top: 30px;
+}
+
+.hspace-40 {
+	margin-top: 40px;
+}
+
+.hspace-40 {
+	margin-top: 40px;
+}
+
+.hspace-50 {
+	margin-top: 50px;
+}
+
+/*   FOOTER stick   */
+body {
+	display: flex;
+	min-height: 100vh;
+	flex-direction: column;
+}
+
+main {
+	flex: 1 0 auto;
+}
+
+.logo-dino {
+	height:65px;
+	width:65px;
+}
+
+.global-event-list {
+	margin-left: 8%;
+	margin-right: 8%;
+}
+
+.event-box {
+	padding-left: 30px;
+	padding-right: 30px;
+	padding-bottom: 15px;
+	padding-top: 15px;
+	border-radius: 2px;
+	box-shadow: 0 3px 5px #9e9e9e;
+}
+
+.event-name {
+	border-bottom: 1px solid #546e7a;
+}
+
+.event-user-list {
+	border-radius: 3px;
+	margin-bottom: 20px;
+}
+
+th, td {
+	padding: 15px;
+}
+
+.event-desc {
+	border-radius: 3px;
+	margin-bottom: 20px;
+	padding-left: 15px;
+	padding-right: 15px;
+	padding-bottom: 5px;
+	padding-top: 5px;
+}
+
+/*   ALERTS   */
+.alert {
+	padding: 20px;
+	margin: 10px;
+	border-radius: 0 0 2px 2px;
+}
+
+.alert-error {
+	color: white;
+	background-color: #F44336;
+}
+
+.alert-info {
+	color: white;
+	background-color: #26a69a;
+	text: center;
+}
+
+.alert-success {
+	color: white;
+	background-color: #00c853;
+}

@@ -1,0 +1,24 @@
+<taglib>
+    <tlib-version>1.0</tlib-version>
+    <jsp-version>2.0</jsp-version>
+    <short-name>app</short-name>
+    <tag>
+        <name>uri</name>
+        <tag-class>fr.lidadi.jee.eventmanager.framework.jsptags.Uri</tag-class>
+        <body-content>empty</body-content>
+        <attribute>
+            <name>src</name>
+        </attribute>
+    </tag>
+
+    <function>
+        <name>consumeFlash</name>
+        <function-class>fr.lidadi.jee.eventmanager.framework.Flashing</function-class>
+        <function-signature>java.lang.String consumeFlash(java.util.Map, java.lang.String)</function-signature>
+    </function>
+    <function>
+        <name>flashExist</name>
+        <function-class>fr.lidadi.jee.eventmanager.framework.Flashing</function-class>
+        <function-signature>boolean flashExist(java.util.Map, java.lang.String)</function-signature>
+    </function>
+</taglib>

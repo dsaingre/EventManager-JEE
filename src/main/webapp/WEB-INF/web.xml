@@ -4,15 +4,20 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
 
-
     <servlet>
-        <servlet-name>ApplicationServlet</servlet-name>
-        <description>Servlet de test de l'application</description>
-        <servlet-class>fr.lidadi.jee.eventmanager.Application</servlet-class>
+        <servlet-name>GlobalEndPoint</servlet-name>
+        <description>Servlet that welcomes all http trafic</description>
+        <servlet-class>fr.lidadi.jee.eventmanager.framework.router.GlobalEndPoint</servlet-class>
     </servlet>
+
     <servlet-mapping>
-        <servlet-name>ApplicationServlet</servlet-name>
+        <servlet-name>GlobalEndPoint</servlet-name>
         <url-pattern>/</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>/assets/*</url-pattern>
     </servlet-mapping>
 
 </web-app>
