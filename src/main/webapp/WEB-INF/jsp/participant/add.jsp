@@ -29,7 +29,7 @@
 
         <h5>Si vous avez déjà un compte, nous vous invitons à vous <a href="<app:uri src="/login"/>?event=${event.id}">identifier</a>.</h5>
 
-        <p>Pour que vous inscrire à cet évènement, nous avons besoin des informations suivantes : </p>
+        <p>Pour que vous inscrire à cet événement, nous avons besoin des informations suivantes : </p>
 
         <form action="<app:uri src="/events/"/>${event.id}/participants/add" method="POST">
 

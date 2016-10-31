@@ -28,7 +28,7 @@
 
 		<c:if test="${events.isEmpty()}">
 			<p class="align-center">
-				Vous n'avez pas créé d'évènement. <a href="<app:uri src="/addevent"/>">Créer un évènement</a>.
+				Vous n'avez pas créé d'événement. <a href="<app:uri src="/addevent"/>">Créer un événement</a>.
 			</p>
 		</c:if>
 

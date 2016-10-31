@@ -30,7 +30,7 @@ public class Participants implements HttpErrorResponse {
 
         // This should never append but ...
         if (! eventOpt.isPresent()){
-            redirect(req, resp, "/", tuple("error", "Évènement non trouvé"));
+            redirect(req, resp, "/", tuple("error", "Événement non trouvé"));
             return;
         }
 
@@ -47,7 +47,7 @@ public class Participants implements HttpErrorResponse {
 
         // This should never append but ...
         if (! eventOpt.isPresent()){
-            redirect(req, resp, "/", tuple("error", "Évènement non trouvé"));
+            redirect(req, resp, "/", tuple("error", "Événement non trouvé"));
             return;
         }
 
