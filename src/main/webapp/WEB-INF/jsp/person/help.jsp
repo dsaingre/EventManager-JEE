@@ -17,7 +17,7 @@
 </head>
 <body>
 
-	<%@ include file="header.jsp"%>
+	<%@ include file="../header.jsp"%>
 
 	<main>
 
@@ -68,7 +68,7 @@
 	</main>
 
 
-	<%@ include file="footer.jsp"%>
+	<%@ include file="../footer.jsp"%>
 
 
 	<script type="text/javascript"

@@ -20,6 +20,6 @@ public class Like implements SQLClauses {
 
     @Override
     public <T> CriteriaQuery<T> visit(CriteriaQuery<T> tCriteriaQuery, CriteriaBuilder criteriaBuilder, Root<T> from) {
-        return null;
+        return null; // todo
     }
 }

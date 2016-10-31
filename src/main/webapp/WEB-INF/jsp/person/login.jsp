@@ -15,7 +15,7 @@
 	<title>Dino Planner - Login</title>
 </head>
 <body>
-    <%@ include file="header.jsp" %>
+    <%@ include file="../header.jsp" %>
 
     <main>
         <div class="container">
@@ -71,7 +71,7 @@
     </main>
 
 
-    <%@ include file="footer.jsp" %>
+    <%@ include file="../footer.jsp" %>
 
 
     <script type="text/javascript" src="<app:uri src="/assets/js/lib/jquery-2.1.1.min.js"/>"></script>
