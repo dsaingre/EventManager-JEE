@@ -22,26 +22,8 @@
 
 	<main>
 	<div class="row ">
-		<div class="col s11 push-s1">
-			<div class="row">
-				<h4>Rechercher un événement</h4>
-			</div>
-			<div class="row">
-				<div class="input-field col s2">
-					<input id="last_name" type="text" class="validate"> <label
-						for="last_name">Lieu </label>
-				</div>
-				<div class="input-field col s2">
-					<input id="date_event" type="date" class="datepicker"> <label
-						for="date_event">Date événement</label>
-				</div>
-				<div class="input-field col s2">
-					<button class="btn waves-effect waves-light" type="submit"
-						name="action" id="connect">
-						Rechercher <i class="material-icons right">send</i>
-					</button>
-				</div>
-			</div>
+		<div class="row col s11 push-s1">
+			<h4>Consulter les événements</h4>
 		</div>
 	</div>
 

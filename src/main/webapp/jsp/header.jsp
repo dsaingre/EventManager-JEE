@@ -4,18 +4,32 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <nav>
-	<div class="nav-wrapper purple lighten-2" style="padding-left: 20px">
+	<div class="nav-wrapper row purple lighten-2"
+		style="padding-left: 20px">
 		<a href="<app:uri src="/"/>" class="brand-logo">Dino Planner</a>
+
+
+		<form class="col s5 offset-s2" method="Post"
+			action="<app:uri src="/search"/>">
+			<div class="input-field">
+				<input id="search" type="search" required> <label
+					for="search"><i class="material-icons">search</i></label> <i
+					class="material-icons">close</i>
+			</div>
+		</form>
+
 		<ul id="nav-mobile" class="right hide-on-med-and-down">
-			<%-- <li><a href="<app:uri src="/events"/>">Parcourir les évènements</a></li> --%>
 			<c:choose>
 				<c:when test="${sessionScope.containsKey(\"user\")}">
-					<li class="${isEventAdd}"><a href="<app:uri src="/addevent"/>"><i class="material-icons left">playlist_add</i>Nouvel événement</a></li>
-					<li class="${isMyEvents}"><a href="<app:uri src="/myevents"/>">Mes événements</a></li>
+					<li class="${isEventAdd}"><a href="<app:uri src="/addevent"/>"><i
+							class="material-icons left">playlist_add</i>Nouvel événement</a></li>
+					<li class="${isMyEvents}"><a href="<app:uri src="/myevents"/>">Mes
+							événements</a></li>
 					<li><a href="<app:uri src="/logout"/>">Déconnexion</a></li>
 				</c:when>
 				<c:otherwise>
-					<li><a href="<app:uri src="/signup"/>">Nouvel événement</a></li>
+					<li><a href="<app:uri src="/signup"/>"><i
+							class="material-icons left">playlist_add</i>Nouvel événement</a></li>
 					<li class="${isLoginPage}"><a href="<app:uri src="/login"/>">S'identifier</a></li>
 					<li class="${isSignupPage}"><a href="<app:uri src="/signup"/>">Créer
 							un compte</a></li>
