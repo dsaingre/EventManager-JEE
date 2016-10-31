@@ -36,7 +36,7 @@
 
 			<div class="row">
 				<div class="col s6 m12">
-					<div class="card teal darken-1">
+					<div class="card cyan darken-4">
 						<div class="card-content white-text">
 							<div class="valign-wrapper">
 								<span class="card-title valign col s12">${event.name}</span>

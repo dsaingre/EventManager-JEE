@@ -4,10 +4,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <nav>
-	<div class="nav-wrapper row purple lighten-2"
+	<div class="nav-wrapper row blue-grey darken-3"
 		style="padding-left: 20px">
-		<a href="<app:uri src="/"/>" class="brand-logo">Dino Planner</a>
-
+			<a href="<app:uri src="/"/>" class="brand-logo"><img src="<app:uri src="/assets/img/logo.png"/>" alt="Home" class="logo-dino"></a>
+			<a href="<app:uri src="/"/>" class="brand-logo" style="padding-left:75px;">Dino Planner</a>
 
 		<ul id="nav-mobile" class="right hide-on-med-and-down">
 			<li>

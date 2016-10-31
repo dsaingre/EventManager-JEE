@@ -35,7 +35,7 @@
 			<c:otherwise>
 				<c:forEach items="${events}" var="event">
 					<div class="col s6 m6">
-						<div class="card teal darken-1">
+						<div class="card cyan darken-4">
 							<div class="card-content white-text">
 								<span class="card-title"><c:out value="${event.name}" /></span>
 								<p>

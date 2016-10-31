@@ -29,6 +29,11 @@ main {
 	flex: 1 0 auto;
 }
 
+.logo-dino {
+	height:65px;
+	width:65px;
+}
+
 .global-event-list {
 	margin-left: 8%;
 	margin-right: 8%;

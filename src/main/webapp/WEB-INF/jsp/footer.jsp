@@ -3,7 +3,7 @@
 
 <div class="hspace-50"></div>
 
-<footer class="page-footer purple lighten-2">
+<footer class="page-footer blue-grey darken-3">
     <div class="container">
         <div class="row">
             <div class="col l6 s12">
@@ -21,7 +21,7 @@
             </div>
         </div>
     </div>
-    <div class="footer-copyright purple lighten-1">
+    <div class="footer-copyright blue-grey darken-4">
         <div class="container">
             Licence GPL-3.0
             <a class="grey-text text-lighten-4 right" href="https://github.com/Prygan/EventManager-JEE">Github</a>
