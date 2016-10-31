@@ -23,7 +23,7 @@
     <div class="container">
         <h3>Impossible de trouver l'événement.</h3>
         <p>Nous vous prions de nous excuser pour la gène occasionnée.</p>
-        <a href="<app:uri src="/events"/>">← Retour à la page des événements</a>
+        <a href="<app:uri src="/"/>">← Retour à l'accueil</a>
     </div>
 
 </main>

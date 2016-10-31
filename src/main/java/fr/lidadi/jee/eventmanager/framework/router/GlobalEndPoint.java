@@ -111,6 +111,7 @@ public class GlobalEndPoint extends HttpServlet implements HttpErrorResponse {
 
     private void forwardToServlet(HttpServletRequest req, HttpServletResponse resp, Route route, Map<String, Object> params) throws ServletException, IOException {
 
+        req.setCharacterEncoding("UTF-8");
 
         ClassPath classPath = route.getClassPath();
         String className = classPath.getClassName();
