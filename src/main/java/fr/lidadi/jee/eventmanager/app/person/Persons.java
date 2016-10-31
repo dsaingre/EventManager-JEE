@@ -42,7 +42,7 @@ public class Persons implements HttpErrorResponse {
 		}
 
 		req.setAttribute("isLoginPage", "active");
-		okJsp(servlet, req, resp, "/login.jsp");
+		okJsp(servlet, req, resp, "/person/login.jsp");
 	}
 
 	public void logout(HttpServlet servlet, HttpServletRequest req, HttpServletResponse resp)
@@ -84,7 +84,7 @@ public class Persons implements HttpErrorResponse {
 		// flashing.flashing(req.getSession(), "error", "Wrong credentials");
 		req.setAttribute("isSignupPage", "active");
 
-		okJsp(servlet, req, resp, "/signup.jsp");
+		okJsp(servlet, req, resp, "/person/signup.jsp");
 	}
 
 	public void signupAction(HttpServlet servlet, HttpServletRequest req, HttpServletResponse resp)
@@ -120,7 +120,7 @@ public class Persons implements HttpErrorResponse {
 		email = email == null ? "" : email;
 		req.setAttribute("email", email);
 		req.setAttribute("isLoginPage", "active");
-		okJsp(servlet, req, resp, "/help.jsp");
+		okJsp(servlet, req, resp, "/person/help.jsp");
 	}
 
 }
