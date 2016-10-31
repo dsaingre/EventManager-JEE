@@ -19,7 +19,7 @@
     <title>Dino Planner</title>
 </head>
 <body>
-<%@ include file="/jsp/header.jsp"%>
+<%@ include file="../header.jsp"%>
 
 
 <main>
@@ -77,7 +77,7 @@
 
 </main>
 
-<%@ include file="/jsp/footer.jsp"%>
+<%@ include file="../footer.jsp"%>
 
 <script type="text/javascript"
         src="<app:uri src="/assets/js/lib/jquery-2.1.1.min.js"/>"></script>

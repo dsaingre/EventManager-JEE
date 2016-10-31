@@ -40,6 +40,7 @@ main {
 	padding-bottom: 15px;
 	padding-top: 15px;
 	border-radius: 2px;
+	box-shadow: 0 3px 5px #9e9e9e;
 }
 
 .event-name {

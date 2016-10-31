@@ -18,7 +18,7 @@
 <title>Dino Planner - Login</title>
 </head>
 <body>
-	<%@ include file="/jsp/header.jsp"%>
+	<%@ include file="../header.jsp"%>
 
 
 	<main>
@@ -87,14 +87,6 @@
 					</c:if>
 				</c:if>
 
-
-
-
-
-
-
-
-
 				Créé par :
 				<c:forEach items="${event.owners}" var="owner">
 					<div class="chip class teal lighten-3">${owner.firstName}
@@ -107,7 +99,7 @@
 
 	</main>
 
-	<%@ include file="/jsp/footer.jsp"%>
+	<%@ include file="../footer.jsp"%>
 
 	<script type="text/javascript"
 		src="<app:uri src="/assets/js/lib/jquery-2.1.1.min.js"/>"></script>
