@@ -55,19 +55,19 @@
 				</div>
 				<div class="row">
 					<div class="input-field col s12">
-						<input id="last_name" type="text" class="validate"> <label
+						<input id="last_name" type="text" name="last_name" class="validate"> <label
 							for="last_name">Nom </label>
 					</div>
 				</div>
 				<div class="row">
 					<div class="input-field col s12">
-						<input id="first_name" type="text" class="validate"> <label
+						<input id="first_name" type="text" name="first_name" class="validate"> <label
 							for="first_name">Prénom </label>
 					</div>
 				</div>
 				<div class="row">
 					<div class="input-field col s12">
-						<input id="company" type="text" class="validate"> <label
+						<input id="company" type="text" name="company" class="validate"> <label
 							for="company">Entreprise </label>
 					</div>
 				</div>

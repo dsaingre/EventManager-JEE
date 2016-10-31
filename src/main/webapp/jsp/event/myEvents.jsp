@@ -26,6 +26,12 @@
 
 		<h3>Les événements que j'ai créé</h3>
 
+		<c:if test="${events.isEmpty()}">
+			<p class="align-center">
+				Vous n'avez pas créé d'évènement. <a href="<app:uri src="/addevent"/>">Créer un évènement</a>.
+			</p>
+		</c:if>
+
 		<c:forEach var="event" items="${events}">
 
 			<div class="row">
