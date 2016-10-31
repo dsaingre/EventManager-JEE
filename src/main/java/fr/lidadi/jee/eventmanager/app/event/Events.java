@@ -165,7 +165,7 @@ public class Events implements HttpErrorResponse {
 			redirect(req, resp, "/", tuple("error", "Mauvais format de dates"));
 		}
 
-		okJsp(servlet, req, resp, "/event/myEvents.jsp");
+		redirect(req, resp, "/myevents");
 	}
 
 }
