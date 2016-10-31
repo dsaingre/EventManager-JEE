@@ -20,17 +20,15 @@
 					</div>
 				</form>
 			</li>
+            <li class="${isEventAdd}"><a href="<app:uri src="/addevent"/>"><i
+                    class="material-icons left">playlist_add</i>Nouvel événement</a></li>
 			<c:choose>
 				<c:when test="${sessionScope.containsKey(\"user\")}">
-					<li class="${isEventAdd}"><a href="<app:uri src="/addevent"/>"><i
-							class="material-icons left">playlist_add</i>Nouvel événement</a></li>
 					<li class="${isMyEvents}"><a href="<app:uri src="/myevents"/>">Mes
 							événements</a></li>
 					<li><a href="<app:uri src="/logout"/>">Déconnexion</a></li>
 				</c:when>
 				<c:otherwise>
-					<li><a href="<app:uri src="/signup"/>"><i
-							class="material-icons left">playlist_add</i>Nouvel événement</a></li>
 					<li class="${isLoginPage}"><a href="<app:uri src="/login"/>">S'identifier</a></li>
 					<li class="${isSignupPage}"><a href="<app:uri src="/signup"/>">Créer
 							un compte</a></li>

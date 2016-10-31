@@ -295,7 +295,7 @@ public class Event implements Entity {
 		String normalized = Normalizer.normalize(nowhitespace, Form.NFD);
 		String slug = NONLATIN.matcher(normalized).replaceAll("");
 		String lowerCase = slug.toLowerCase(Locale.ENGLISH);
-		String unique = lowerCase + "-" + new BigInteger(130, random).toString(32);
+		String unique = lowerCase + "-" + new BigInteger(130, random).toString(32).substring(0, 6);
 		return unique;
 	}
 

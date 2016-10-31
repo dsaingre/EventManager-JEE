@@ -27,6 +27,19 @@
 		<div class="blue-grey lighten-1 event-box white-text">
 			<div class="row event-name valign-wrapper">
 				<h4 class="valign col s10">${event.name}</h4>
+				<c:if test="${event.owners.contains(user)}">
+					<c:choose>
+						<c:when test="${event.publishingDate != null}">
+							<div class="chip teal lighten-2 white-text right">Publié</div>
+						</c:when>
+						<c:otherwise>
+							<div style="padding: 0 5px">
+								<a href="<app:uri src="/events/"/>${event.getId()}/publish"
+								   class="waves-effect waves-light btn teal lighten-2 right">Publier</a>
+							</div>
+						</c:otherwise>
+					</c:choose>
+				</c:if>
 				<c:choose>
 					<c:when test="${event.owners.contains(user)}">
 						<div class="chip center col s5 right">Vous êtes le créateur

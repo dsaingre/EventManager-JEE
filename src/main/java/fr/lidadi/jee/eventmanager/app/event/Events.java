@@ -148,7 +148,7 @@ public class Events implements HttpErrorResponse {
 		String end_time = req.getParameter("end_time");
 		String description = req.getParameter("description");
 
-		boolean publication = "on".equals(req.getParameter("publication")) ? true : false;
+		boolean publication = "on".equals(req.getParameter("publication"));
 
 		try {
 			Event event = new Event(UUID.randomUUID(), name, description, sdf_date.parse(start_date + "-" + start_time),
@@ -160,12 +160,13 @@ public class Events implements HttpErrorResponse {
 
 			EventDao eventDao = new EventDao();
 			eventDao.add(event);
+			redirect(req, resp, "/events/" + event.getSlug());
+
 		} catch (ParseException e) {
 			e.printStackTrace();
 			redirect(req, resp, "/", tuple("error", "Mauvais format de dates"));
 		}
 
-		redirect(req, resp, "/myevents");
 	}
 
 }
