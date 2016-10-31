@@ -6,19 +6,32 @@
 
 package fr.lidadi.jee.eventmanager.app.event;
 
-import fr.lidadi.jee.eventmanager.app.slug.Slug;
-import fr.lidadi.jee.eventmanager.framework.dao.Entity;
-import fr.lidadi.jee.eventmanager.app.participant.Participant;
-import fr.lidadi.jee.eventmanager.app.person.Person;
+import java.math.BigInteger;
+import java.security.SecureRandom;
+import java.text.Normalizer;
+import java.text.Normalizer.Form;
 
 //import javax.validation.constraints.* ;
 //import org.hibernate.validator.constraints.* ;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
+import java.util.regex.Pattern;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import fr.lidadi.jee.eventmanager.app.participant.Participant;
+import fr.lidadi.jee.eventmanager.app.person.Person;
+import fr.lidadi.jee.eventmanager.framework.dao.Entity;
 
 /**
  * Persistent class for entity stored in table "EVENT"
@@ -26,255 +39,264 @@ import javax.persistence.*;
  * @author Telosys Tools Generator
  */
 
-
 @javax.persistence.Entity(name = "event")
 public class Event implements Entity {
 
+	// ----------------------------------------------------------------------
+	// ENTITY PRIMARY KEY ( BASED ON A SINGLE FIELD )
+	// ----------------------------------------------------------------------
+	@Id
+	@Column(name = "ID", nullable = false)
+	private UUID id;
 
-    //----------------------------------------------------------------------
-    // ENTITY PRIMARY KEY ( BASED ON A SINGLE FIELD )
-    //----------------------------------------------------------------------
-    @Id
-    @Column(name = "ID", nullable = false)
-    private UUID id;
+	// ----------------------------------------------------------------------
+	// ENTITY DATA FIELDS
+	// ----------------------------------------------------------------------
 
+	@Column(name = "NAME", nullable = false, length = 255)
+	private String name;
 
-    //----------------------------------------------------------------------
-    // ENTITY DATA FIELDS
-    //----------------------------------------------------------------------
+	@Column(name = "DESCRIPTION", columnDefinition = "text")
+	private String description;
 
-    @Column(name = "NAME", nullable = false, length = 255)
-    private String name;
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "START_DATE")
+	private Date startDate;
 
-    @Column(name = "DESCRIPTION", columnDefinition = "text")
-    private String description;
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "END_DATE")
+	private Date endDate;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "START_DATE")
-    private Date startDate;
+	@Temporal(TemporalType.DATE)
+	@Column(name = "PUBLISHING_DATE")
+	private Date publishingDate;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "END_DATE")
-    private Date endDate;
+	@Column(name = "LOCATION", length = 255)
+	private String location;
 
-    @Temporal(TemporalType.DATE)
-    @Column(name = "PUBLISHING_DATE")
-    private Date publishingDate;
+	@Temporal(TemporalType.DATE)
+	@Column(name = "UPDATED", nullable = false)
+	private Date updated;
 
-    @Column(name = "LOCATION", length = 255)
-    private String location;
+	@Temporal(TemporalType.DATE)
+	@Column(name = "CREATED", nullable = false)
+	private Date created;
 
-    @Temporal(TemporalType.DATE)
-    @Column(name = "UPDATED", nullable = false)
-    private Date updated;
+	//
+	// @OneToMany(mappedBy = "event", targetEntity = Slug.class)
+	// private String slug;
 
-    @Temporal(TemporalType.DATE)
-    @Column(name = "CREATED", nullable = false)
-    private Date created;
+	@Column(name = "slug", nullable = false, unique = true)
+	private String slug;
 
-//
-//    @OneToMany(mappedBy = "event", targetEntity = Slug.class)
-//    private String slug;
+	@OneToMany(mappedBy = "event", targetEntity = Participant.class)
+	private List<Participant> participants;
 
-    @Column(name = "slug", nullable = false, unique = true)
-    private String slug;
+	@ManyToMany(targetEntity = Person.class)
+	@JoinTable(name = "EVENT_PERSON_OWNER", joinColumns = @JoinColumn(name = "EVENT_ID", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "PERSON_ID", referencedColumnName = "ID"))
+	private List<Person> registeredPersons;
 
-    @OneToMany(mappedBy = "event", targetEntity = Participant.class)
-    private List<Participant> participants;
+	@ManyToMany(targetEntity = Person.class)
+	@JoinTable(name = "EVENT_PERSON_OWNER", joinColumns = @JoinColumn(name = "EVENT_ID", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "PERSON_ID", referencedColumnName = "ID"))
+	private List<Person> owners;
 
-    @ManyToMany(targetEntity = Person.class)
-    @JoinTable(name = "EVENT_PERSON_OWNER",
-            joinColumns = @JoinColumn(name = "EVENT_ID", referencedColumnName = "ID"),
-            inverseJoinColumns = @JoinColumn(name = "PERSON_ID", referencedColumnName = "ID")
-    )
-    private List<Person> registeredPersons;
+	// ----------------------------------------------------------------------
+	// CONSTRUCTOR(S)
+	// ----------------------------------------------------------------------
+	public Event() {
+		super();
+	}
 
-    @ManyToMany(targetEntity = Person.class)
-    @JoinTable(name = "EVENT_PERSON_OWNER",
-            joinColumns = @JoinColumn(name = "EVENT_ID", referencedColumnName = "ID"),
-            inverseJoinColumns = @JoinColumn(name = "PERSON_ID", referencedColumnName = "ID")
-    )
-    private List<Person> owners;
+	public Event(UUID id, String name, String description, Date startDate, Date endDate, Date publishingDate,
+			String location, Date updated, Date created, List<Person> owners, String slug,
+			List<Participant> participants, List<Person> registeredPersons) {
+		this.id = id;
+		this.name = name;
+		this.description = description;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.publishingDate = publishingDate;
+		this.location = location;
+		this.updated = updated;
+		this.created = created;
+		this.owners = owners;
+		this.slug = slug;
+		this.participants = participants;
+		this.registeredPersons = registeredPersons;
+	}
 
+	public UUID getId() {
+		return this.id;
+	}
 
-    //----------------------------------------------------------------------
-    // CONSTRUCTOR(S)
-    //----------------------------------------------------------------------
-    public Event() {
-        super();
-    }
+	// ----------------------------------------------------------------------
+	// GETTER & SETTER FOR THE KEY FIELD
+	// ----------------------------------------------------------------------
+	public void setId(UUID id) {
+		this.id = UUID.fromString(id.toString());
+	}
 
-    public Event(UUID id, String name, String description, Date startDate, Date endDate, Date publishingDate, String location, Date updated, Date created, List<Person> owners, String slug, List<Participant> participants, List<Person> registeredPersons) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.publishingDate = publishingDate;
-        this.location = location;
-        this.updated = updated;
-        this.created = created;
-        this.owners = owners;
-        this.slug = slug;
-        this.participants = participants;
-        this.registeredPersons = registeredPersons;
-    }
+	public String getName() {
+		return this.name;
+	}
 
-    public UUID getId() {
-        return this.id;
-    }
+	// ----------------------------------------------------------------------
+	// GETTERS & SETTERS FOR FIELDS
+	// ----------------------------------------------------------------------
+	// --- DATABASE MAPPING : NAME ( VARCHAR )
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    //----------------------------------------------------------------------
-    // GETTER & SETTER FOR THE KEY FIELD
-    //----------------------------------------------------------------------
-    public void setId(UUID id) {
-        this.id = UUID.fromString(id.toString());
-    }
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
-    public String getName() {
-        return this.name;
-    }
+	public String getDescription() {
+		return description;
+	}
 
-    //----------------------------------------------------------------------
-    // GETTERS & SETTERS FOR FIELDS
-    //----------------------------------------------------------------------
-    //--- DATABASE MAPPING : NAME ( VARCHAR )
-    public void setName(String name) {
-        this.name = name;
-    }
+	// --- DATABASE MAPPING : START_DATE ( TIMESTAMP )
+	public Date getStartDate() {
+		return this.startDate;
+	}
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+	// --- DATABASE MAPPING : START_DATE ( TIMESTAMP )
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
 
-    public String getDescription() {
-        return description;
-    }
+	public Date getEndDate() {
+		return this.endDate;
+	}
 
-    //--- DATABASE MAPPING : START_DATE ( TIMESTAMP )
-    public Date getStartDate() {
-        return this.startDate;
-    }
+	// --- DATABASE MAPPING : END_DATE ( TIMESTAMP )
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
 
-    //--- DATABASE MAPPING : START_DATE ( TIMESTAMP )
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
+	public Date getPublishingDate() {
+		return this.publishingDate;
+	}
 
-    public Date getEndDate() {
-        return this.endDate;
-    }
+	// --- DATABASE MAPPING : PUBLISHING_DATE ( DATE )
+	public void setPublishingDate(Date publishingDate) {
+		this.publishingDate = publishingDate;
+	}
 
-    //--- DATABASE MAPPING : END_DATE ( TIMESTAMP )
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
-    }
+	public String getLocation() {
+		return this.location;
+	}
 
-    public Date getPublishingDate() {
-        return this.publishingDate;
-    }
+	// --- DATABASE MAPPING : LOCATION ( VARCHAR )
+	public void setLocation(String location) {
+		this.location = location;
+	}
 
-    //--- DATABASE MAPPING : PUBLISHING_DATE ( DATE )
-    public void setPublishingDate(Date publishingDate) {
-        this.publishingDate = publishingDate;
-    }
+	public Date getUpdated() {
+		return this.updated;
+	}
 
-    public String getLocation() {
-        return this.location;
-    }
+	// --- DATABASE MAPPING : UPDATED ( DATE )
+	public void setUpdated(Date updated) {
+		this.updated = updated;
+	}
 
-    //--- DATABASE MAPPING : LOCATION ( VARCHAR )
-    public void setLocation(String location) {
-        this.location = location;
-    }
+	public Date getCreated() {
+		return this.created;
+	}
 
-    public Date getUpdated() {
-        return this.updated;
-    }
+	// --- DATABASE MAPPING : CREATED ( DATE )
+	public void setCreated(Date created) {
+		this.created = created;
+	}
 
-    //--- DATABASE MAPPING : UPDATED ( DATE )
-    public void setUpdated(Date updated) {
-        this.updated = updated;
-    }
+	public String getSlug() {
+		return this.slug;
+	}
 
-    public Date getCreated() {
-        return this.created;
-    }
+	public void setSlug(String slug) {
+		this.slug = slug;
+	}
 
-    //--- DATABASE MAPPING : CREATED ( DATE )
-    public void setCreated(Date created) {
-        this.created = created;
-    }
+	public List<Participant> getParticipants() {
+		return this.participants;
+	}
 
-    public String getSlug() {
-        return this.slug;
-    }
+	public void setParticipants(List<Participant> participants) {
+		this.participants = participants;
+	}
 
-    public void setSlug(String slug) {
-        this.slug = slug;
-    }
+	public void addParticipant(Participant participant) {
+		this.participants.add(participant);
+	}
 
-    public List<Participant> getParticipants() {
-        return this.participants;
-    }
+	public List<Person> getRegisteredPersons() {
+		return this.registeredPersons;
+	}
 
-    public void setParticipants(List<Participant> participants) {
-        this.participants = participants;
-    }
+	public void setRegisteredPersons(List<Person> registeredPersons) {
+		this.registeredPersons = registeredPersons;
+	}
 
-    public void addParticipant(Participant participant) {
-        this.participants.add(participant);
-    }
+	public void addRegisteredPerson(Person person) {
+		this.registeredPersons.add(person);
+	}
 
-    public List<Person> getRegisteredPersons() {
-        return this.registeredPersons;
-    }
+	// ----------------------------------------------------------------------
+	// Get primary key
+	// ----------------------------------------------------------------------
+	@Override
+	public Object getPrimaryKey() {
+		return getId();
+	}
 
-    public void setRegisteredPersons(List<Person> registeredPersons) {
-        this.registeredPersons = registeredPersons;
-    }
+	// ----------------------------------------------------------------------
+	// toString METHOD
+	// ----------------------------------------------------------------------
+	public String toString() {
+		StringBuffer sb = new StringBuffer();
+		sb.append("[");
+		// attribute 'id' not usable (type = UUID)
+		sb.append("]:");
+		sb.append(name);
+		sb.append("|");
+		sb.append(startDate);
+		sb.append("|");
+		sb.append(endDate);
+		sb.append("|");
+		sb.append(publishingDate);
+		sb.append("|");
+		sb.append(location);
+		sb.append("|");
+		sb.append(updated);
+		sb.append("|");
+		sb.append(created);
+		return sb.toString();
+	}
 
-    public void addRegisteredPerson(Person person) {
-        this.registeredPersons.add(person);
-    }
+	public List<Person> getOwners() {
+		return owners;
+	}
 
-    //----------------------------------------------------------------------
-    // Get primary key
-    //----------------------------------------------------------------------
-    @Override
-    public Object getPrimaryKey() {
-        return getId();
-    }
+	public void setOwners(List<Person> owners) {
+		this.owners = owners;
+	}
 
-    //----------------------------------------------------------------------
-    // toString METHOD
-    //----------------------------------------------------------------------
-    public String toString() {
-        StringBuffer sb = new StringBuffer();
-        sb.append("[");
-        // attribute 'id' not usable (type = UUID)
-        sb.append("]:");
-        sb.append(name);
-        sb.append("|");
-        sb.append(startDate);
-        sb.append("|");
-        sb.append(endDate);
-        sb.append("|");
-        sb.append(publishingDate);
-        sb.append("|");
-        sb.append(location);
-        sb.append("|");
-        sb.append(updated);
-        sb.append("|");
-        sb.append(created);
-        return sb.toString();
-    }
+	// ----------------------------------------------------------------------
+	// Other useful methods
+	// ----------------------------------------------------------------------
+	public static String generateSlug(String input, Date createdAt) {
+		Pattern NONLATIN = Pattern.compile("[^\\w-]");
+		Pattern WHITESPACE = Pattern.compile("[\\s]");
+		SecureRandom random = new SecureRandom(createdAt.toString().getBytes());
 
-    public List<Person> getOwners() {
-        return owners;
-    }
+		String nowhitespace = WHITESPACE.matcher(input).replaceAll("-");
+		String normalized = Normalizer.normalize(nowhitespace, Form.NFD);
+		String slug = NONLATIN.matcher(normalized).replaceAll("");
+		String lowerCase = slug.toLowerCase(Locale.ENGLISH);
+		String unique = lowerCase + "-" + new BigInteger(130, random).toString(32);
+		return unique;
+	}
 
-    public void setOwners(List<Person> owners) {
-        this.owners = owners;
-    }
 }

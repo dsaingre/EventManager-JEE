@@ -1,6 +1,12 @@
 package fr.lidadi.jee.eventmanager.app.event;
 
+import static fr.lidadi.jee.eventmanager.framework.utils.Tuple.tuple;
+
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -15,8 +21,6 @@ import fr.lidadi.jee.eventmanager.framework.HttpErrorResponse;
 import fr.lidadi.jee.eventmanager.framework.router.http.SecuredRequest;
 import fr.lidadi.jee.eventmanager.framework.router.http.UserAwareRequest;
 import fr.lidadi.jee.eventmanager.framework.utils.ExceptionConsumer;
-
-import static fr.lidadi.jee.eventmanager.framework.utils.Tuple.tuple;
 
 /**
  * Created by damien on 08/10/2016.
@@ -38,7 +42,7 @@ public class Events implements HttpErrorResponse {
 			throws ServletException, IOException {
 		String location = req.getParameter("search");
 		List<Event> events = null;
-		
+
 		if (location != null)
 			events = this.eventService.fetchAllByLocation(location);
 
@@ -129,10 +133,39 @@ public class Events implements HttpErrorResponse {
 		okJsp(servlet, req, resp, "/event/addView.jsp");
 	}
 
-	public void addEventAction(HttpServlet servlet, HttpServletRequest req, HttpServletResponse resp)
+	public void addEventAction(HttpServlet servlet, SecuredRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		System.out.println(req.getParameter("start_time"));
-		okJsp(servlet, req, resp, "/event/addView.jsp");
+		Person creator = req.getUser();
+		List<Person> owners = new LinkedList<>();
+		owners.add(creator);
+		SimpleDateFormat sdf_date = new SimpleDateFormat("dd/MM/yyyy-HH:mm");
+
+		String name = req.getParameter("name");
+		String adress = req.getParameter("address");
+		String start_date = req.getParameter("start_date_submit");
+		String start_time = req.getParameter("start_time");
+		String end_date = req.getParameter("end_date_submit");
+		String end_time = req.getParameter("end_time");
+		String description = req.getParameter("description");
+
+		boolean publication = "on".equals(req.getParameter("publication")) ? true : false;
+
+		try {
+			Event event = new Event(UUID.randomUUID(), name, description, sdf_date.parse(start_date + "-" + start_time),
+					sdf_date.parse(end_date + "-" + end_time), null, adress, new Date(), new Date(), owners,
+					Event.generateSlug(name, new Date()), new LinkedList<>(), new LinkedList<>());
+			if (publication) {
+				event.setPublishingDate(new Date());
+			}
+
+			EventDao eventDao = new EventDao();
+			eventDao.add(event);
+		} catch (ParseException e) {
+			e.printStackTrace();
+			redirect(req, resp, "/", tuple("error", "Mauvais format de dates"));
+		}
+
+		okJsp(servlet, req, resp, "/event/myEvents.jsp");
 	}
 
 }

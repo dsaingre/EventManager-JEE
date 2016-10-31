@@ -1,15 +1,16 @@
 package fr.lidadi.jee.eventmanager.app.event;
 
-import fr.lidadi.jee.eventmanager.app.person.Person;
-import fr.lidadi.jee.eventmanager.framework.dao.Dao;
+import static fr.lidadi.jee.eventmanager.framework.dao.sqldsl.SQLRequestFactory.equal;
+import static fr.lidadi.jee.eventmanager.framework.dao.sqldsl.SQLRequestFactory.isNotNull;
+import static fr.lidadi.jee.eventmanager.framework.dao.sqldsl.SQLRequestFactory.where;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import static fr.lidadi.jee.eventmanager.framework.dao.sqldsl.SQLRequestFactory.*;
+import fr.lidadi.jee.eventmanager.app.person.Person;
+import fr.lidadi.jee.eventmanager.framework.dao.Dao;
 
 /**
  * Created by damien on 18/10/2016.
@@ -27,9 +28,7 @@ public class EventDao extends Dao<Event, UUID> {
 	}
 
 	public Optional<Event> getBySlug(String slug) {
-		return this.findBy(where(
-				equal("slug", slug)
-				)).stream().findFirst();
+		return this.findBy(where(equal("slug", slug))).stream().findFirst();
 	}
 
 	public List<Event> getByLocation(String location) {
@@ -37,5 +36,6 @@ public class EventDao extends Dao<Event, UUID> {
 		return this.getAll().stream().filter(event -> event.getPublishingDate() != null)
 				.filter(event -> event.getLocation().toLowerCase().contains(location.toLowerCase()))
 				.collect(Collectors.toList());
+
 	}
 }
