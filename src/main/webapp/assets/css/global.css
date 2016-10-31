@@ -29,6 +29,11 @@ main {
 	flex: 1 0 auto;
 }
 
+.global-event-list {
+	margin-left: 8%;
+	margin-right: 8%;
+}
+
 .event-box {
 	padding-left: 30px;
 	padding-right: 30px;
@@ -47,7 +52,7 @@ main {
 }
 
 th, td {
-    padding: 15px;
+	padding: 15px;
 }
 
 .event-desc {

@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="app" uri="/WEB-INF/app.tld"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,7 +30,8 @@
 				<h4 class="valign col s10">${event.name}</h4>
 				<c:choose>
 					<c:when test="${event.owners.contains(user)}">
-						<div class="chip center col s5 right">Vous êtes le créateur de cet événement</div>
+						<div class="chip center col s5 right">Vous êtes le créateur
+							de cet événement</div>
 					</c:when>
 					<c:when test="${event.registeredPersons.contains(user)}">
 						<div class="chip center col s3 right">Vous êtes déjà inscrit</div>
@@ -38,7 +40,8 @@
 						<div class="chip center col s3 right">Vous êtes déjà inscrit</div>
 					</c:when>
 					<c:otherwise>
-                        <a class="waves-effect waves-light btn right" href="<app:uri src="/events/"/>${event.id}/apply">S'inscrire</a>
+						<a class="waves-effect waves-light btn right"
+							href="<app:uri src="/events/"/>${event.id}/apply">S'inscrire</a>
 					</c:otherwise>
 				</c:choose>
 			</div>
@@ -47,8 +50,11 @@
 					<i class="material-icons">room</i> ${event.location}
 				</p>
 				<p>
-					<i class="material-icons">today</i> Du ${event.startDate} au
-					${event.endDate}
+					<i class="material-icons">today</i> Du <span
+						style="font-weight: bold;"> <fmt:formatDate
+							value="${event.startDate}" pattern="dd MMMM yyyy, HH:mm" /></span> au <span
+						style="font-weight: bold;"><fmt:formatDate
+							value="${event.endDate}" pattern="dd MMMM yyyy, HH:mm" /></span>
 				</p>
 				<div class="event-desc blue-grey lighten-3">
 					<p>${event.description}</p>

@@ -40,6 +40,21 @@
 				</div>
 				<div class="row">
 					<div class="input-field col s12">
+						<i class="material-icons prefix">vpn_key</i> <input id="password"
+							type="password" name="password"> <label for="password">Mot
+							de passe</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="input-field col s12">
+						<i class="material-icons prefix">vpn_key</i> <input
+							id="password_conf" type="password" name="password_conf">
+						<label for="password_conf" data-error="Password not match"
+							data-success="Password Match">Confirmez le mot de passe</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="input-field col s12">
 						<input id="last_name" type="text" class="validate"> <label
 							for="last_name">Nom </label>
 					</div>
@@ -54,20 +69,6 @@
 					<div class="input-field col s12">
 						<input id="company" type="text" class="validate"> <label
 							for="company">Entreprise </label>
-					</div>
-				</div>
-				<div class="row">
-					<div class="input-field col s12">
-						<i class="material-icons prefix">vpn_key</i> 
-						<input id="password" type="password" name="password" > 
-						<label for="password">Mot de passe</label>
-					</div>
-				</div>
-				<div class="row">
-					<div class="input-field col s12">
-						<i class="material-icons prefix">vpn_key</i> 
-						<input id="password_conf" type="password" name="password_conf">
-						<label for="password_conf" data-error="Password not match" data-success="Password Match">Confirmez le mot de passe</label>
 					</div>
 				</div>
 				<div class="row">

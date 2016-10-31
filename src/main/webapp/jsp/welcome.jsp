@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="app" uri="/WEB-INF/app.tld"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -44,7 +45,7 @@
 		</div>
 	</div>
 
-	<div class="row">
+	<div class="row global-event-list">
 		<c:choose>
 			<c:when test="${events.size() == 0}">
 				<h3 class="center-align">Aucun événement trouvé</h3>
@@ -60,7 +61,8 @@
 								</p>
 								<p>
 									Début :
-									<c:out value="${event.startDate}" />
+									<fmt:formatDate value="${event.startDate}"
+										pattern="dd MMMM yyyy, HH:mm" />
 								</p>
 							</div>
 							<div class="card-action white-text">
