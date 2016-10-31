@@ -17,6 +17,10 @@ public class EventService {
     public List<Event> fetchAllPublished() {
         return eventDao.getAllPublished();
     }
+    
+    public List<Event> fetchAllByLocation(String location) {
+    	return eventDao.getByLocation(location);
+    }
 
     public List<Event> fetchAllByOwner(UUID owner) {
         return eventDao.getByOwner(owner);

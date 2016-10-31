@@ -36,7 +36,11 @@ public class Events implements HttpErrorResponse {
 
 	public void search(HttpServlet servlet, HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		List<Event> events = this.eventService.fetchAllPublished();
+		String location = req.getParameter("search");
+		List<Event> events = null;
+		
+		if (location != null)
+			events = this.eventService.fetchAllByLocation(location);
 
 		req.setAttribute("events", events);
 
@@ -45,87 +49,85 @@ public class Events implements HttpErrorResponse {
 
 	public void myEvents(HttpServlet servlet, SecuredRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-        req.setAttribute("isMyEvents", "active");
-        req.setAttribute("events", this.eventService.fetchAllByOwner(req.getUser().getId()));
+		req.setAttribute("isMyEvents", "active");
+		req.setAttribute("events", this.eventService.fetchAllByOwner(req.getUser().getId()));
 		okJsp(servlet, req, resp, "/event/myEvents.jsp");
 	}
 
+	public void fetch(HttpServlet servlet, HttpServletRequest req, HttpServletResponse resp, String slug)
+			throws ServletException, IOException {
+		req.setAttribute("isMyEvents", "active");
+		Optional<Event> event = this.eventService.fetchBySlug(slug);
+		if (!event.isPresent()) {
+			okJsp(servlet, req, resp, "/event/eventNotFound.jsp");
+			return;
+		}
+		req.setAttribute("event", event.get());
+		okJsp(servlet, req, resp, "/event/event.jsp");
+	}
 
-    public void fetch(HttpServlet servlet, HttpServletRequest req, HttpServletResponse resp, String slug) throws ServletException, IOException {
-        req.setAttribute("isMyEvents", "active");
-        Optional<Event> event = this.eventService.fetchBySlug(slug);
-        if(! event.isPresent()){
-            okJsp(servlet, req, resp, "/event/eventNotFound.jsp");
-            return;
-        }
-        req.setAttribute("event", event.get());
-        okJsp(servlet, req, resp, "/event/event.jsp");
-    }
+	public void publish(HttpServlet servlet, SecuredRequest req, HttpServletResponse resp, UUID id)
+			throws ServletException, IOException {
+		actionIfUserIsAllowedAndEventFound(req, resp, id, event -> {
+			eventService.publish(event);
+			redirect(req, resp, "/myevents", tuple("info", "L'événement a bien été publié !"));
+		});
+	}
 
+	public void delete(HttpServlet servlet, SecuredRequest req, HttpServletResponse resp, UUID id)
+			throws ServletException, IOException {
+		actionIfUserIsAllowedAndEventFound(req, resp, id, event -> {
+			eventService.delete(event);
+			redirect(req, resp, "/myevents", tuple("info", "L'événement a bien été supprimé !"));
+		});
+	}
 
-    public void publish(HttpServlet servlet, SecuredRequest req, HttpServletResponse resp, UUID id) throws ServletException, IOException {
-        actionIfUserIsAllowedAndEventFound(req, resp, id, event -> {
-            eventService.publish(event);
-            redirect(req, resp, "/myevents", tuple("info", "L'événement a bien été publié !"));
-        });
-    }
+	private void actionIfUserIsAllowedAndEventFound(SecuredRequest req, HttpServletResponse resp, UUID id,
+			ExceptionConsumer<Event> f) throws IOException {
+		Optional<Event> eventOpt = eventService.fetch(id);
 
+		if (eventOpt.isPresent()) {
+			Event event = eventOpt.get();
+			if (!eventService.isUserOwnerOfEvent(req.getUser(), event)) {
+				redirect(req, resp, "/", tuple("error", "Page non trouvée"));
+				return;
+			}
+			f.apply(event);
+			return;
+		}
+		redirect(req, resp, "/myevents", tuple("error", "Impossible de trouver l'événement."));
+	}
 
-    public void delete(HttpServlet servlet, SecuredRequest req, HttpServletResponse resp, UUID id) throws ServletException, IOException {
-        actionIfUserIsAllowedAndEventFound(req, resp, id, event -> {
-            eventService.delete(event);
-            redirect(req, resp, "/myevents", tuple("info", "L'événement a bien été supprimé !"));
-        });
-    }
+	public void apply(HttpServlet servlet, UserAwareRequest req, HttpServletResponse resp, UUID id)
+			throws ServletException, IOException {
 
-    private void actionIfUserIsAllowedAndEventFound(SecuredRequest req, HttpServletResponse resp, UUID id, ExceptionConsumer<Event> f) throws IOException {
-        Optional<Event> eventOpt = eventService.fetch(id);
+		Optional<Event> eventOpt = eventService.fetch(id);
 
-        if(eventOpt.isPresent()){
-            Event event = eventOpt.get();
-            if(! eventService.isUserOwnerOfEvent(req.getUser(), event)){
-                redirect(req, resp, "/", tuple("error", "Page non trouvée"));
-                return;
-            }
-            f.apply(event);
-            return;
-        }
-        redirect(req, resp, "/myevents", tuple("error", "Impossible de trouver l'événement."));
-    }
+		// Should never append but...
+		if (!eventOpt.isPresent()) {
+			redirect(req, resp, "/", tuple("error", "Événement non trouvé"));
+			return;
+		}
 
+		Event event = eventOpt.get();
 
+		Optional<Person> userOpt = req.getUser();
+		// Logged user
+		if (userOpt.isPresent()) {
+			eventService.linkRegisteredPerson(event, userOpt.get());
+			redirect(req, resp, "/events/" + event.getSlug());
+			return;
+		}
 
-    public void apply(HttpServlet servlet, UserAwareRequest req, HttpServletResponse resp, UUID id) throws ServletException, IOException {
+		redirect(req, resp, "/events/" + id + "/participants/add");
 
-        Optional<Event> eventOpt = eventService.fetch(id);
+	}
 
-        // Should never append but...
-        if(! eventOpt.isPresent()){
-            redirect(req, resp, "/", tuple("error", "Événement non trouvé"));
-            return;
-        }
-
-        Event event = eventOpt.get();
-
-        Optional<Person> userOpt = req.getUser();
-        // Logged user
-        if(userOpt.isPresent()){
-            eventService.linkRegisteredPerson(event, userOpt.get());
-            redirect(req, resp, "/events/" + event.getSlug());
-            return;
-        }
-
-
-        redirect(req, resp, "/events/" + id + "/participants/add");
-
-    }
-
-
-    public void addView(HttpServlet servlet, SecuredRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("isEventAdd", "active");
-        okJsp(servlet, req, resp, "/event/addView.jsp");
-    }
-    
+	public void addView(HttpServlet servlet, SecuredRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		req.setAttribute("isEventAdd", "active");
+		okJsp(servlet, req, resp, "/event/addView.jsp");
+	}
 
 	public void addEventAction(HttpServlet servlet, HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {

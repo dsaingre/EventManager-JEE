@@ -3,6 +3,7 @@ package fr.lidadi.jee.eventmanager.app.event;
 import fr.lidadi.jee.eventmanager.app.person.Person;
 import fr.lidadi.jee.eventmanager.framework.dao.Dao;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -15,25 +16,26 @@ import static fr.lidadi.jee.eventmanager.framework.dao.sqldsl.SQLRequestFactory.
  */
 public class EventDao extends Dao<Event, UUID> {
 
+	public List<Event> getAllPublished() {
+		return this.findBy(where(isNotNull("publishingDate")));
+	}
 
-    public List<Event> getAllPublished(){
-        return this.findBy(where(isNotNull("publishingDate")));
-    }
+	public List<Event> getByOwner(UUID owner) {
+		return this.getAll().stream().filter(
+				event -> event.getOwners().stream().map(Person::getId).filter(owner::equals).findFirst().isPresent())
+				.collect(Collectors.toList());
+	}
 
-    public List<Event> getByOwner(UUID owner) {
-        return this.getAll().stream()
-                .filter(event ->
-                        event.getOwners().stream()
-                            .map(Person::getId)
-                            .filter(owner::equals)
-                            .findFirst()
-                            .isPresent()
-                ).collect(Collectors.toList());
-    }
+	public Optional<Event> getBySlug(String slug) {
+		return this.findBy(where(
+				equal("slug", slug)
+				)).stream().findFirst();
+	}
 
-    public Optional<Event> getBySlug(String slug) {
-        return this.findBy(where(
-                equal("slug", slug)
-        )).stream().findFirst();
-    }
+	public List<Event> getByLocation(String location) {
+		// return this.findBy(where(equal("location", location)));
+		return this.getAll().stream().filter(event -> event.getPublishingDate() != null)
+				.filter(event -> event.getLocation().toLowerCase().contains(location.toLowerCase()))
+				.collect(Collectors.toList());
+	}
 }
