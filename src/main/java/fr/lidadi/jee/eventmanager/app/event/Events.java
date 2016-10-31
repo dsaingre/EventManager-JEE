@@ -34,12 +34,13 @@ public class Events implements HttpErrorResponse {
 		okJsp(servlet, req, resp, "/welcome.jsp");
 	}
 
-	public void fetchAll(HttpServlet servlet, HttpServletRequest req, HttpServletResponse resp)
+	public void search(HttpServlet servlet, HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
+		List<Event> events = this.eventService.fetchAllPublished();
 
-		req.setAttribute("events", this.eventService.fetchAllPublished());
+		req.setAttribute("events", events);
 
-		okJsp(servlet, req, resp, "/event/events.jsp");
+		okJsp(servlet, req, resp, "/welcome.jsp");
 	}
 
 	public void myEvents(HttpServlet servlet, SecuredRequest req, HttpServletResponse resp)
@@ -65,7 +66,7 @@ public class Events implements HttpErrorResponse {
     public void publish(HttpServlet servlet, SecuredRequest req, HttpServletResponse resp, UUID id) throws ServletException, IOException {
         actionIfUserIsAllowedAndEventFound(req, resp, id, event -> {
             eventService.publish(event);
-            redirect(req, resp, "/myevents", tuple("info", "L'évènement a bien été publié !"));
+            redirect(req, resp, "/myevents", tuple("info", "L'événement a bien été publié !"));
         });
     }
 
@@ -73,7 +74,7 @@ public class Events implements HttpErrorResponse {
     public void delete(HttpServlet servlet, SecuredRequest req, HttpServletResponse resp, UUID id) throws ServletException, IOException {
         actionIfUserIsAllowedAndEventFound(req, resp, id, event -> {
             eventService.delete(event);
-            redirect(req, resp, "/myevents", tuple("info", "L'évènement a bien été supprimé !"));
+            redirect(req, resp, "/myevents", tuple("info", "L'événement a bien été supprimé !"));
         });
     }
 
@@ -89,7 +90,7 @@ public class Events implements HttpErrorResponse {
             f.apply(event);
             return;
         }
-        redirect(req, resp, "/myevents", tuple("error", "Impossible de trouver l'évènement."));
+        redirect(req, resp, "/myevents", tuple("error", "Impossible de trouver l'événement."));
     }
 
 
@@ -100,7 +101,7 @@ public class Events implements HttpErrorResponse {
 
         // Should never append but...
         if(! eventOpt.isPresent()){
-            redirect(req, resp, "/", tuple("error", "Évènement non trouvé"));
+            redirect(req, resp, "/", tuple("error", "Événement non trouvé"));
             return;
         }
 

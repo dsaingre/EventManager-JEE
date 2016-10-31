@@ -24,7 +24,6 @@
 	<main>
 
 	<div class="container">
-		<a href="<app:uri src="/myevents"/>">← Retour</a>
 		<div class="blue-grey lighten-1 event-box white-text">
 			<div class="row event-name valign-wrapper">
 				<h4 class="valign col s10">${event.name}</h4>

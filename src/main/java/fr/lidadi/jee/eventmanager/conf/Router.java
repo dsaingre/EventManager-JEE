@@ -26,8 +26,6 @@ public class Router implements HttpRouter {
 
                 .get("/")
                     .to("fr.lidadi.jee.eventmanager.app.event.Events.welcome()")
-                .get("/events")
-                    .to("fr.lidadi.jee.eventmanager.app.event.Events.fetchAll()")
                 .get("/events/{slug}")
                     .to("fr.lidadi.jee.eventmanager.app.event.Events.fetch(STRING slug)")
                 .get("/addevent")
