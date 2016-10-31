@@ -9,16 +9,17 @@
 		<a href="<app:uri src="/"/>" class="brand-logo">Dino Planner</a>
 
 
-		<form class="col s5 offset-s2" method="Post"
-			action="<app:uri src="/search"/>">
-			<div class="input-field">
-				<input id="search" type="search" name="search" required> <label
-					for="search"><i class="material-icons">search</i></label> <i
-					class="material-icons">close</i>
-			</div>
-		</form>
-
 		<ul id="nav-mobile" class="right hide-on-med-and-down">
+			<li>
+				<form method="POST"
+					  action="<app:uri src="/search"/>">
+					<div class="input-field">
+						<input id="search" type="search" name="search" required placeholder="Rechercher un événement"> <label
+							for="search"><i class="material-icons">search</i></label> <i
+							class="material-icons">close</i>
+					</div>
+				</form>
+			</li>
 			<c:choose>
 				<c:when test="${sessionScope.containsKey(\"user\")}">
 					<li class="${isEventAdd}"><a href="<app:uri src="/addevent"/>"><i
