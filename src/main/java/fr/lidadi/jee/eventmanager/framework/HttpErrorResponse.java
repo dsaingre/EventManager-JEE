@@ -51,7 +51,7 @@ public interface HttpErrorResponse {
     default void okJsp(HttpServlet servlet, HttpServletRequest req, HttpServletResponse resp, String servletPath) throws IOException, ServletException {
         ServletContext servletContext = servlet.getServletContext();
 
-        RequestDispatcher namedDispatcher = servletContext.getRequestDispatcher("/jsp" + servletPath);
+        RequestDispatcher namedDispatcher = servletContext.getRequestDispatcher("/WEB-INF/jsp" + servletPath);
 
         namedDispatcher.forward(req, resp);
     }
