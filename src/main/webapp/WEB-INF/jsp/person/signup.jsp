@@ -49,7 +49,7 @@
 					<div class="input-field col s12">
 						<i class="material-icons prefix">vpn_key</i> <input
 							id="password_conf" type="password" name="password_conf">
-						<label for="password_conf" data-error="Password not match"
+						<label for="password_conf" data-error="Les deux mots de passe ne sont pas identiques"
 							data-success="Password Match">Confirmez le mot de passe</label>
 					</div>
 				</div>
