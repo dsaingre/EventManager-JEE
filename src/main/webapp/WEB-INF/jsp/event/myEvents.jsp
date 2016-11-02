@@ -58,10 +58,12 @@
 							<a href="<app:uri src="/events/" />${event.slug}"
 								class="lime-text text-accent-3"> <i
 								class="tiny material-icons">search</i> Voir les informations
-							</a> <a href="<app:uri src="/update/event/"/>${event.getId()}"
+							</a> 
+<%-- 							<a href="<app:uri src="/update/event/"/>${event.getId()}"
 								class="lime-text text-accent-3"> <i
 								class="tiny material-icons">mode_edit</i> Modifier
-							</a> <a href="<app:uri src="/events/"/>${event.getId()}/delete"
+							</a>  --%>
+							<a href="<app:uri src="/events/"/>${event.getId()}/delete"
 								onclick="confirm('Êtes-vous sûr(e) de vouloir supprimer cet événement ? Les données ne pourront pas être récupérées.')"
 								class="lime-text text-accent-3"> <i
 								class="tiny material-icons">delete</i> Supprimer
